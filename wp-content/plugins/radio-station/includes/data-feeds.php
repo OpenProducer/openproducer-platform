@@ -136,12 +136,14 @@ function radio_station_get_station_data() {
 		}
 	}
 
-	// --- get station data ---
+	// --- get stream data ---
+	// 2.3.3.9: enabled format and fallback data
 	$stream_url = radio_station_get_stream_url();
-	// $stream_format = radio_station_get_stream_format();
-	// $fallback_url = radio_station_get_fallback_url();
-	// $fallback_format = radio_station_get_fallback_format();
+	$stream_format = radio_station_get_setting( 'streaming_format' );
+	$fallback_url = radio_station_get_fallback_url();
+	$fallback_format = radio_station_get_setting( 'fallback_format' );
 
+	// --- get station data ---
 	$station_url = radio_station_get_station_url();
 	$schedule_url = radio_station_get_schedule_url();
 	$language = radio_station_get_language();
@@ -159,19 +161,20 @@ function radio_station_get_station_data() {
 
 	// --- set station data array ---
 	// 2.3.2: added schedule updated timestamp
+	// 2.3.3.9: enabled format and fallback data
 	$station_data = array(
-		'timezone'     => $timezone,
-		'stream_url'   => $stream_url,
-		// 'stream_format' => $stream_format,
-		// 'fallback_url', => $fallback_url,
-		// 'fallback_format', => $fallback_format,
-		'station_url'  => $station_url,
-		'schedule_url' => $schedule_url,
-		'language'     => $language['slug'],
-		'timestamp'    => $now,
-		'date_time'    => $date_time,
-		'updated'      => $updated,
-		'success'      => true,
+		'timezone'        => $timezone,
+		'stream_url'      => $stream_url,
+		'stream_format'   => $stream_format,
+		'fallback_url'    => $fallback_url,
+		'fallback_format' => $fallback_format,
+		'station_url'     => $station_url,
+		'schedule_url'    => $schedule_url,
+		'language'        => $language['slug'],
+		'timestamp'       => $now,
+		'date_time'       => $date_time,
+		'updated'         => $updated,
+		'success'         => true,
 	);
 	$station_data = apply_filters( 'radio_station_station_data', $station_data );
 

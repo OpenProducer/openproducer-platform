@@ -16,8 +16,13 @@ $output .= '<table id="master-program-schedule">';
 $output .= '<tr class="master-program-day-row"> <th></th>';
 foreach ( $days_of_the_week as $weekday => $info ) {
 	// 2.2.2: fix to translate incorrect variable (heading)
-	$heading = substr( $weekday, 0, 3 );
-	$heading = radio_station_translate_weekday( $heading );
+	// 2.3.3.8: remove abbreviation and add support for display_day attribute
+	// $heading = substr( $weekday, 0, 3 );
+	if ( 'short' == $atts['display_day'] ) {
+		$heading = radio_station_translate_weekday( $weekday, true );
+	} else {
+		$heading = radio_station_translate_weekday( $weekday );
+	}
 	$output .= '<th>' . $heading . '</th>';
 }
 $output .= '</tr>';

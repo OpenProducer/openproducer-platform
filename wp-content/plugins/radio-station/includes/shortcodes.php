@@ -1597,7 +1597,8 @@ function radio_station_current_show_shortcode( $atts ) {
 				$hosts .= esc_html( __( 'with', 'radio-station' ) ) . ' ';
 
 				$count = 0;
-				$host_count = count( $hosts );
+				// 2.3.3.9: fix to host count
+				$host_count = count( $show_hosts );
 				foreach ( $show_hosts as $host ) {
 
 					$count ++;
@@ -2236,7 +2237,8 @@ function radio_station_upcoming_shows_shortcode( $atts ) {
 					$hosts .= esc_html( __( 'with', 'radio-station' ) ) . ' ';
 
 					$count = 0;
-					$host_count = count( $hosts );
+					// 2.3.3.9: fix to host count
+					$host_count = count( $show_hosts );
 					foreach ( $show_hosts as $host ) {
 
 						$count ++;

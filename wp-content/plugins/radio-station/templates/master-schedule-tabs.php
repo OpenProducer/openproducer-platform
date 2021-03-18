@@ -47,6 +47,10 @@ if ( $atts['show_desc'] ) {
 	$more = apply_filters( 'radio_station_schedule_tabs_excerpt_more', '[&hellip;]' );
 }
 
+// --- filter arrows ---
+$arrows = array( 'right' => '&#9658;', 'left' => '&#9668;' );
+$arrows = apply_filters( 'radio_station_schedule_arrows', $arrows, 'tabs' );
+
 // --- set cell info key order ---
 // 2.3.3.8: added for possible info rearrangement
 $infokeys = array( 'title', 'hosts', 'times', 'encore', 'file', 'genres', 'custom' );
@@ -143,8 +147,6 @@ foreach ( $weekdays as $i => $weekday ) {
 
 		// 2.3.0: added left/right arrow responsive controls
 		// 2.3.1: added (negative) return to arrow onclick functions
-		$arrows = array( 'right' => '&#9658;', 'left' => '&#9668;' );
-		$arrows = apply_filters( 'radio_station_schedule_arrows', $arrows, 'tabs' );
 		$tabs .= '<li id="master-schedule-tabs-header-' . strtolower( $weekday ) . '" class="' . esc_attr( $classlist ) . '">' . $newline;
 		$tabs .= '<div class="shift-left-arrow">' . $newline;
 		$tabs .= '<a href="javacript:void(0);" onclick="return radio_shift_tab(\'left\');" title="' . esc_attr( __( 'Previous Day', 'radio-station' ) ) . '">' . $arrows['left'] . '</a>' . $newline;

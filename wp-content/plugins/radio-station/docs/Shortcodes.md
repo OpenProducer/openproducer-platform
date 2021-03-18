@@ -47,6 +47,22 @@ The following attributes are available for the shortcode:
 
 Example: Display the schedule in 24-hour time format, use `[master-schedule time="24"]`.  
 
+##### [Pro] Multi-View Switching
+
+In Radio Station Pro, you can display multiple views which the user can switch between. This gives your visitors better access to your schedule in the way that is better suited to them. You can set the available views in the plugin settings for the automatic schedule page as well as the default view. Alternatively you can use the Master Schedule Shortcode as normal on a page and provide a comma-separated list of views (the first value provided will be used as the default view.) eg. `[master-schedule view="table,tabs"]`
+
+Further, if you wish to customize the attributes for each particular view, you can use the `radio_station_pro_multiview_attributes` filter. By adding a view prefix to the attribute you wish to change, this will override the attribute for that view. eg. To display the full day heading in Tabs view, but short day headings in Table view:
+
+```
+add_filter( 'radio_station_pro_multiview_atts', 'my_custom_multiview_attributes );
+function my_custom_multiview_attributes( $atts ) {
+	$atts['table_display_day'] = 'short';
+	$atts['tabs_display_day'] = 'long';
+	return $atts;
+}
+``
+
+
 #### Radio Timezone Shortcode
 
 `[radio-timezone]`
