@@ -194,6 +194,12 @@ function newspack_body_classes( $classes ) {
 		$classes[] = 'feature-latest';
 	}
 
+	// Add a class for the footer logo size.
+	$footer_logo_size = get_theme_mod( 'footer_logo_size', 'medium' );
+	if ( 'medium' !== $footer_logo_size ) {
+		$classes[] = 'footer-logo-' . esc_attr( $footer_logo_size );
+	}
+
 	return $classes;
 }
 add_filter( 'body_class', 'newspack_body_classes' );
@@ -615,7 +621,11 @@ function newspack_math_to_time_ago( $post_time, $format, $post, $updated ) {
  * Apply time ago format to publish dates if enabled.
  */
 function newspack_convert_to_time_ago( $post_time, $format, $post ) {
-	return newspack_math_to_time_ago( $post_time, $format, $post, false );
+	// Don't override specifically requested formats.
+	if ( empty( $format ) ) {
+		$post_time = newspack_math_to_time_ago( $post_time, $format, $post, false );
+	}
+	return $post_time;
 }
 add_filter( 'get_the_date', 'newspack_convert_to_time_ago', 10, 3 );
 

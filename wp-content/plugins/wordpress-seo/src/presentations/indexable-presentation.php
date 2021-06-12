@@ -187,7 +187,7 @@ class Indexable_Presentation extends Abstract_Presentation {
 	 * @param Url_Helper          $url          The URL helper.
 	 * @param User_Helper         $user         The user helper.
 	 * @param Indexable_Helper    $indexable    The indexable helper.
-	 * @param Permalink_Helper    $permalink    The permalin helper.
+	 * @param Permalink_Helper    $permalink    The permalink helper.
 	 */
 	public function set_helpers(
 		Image_Helper $image,
@@ -668,14 +668,14 @@ class Indexable_Presentation extends Abstract_Presentation {
 	/**
 	 * Generates the estimated reading time.
 	 *
-	 * @return integer The estimated reading time.
+	 * @return int|null The estimated reading time.
 	 *
 	 * @codeCoverageIgnore Wrapper method.
 	 */
 	public function generate_estimated_reading_time_minutes() {
 		if ( $this->model->estimated_reading_time_minutes !== null ) {
 			return $this->model->estimated_reading_time_minutes;
-		};
+		}
 
 		if ( $this->context->post === null ) {
 			return null;

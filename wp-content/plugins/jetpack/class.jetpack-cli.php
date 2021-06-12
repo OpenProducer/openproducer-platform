@@ -132,7 +132,7 @@ class Jetpack_CLI extends WP_CLI_Command {
 		/* translators: %s is the site URL */
 		WP_CLI::line( sprintf( __( 'Testing connection for %s', 'jetpack' ), esc_url( get_site_url() ) ) );
 
-		if ( ! Jetpack::is_active() ) {
+		if ( ! Jetpack::is_connection_ready() ) {
 			WP_CLI::error( __( 'Jetpack is not currently connected to WordPress.com', 'jetpack' ) );
 		}
 
@@ -171,21 +171,21 @@ class Jetpack_CLI extends WP_CLI_Command {
 	 *
 	 * user <user_identifier>: Disconnect a specific user from WordPress.com.
 	 *
-	 * Please note, the primary account that the blog is connected
-	 * to WordPress.com with cannot be disconnected without
-	 * disconnecting the entire blog.
+	 * [--force]
+	 * If the user ID provided is the connection owner, it will only be disconnected if --force is passed
 	 *
 	 * ## EXAMPLES
 	 *
 	 * wp jetpack disconnect blog
 	 * wp jetpack disconnect user 13
+	 * wp jetpack disconnect user 1 --force
 	 * wp jetpack disconnect user username
 	 * wp jetpack disconnect user email@domain.com
 	 *
-	 * @synopsis <blog|user> [<user_identifier>]
+	 * @synopsis <blog|user> [<user_identifier>] [--force]
 	 */
 	public function disconnect( $args, $assoc_args ) {
-		if ( ! Jetpack::is_active() ) {
+		if ( ! Jetpack::is_connection_ready() ) {
 			WP_CLI::success( __( 'The site is not currently connected, so nothing to do!', 'jetpack' ) );
 			return;
 		}
@@ -217,6 +217,8 @@ class Jetpack_CLI extends WP_CLI_Command {
 			}
 		}
 
+		$force_user_disconnect = ! empty( $assoc_args['force'] );
+
 		switch ( $action ) {
 			case 'blog':
 				Jetpack::log( 'disconnect' );
@@ -230,12 +232,23 @@ class Jetpack_CLI extends WP_CLI_Command {
 				);
 				break;
 			case 'user':
-				if ( ( new Connection_Manager( 'jetpack' ) )->disconnect_user( $user->ID ) ) {
+				$connection_manager = new Connection_Manager( 'jetpack' );
+				$disconnected       = $connection_manager->disconnect_user( $user->ID, $force_user_disconnect );
+				if ( $disconnected ) {
 					Jetpack::log( 'unlink', $user->ID );
 					WP_CLI::success( __( 'User has been successfully disconnected.', 'jetpack' ) );
 				} else {
-					/* translators: %s is a username */
-					WP_CLI::error( sprintf( __( "User %s could not be disconnected. Are you sure they're connected currently?", 'jetpack' ), "{$user->login} <{$user->email}>" ) );
+					if ( ! $connection_manager->is_user_connected( $user->ID ) ) {
+						/* translators: %s is a username */
+						$error_message = sprintf( __( 'User %s could not be disconnected because it is not connected!', 'jetpack' ), "{$user->data->user_login} <{$user->data->user_email}>" );
+					} elseif ( ! $force_user_disconnect && $connection_manager->is_connection_owner( $user->ID ) ) {
+						/* translators: %s is a username */
+						$error_message = sprintf( __( 'User %s could not be disconnected because it is the connection owner! If you want to disconnect in anyway, use the --force parameter.', 'jetpack' ), "{$user->data->user_login} <{$user->data->user_email}>" );
+					} else {
+						/* translators: %s is a username */
+						$error_message = sprintf( __( 'User %s could not be disconnected.', 'jetpack' ), "{$user->data->user_login} <{$user->data->user_email}>" );
+					}
+					WP_CLI::error( $error_message );
 				}
 				break;
 			case 'prompt':
@@ -1241,7 +1254,7 @@ class Jetpack_CLI extends WP_CLI_Command {
 	 * @synopsis <rebuild> [--purge]
 	 */
 	public function sitemap( $args, $assoc_args ) {
-		if ( ! Jetpack::is_active() ) {
+		if ( ! Jetpack::is_connection_ready() ) {
 			WP_CLI::error( __( 'Jetpack is not currently connected to WordPress.com', 'jetpack' ) );
 		}
 		if ( ! Jetpack::is_module_active( 'sitemaps' ) ) {
@@ -1278,14 +1291,14 @@ class Jetpack_CLI extends WP_CLI_Command {
 			WP_CLI::error( __( 'A non-empty token argument must be passed.', 'jetpack' ) );
 		}
 
-		$is_master_user  = ! Jetpack::is_active();
-		$current_user_id = get_current_user_id();
+		$is_connection_owner = ! Jetpack::connection()->has_connected_owner();
+		$current_user_id     = get_current_user_id();
 
-		( new Tokens() )->update_user_token( $current_user_id, sprintf( '%s.%d', $named_args['token'], $current_user_id ), $is_master_user );
+		( new Tokens() )->update_user_token( $current_user_id, sprintf( '%s.%d', $named_args['token'], $current_user_id ), $is_connection_owner );
 
 		WP_CLI::log( wp_json_encode( $named_args ) );
 
-		if ( $is_master_user ) {
+		if ( $is_connection_owner ) {
 			/**
 			 * Auto-enable SSO module for new Jetpack Start connections
 			*
@@ -1337,7 +1350,7 @@ class Jetpack_CLI extends WP_CLI_Command {
 	 * wp jetpack call_api --resource='/sites/%d'
 	 */
 	public function call_api( $args, $named_args ) {
-		if ( ! Jetpack::is_active() ) {
+		if ( ! Jetpack::is_connection_ready() ) {
 			WP_CLI::error( __( 'Jetpack is not currently connected to WordPress.com', 'jetpack' ) );
 		}
 
@@ -1436,7 +1449,7 @@ class Jetpack_CLI extends WP_CLI_Command {
 	 * wp jetpack updload_ssh_creds --host=example.com --ssh-user=example --kpri=key
 	 */
 	public function upload_ssh_creds( $args, $named_args ) {
-		if ( ! Jetpack::is_active() ) {
+		if ( ! Jetpack::is_connection_ready() ) {
 			WP_CLI::error( __( 'Jetpack is not currently connected to WordPress.com', 'jetpack' ) );
 		}
 
@@ -1616,8 +1629,8 @@ class Jetpack_CLI extends WP_CLI_Command {
 	 *     $ wp jetpack publicize disconnect twitter
 	 */
 	public function publicize( $args, $named_args ) {
-		if ( ! Jetpack::is_active() ) {
-			WP_CLI::error( __( 'Jetpack is not currently connected to WordPress.com', 'jetpack' ) );
+		if ( ! Jetpack::connection()->has_connected_owner() ) {
+			WP_CLI::error( __( 'Publicize requires a user-level connection to WordPress.com', 'jetpack' ) );
 		}
 
 		if ( ! Jetpack::is_module_active( 'publicize' ) ) {

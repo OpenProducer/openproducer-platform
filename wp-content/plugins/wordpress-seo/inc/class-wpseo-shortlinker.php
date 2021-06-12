@@ -124,8 +124,17 @@ class WPSEO_Shortlinker {
 			case ( $days < 30 ):
 				$cohort = '6-30';
 				break;
+			case ( $days < 91 ):
+				$cohort = '31-90';
+				break;
+			case ( $days < 181 ):
+				$cohort = '91-180';
+				break;
+			case ( $days < 366 ):
+				$cohort = '181-365';
+				break;
 			default:
-				$cohort = '30plus';
+				$cohort = '365plus';
 		}
 		return $cohort;
 	}
@@ -133,7 +142,7 @@ class WPSEO_Shortlinker {
 	/**
 	 * Gets the user's language.
 	 *
-	 * @return string The user's language.
+	 * @return string|false The user's language or `false` when it couldn't be retrieved.
 	 */
 	private function get_user_language() {
 		if ( function_exists( 'get_user_locale' ) ) {

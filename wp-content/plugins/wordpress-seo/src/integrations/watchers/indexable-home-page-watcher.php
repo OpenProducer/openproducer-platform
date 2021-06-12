@@ -11,6 +11,8 @@ use Yoast\WP\SEO\Repositories\Indexable_Repository;
  * Home page watcher to save the meta data to an Indexable.
  *
  * Watches the home page options to save the meta information when updated.
+ *
+ * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded -- 4 words is fine.
  */
 class Indexable_Home_Page_Watcher implements Integration_Interface {
 
@@ -30,6 +32,8 @@ class Indexable_Home_Page_Watcher implements Integration_Interface {
 
 	/**
 	 * Returns the conditionals based on which this loadable should be active.
+	 *
+	 * @return array
 	 */
 	public static function get_conditionals() {
 		return [ Migrations_Conditional::class ];

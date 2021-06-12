@@ -3,6 +3,7 @@ namespace FortAwesome;
 
 require_once trailingslashit( dirname( __FILE__ ) ) . '../defines.php';
 require_once trailingslashit( dirname( __FILE__ ) ) . 'class-fontawesome.php';
+require_once trailingslashit( dirname( __FILE__ ) ) . 'class-fontawesome-release-provider.php';
 
 /**
  * Plugin activation logic.
@@ -44,6 +45,10 @@ class FontAwesome_Activator {
 	 * @throws ReleaseProviderStorageException
 	 */
 	public static function initialize( $force = false ) {
+		if ( $force || ! get_option( FontAwesome_Release_Provider::OPTIONS_KEY ) ) {
+			self::initialize_release_metadata();
+		}
+
 		if ( $force || ! get_option( FontAwesome::OPTIONS_KEY ) ) {
 			self::initialize_user_options();
 		}
@@ -62,13 +67,28 @@ class FontAwesome_Activator {
 	 * @throws ApiResponseException
 	 * @throws ReleaseProviderStorageException
 	 */
+	private static function initialize_release_metadata() {
+		FontAwesome_Release_Provider::load_releases();
+	}
+
+	/**
+	 * Internal use only.
+	 *
+	 * @ignore
+	 * @internal
+	 */
 	private static function initialize_user_options() {
-		fa()->refresh_releases();
 		$version = fa()->latest_version();
 		$options = array_merge( FontAwesome::DEFAULT_USER_OPTIONS, array( 'version' => $version ) );
 		update_option( FontAwesome::OPTIONS_KEY, $options );
 	}
 
+	/**
+	 * Internal use only.
+	 *
+	 * @ignore
+	 * @internal
+	 */
 	private static function initialize_conflict_detection_options() {
 		update_option( FontAwesome::CONFLICT_DETECTION_OPTIONS_KEY, FontAwesome::DEFAULT_CONFLICT_DETECTION_OPTIONS );
 	}

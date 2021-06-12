@@ -64,25 +64,6 @@ final class Optimize extends Module
 	}
 
 	/**
-	 * Returns all module information data for passing it to JavaScript.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @return array Module information data.
-	 */
-	public function prepare_info_for_js() {
-		$info = parent::prepare_info_for_js();
-
-		$info['provides'] = array(
-			__( 'A/B or multivariate testing', 'google-site-kit' ),
-			__( 'Improvement tracking', 'google-site-kit' ),
-			__( 'Probability and confidence calculations', 'google-site-kit' ),
-		);
-
-		return $info;
-	}
-
-	/**
 	 * Checks whether the module is connected.
 	 *
 	 * A module being connected means that all steps required as part of its activation are completed.
@@ -201,11 +182,9 @@ final class Optimize extends Module
 		return array(
 			'slug'        => 'optimize',
 			'name'        => _x( 'Optimize', 'Service name', 'google-site-kit' ),
-			'description' => __( 'Create free A/B tests that help you drive metric-based design solutions to your site.', 'google-site-kit' ),
-			'cta'         => __( 'Increase your CTR.', 'google-site-kit' ),
+			'description' => __( 'Create free A/B tests that help you drive metric-based design solutions to your site', 'google-site-kit' ),
 			'order'       => 5,
 			'homepage'    => __( 'https://optimize.google.com/optimize/home/', 'google-site-kit' ),
-			'learn_more'  => __( 'https://marketingplatform.google.com/about/optimize/', 'google-site-kit' ),
 			'depends_on'  => array( 'analytics' ),
 		);
 	}

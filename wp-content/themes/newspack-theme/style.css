@@ -6,7 +6,7 @@ Author: Automattic
 Author URI: https://newspack.blog
 Description:
 Requires at least: WordPress 4.9.6
-Version: 1.32.1
+Version: 1.38.0
 License: GNU General Public License v2 or later
 License URI: LICENSE
 Text Domain: newspack
@@ -2857,6 +2857,11 @@ body.h-db.h-dh .site-header .nav3 .menu-highlight a:hover {
   }
 }
 
+.newspack-post-subtitle em,
+.newspack-post-subtitle i {
+  font-style: normal;
+}
+
 body.page .entry-title {
   font-size: 1.8em;
   margin: 0;
@@ -4317,23 +4322,6 @@ div.sharedaddy .sd-social h3.sd-title,
   transition: opacity 110ms ease-in-out;
 }
 
-.site-footer .footer-branding .wrapper {
-  padding-top: 1rem;
-}
-
-.site-footer .footer-branding .custom-logo-link,
-.site-footer .footer-branding .footer-logo-link {
-  margin-bottom: 1rem;
-  max-height: 75px;
-  max-width: 200px;
-}
-
-.site-footer .footer-branding .custom-logo-link img,
-.site-footer .footer-branding .footer-logo-link img {
-  max-height: inherit;
-  width: auto;
-}
-
 .site-footer .footer-widgets {
   padding: 1rem 0 2rem;
 }
@@ -4368,6 +4356,52 @@ div.sharedaddy .sd-social h3.sd-title,
 .site-footer .widget-title {
   color: #515151;
   font-size: inherit;
+}
+
+.footer-branding .wrapper {
+  padding-top: 1rem;
+}
+
+.footer-branding .custom-logo-link,
+.footer-branding .footer-logo-link {
+  margin-bottom: 1rem;
+  max-height: 76px;
+  max-width: 200px;
+  /* stylelint-disable selector-type-no-unknown  */
+  /* stylelint-enable */
+}
+
+.footer-branding .custom-logo-link img,
+.footer-branding .footer-logo-link img {
+  max-height: inherit;
+  width: auto;
+}
+
+.footer-branding .custom-logo-link amp-img.amp-wp-enforced-sizes[layout='intrinsic'] > img,
+.footer-branding .footer-logo-link amp-img.amp-wp-enforced-sizes[layout='intrinsic'] > img {
+  object-position: left center;
+}
+
+.footer-logo-small .footer-branding .custom-logo-link,
+.footer-logo-small .footer-branding .footer-logo-link {
+  max-height: 48px;
+  max-width: 160px;
+}
+
+@media only screen and (min-width: 782px) {
+  .footer-logo-large .footer-branding .custom-logo-link,
+  .footer-logo-large .footer-branding .footer-logo-link {
+    max-height: 120px;
+    max-width: 304px;
+  }
+}
+
+@media only screen and (min-width: 782px) {
+  .footer-logo-xlarge .footer-branding .custom-logo-link,
+  .footer-logo-xlarge .footer-branding .footer-logo-link {
+    max-height: 160px;
+    max-width: 368px;
+  }
 }
 
 .site-info {
@@ -5578,8 +5612,83 @@ hr.is-style-dots::before {
   width: 100%;
 }
 
+.wp-block-jetpack-mailchimp p {
+  margin: 0;
+}
+
 .wp-block-jetpack-mailchimp p[id^='wp-block-jetpack-mailchimp'] {
   font-size: 0.8em;
+}
+
+.wp-block-jetpack-mailchimp .wp-block-jetpack-button.wp-block-button {
+  margin: 0.5rem 0;
+}
+
+.wp-block-jetpack-mailchimp .wp-block-jetpack-mailchimp_notification {
+  font-size: 0.8em;
+  margin-top: 0.5rem;
+}
+
+.wp-block-jetpack-mailchimp .wp-block-jetpack-mailchimp_notification.is-visible {
+  margin-bottom: 0;
+}
+
+.wp-block-jetpack-mailchimp .wp-block-jetpack-mailchimp_notification.wp-block-jetpack-mailchimp__is-amp {
+  margin: 0;
+}
+
+.newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp .wp-block-button__link,
+.newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp .wp-block-button__link {
+  width: 100%;
+}
+
+@media only screen and (min-width: 600px) {
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp .wp-block-button__link,
+  .newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp .wp-block-button__link {
+    width: auto;
+  }
+}
+
+@media only screen and (min-width: 782px) {
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form,
+  .newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp form {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form > *,
+  .newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp form > * {
+    flex: 0 0 100%;
+  }
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form > p:first-child,
+  .newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp form > p:first-child {
+    flex: 1 1 auto;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+  }
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form > .wp-block-jetpack-button.wp-block-button,
+  .newspack-pattern.subscribe__style-6 .wp-block-jetpack-mailchimp form > .wp-block-jetpack-button.wp-block-button {
+    flex: 0 0 auto;
+    margin-left: auto;
+    margin-top: 0;
+  }
+}
+
+@media only screen and (min-width: 782px) {
+  .newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 65%;
+  }
+}
+
+.newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form p,
+.newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp form .wp-block-jetpack-button {
+  text-align: center;
+}
+
+.newspack-pattern.subscribe__style-5 .wp-block-jetpack-mailchimp .wp-block-jetpack-mailchimp_notification {
+  text-align: center;
 }
 
 .wp-block-organic-profile-block {
@@ -6256,11 +6365,12 @@ figcaption,
   display: flex;
   justify-content: center;
   align-items: center;
+  /* stylelint-disable selector-type-no-unknown  */
 }
 
 .newspack_global_ad > * {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .newspack_global_ad.global_above_header {
@@ -6274,11 +6384,13 @@ figcaption,
   display: none;
   position: fixed;
   width: 100%;
-  z-index: 1;
+  z-index: 11;
 }
 
-.newspack_global_ad.sticky.active {
-  display: flex;
+@media only screen and (max-width: 599px) {
+  .newspack_global_ad.sticky.active {
+    display: flex;
+  }
 }
 
 .newspack_global_ad.sticky button {
@@ -6305,6 +6417,10 @@ figcaption,
 .newspack_global_ad.sticky > * {
   margin: 0;
   max-height: 100px;
+}
+
+.newspack_global_ad amp-ad {
+  vertical-align: bottom;
 }
 
 @media only screen and (min-width: 600px) {
@@ -6342,6 +6458,13 @@ figcaption,
 .newspack_amp_sticky_ad .amp-sticky-ad-close-button:focus,
 .newspack_amp_sticky_ad .amp-sticky-ad-close-button:hover {
   background-color: inherit;
+}
+
+.widget_newspack-ads-widget .textwidget,
+div[class*='newspack-ads-blocks-ad-unit'] {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 body:not(.newspack-front-page) .newspack_global_ad.global_below_header + .site-content {

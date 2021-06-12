@@ -55,7 +55,7 @@ class WPSEO_Upgrade {
 			'9.0-RC0'    => 'upgrade_90',
 			'10.0-RC0'   => 'upgrade_100',
 			'11.1-RC0'   => 'upgrade_111',
-			/** Reset notifications because we removed the AMP Glue plugin notification */
+			// Reset notifications because we removed the AMP Glue plugin notification.
 			'12.1-RC0'   => 'clean_all_notifications',
 			'12.3-RC0'   => 'upgrade_123',
 			'12.4-RC0'   => 'upgrade_124',
@@ -71,6 +71,7 @@ class WPSEO_Upgrade {
 			'15.5-RC0'   => 'upgrade_155',
 			'15.7-RC0'   => 'upgrade_157',
 			'15.9.1-RC0' => 'upgrade_1591',
+			'16.2-RC0'   => 'upgrade_162',
 		];
 
 		array_walk( $routines, [ $this, 'run_upgrade_routine' ], $version );
@@ -127,7 +128,7 @@ class WPSEO_Upgrade {
 	/**
 	 * Runs the needed cleanup after an update, setting the DB version to latest version, flushing caches etc.
 	 *
-	 * @param string $previous_version The previous version.
+	 * @param string|null $previous_version The previous version.
 	 *
 	 * @return void
 	 */
@@ -803,7 +804,16 @@ class WPSEO_Upgrade {
 	private function upgrade_1591() {
 		$enabled_auto_updates = \get_option( 'auto_update_plugins' );
 		$addon_update_watcher = YoastSEO()->classes->get( \Yoast\WP\SEO\Integrations\Watchers\Addon_Update_Watcher::class );
-		$addon_update_watcher->toggle_auto_updates_for_add_ons( [], $enabled_auto_updates );
+		$addon_update_watcher->toggle_auto_updates_for_add_ons( 'auto_update_plugins', [], $enabled_auto_updates );
+	}
+
+	/**
+	 * Performs the 16.2 upgrade routine.
+	 */
+	private function upgrade_162() {
+		$enabled_auto_updates = \get_site_option( 'auto_update_plugins' );
+		$addon_update_watcher = YoastSEO()->classes->get( \Yoast\WP\SEO\Integrations\Watchers\Addon_Update_Watcher::class );
+		$addon_update_watcher->toggle_auto_updates_for_add_ons( 'auto_update_plugins', $enabled_auto_updates, [] );
 	}
 
 	/**

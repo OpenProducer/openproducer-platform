@@ -1,0 +1,6 @@
+.DS_Store
+.svn
+.idea/
+wpcom-helper.php
+/composer.lock
+/vendor

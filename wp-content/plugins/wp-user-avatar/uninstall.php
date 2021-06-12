@@ -1,82 +1,84 @@
 <?php
-/**
- * Remove user metadata and options on plugin delete.
- *
- * @package WP User Avatar
- * @version 1.9.13
- */
+//if uninstall not called from WordPress exit
+use ProfilePress\Core\Base;
 
-/**
- * @since 1.4
- * @uses int $blog_id
- * @uses object $wpdb
- * @uses delete_option()
- * @uses delete_post_meta_by_key()
- * @uses delete_user_meta()
- * @uses get_users()
- * @uses get_blog_prefix()
- * @uses is_multisite()
- * @uses switch_to_blog()
- * @uses update_option()
- * @uses wp_get_sites()
- */
-
-if(!defined('WP_UNINSTALL_PLUGIN')) {
-  die('You are not allowed to call this page directly.');
+if ( ! defined('WP_UNINSTALL_PLUGIN')) {
+    exit();
 }
 
-global $blog_id, $wpdb;
-$users = get_users();
+// Load ProfilePress file
+include_once(dirname(__FILE__) . '/wp-user-avatar.php');
 
-// Remove settings for all sites in multisite
-if(is_multisite()) {
-  $blogs = wp_get_sites();
-  foreach($users as $user) {
-    foreach($blogs as $blog) {
-      delete_user_meta($user->ID, $wpdb->get_blog_prefix($blog->blog_id).'user_avatar');
+function ppress_mo_uninstall_function()
+{
+    if (ppress_get_setting('remove_plugin_data') == 'yes') {
+
+        delete_option('ppress_cpf_select_multi_selectable');
+        delete_option(PPRESS_SETTINGS_DB_OPTION_NAME);
+        delete_option(PPRESS_CONTACT_INFO_OPTION_NAME);
+        delete_option('ppress_plugin_activated');
+        delete_option('ppress_license_key');
+        delete_option('ppress_license_status');
+        delete_option('ppress_db_ver');
+        delete_option('ppress_extension_manager');
+        delete_option('ppress_install_date');
+        delete_option('ppress_dismiss_leave_review_forever');
+        delete_site_option('pand-' . md5('ppress-create-plugin-pages-notice'));
+        delete_site_option('pand-' . md5('ppress-review-plugin-notice'));
+        delete_site_option('pand-' . md5('pp-registration-disabled-notice'));
+        delete_site_option('pand-' . md5('wp_user_avatar_now_ppress_notice'));
+
+        // wp user avatar
+        delete_option('avatar_default_wp_user_avatar');
+        delete_option('wp_user_avatar_disable_gravatar');
+        delete_option('wp_user_avatar_load_scripts');
+        delete_option('wp_user_avatar_resize_crop');
+        delete_option('wp_user_avatar_resize_h');
+        delete_option('wp_user_avatar_resize_upload');
+        delete_option('wp_user_avatar_resize_w');
+        delete_option('wp_user_cover_upload_size_limit');
+        delete_option('wp_user_avatar_upload_size_limit');
+        delete_option('wp_user_avatar_default_avatar_updated');
+        delete_option('wp_user_avatar_media_updated');
+        delete_option('wp_user_avatar_users_updated');
+        delete_option('wpua_has_gravatar');
+        delete_option('ppress_is_from_wp_user_avatar');
+        // Delete post meta
+        delete_post_meta_by_key('_wp_attachment_wp_user_avatar');
+        // Reset all default avatars to Mystery Man
+        update_option('avatar_default', 'mystery');
+
+        global $wpdb;
+
+        $drop_tables   = [];
+        $drop_tables[] = Base::form_db_table();
+        $drop_tables[] = Base::form_meta_db_table();
+        $drop_tables[] = Base::meta_data_db_table();
+
+        $drop_tables = apply_filters('ppress_drop_database_tables', $drop_tables);
+
+        foreach ($drop_tables as $table) {
+            $wpdb->query("DROP TABLE IF EXISTS $table");
+        }
+
+        flush_rewrite_rules();
+
+        // Clear any cached data that has been removed.
+        wp_cache_flush();
     }
-  }
-  foreach($blogs as $blog) {
-    switch_to_blog($blog->blog_id);
-    delete_option('avatar_default_wp_user_avatar');
-    delete_option('wp_user_avatar_allow_upload');
-    delete_option('wp_user_avatar_disable_gravatar');
-    delete_option('wp_user_avatar_edit_avatar');
-    delete_option('wp_user_avatar_load_scripts');
-    delete_option('wp_user_avatar_resize_crop');
-    delete_option('wp_user_avatar_resize_h');
-    delete_option('wp_user_avatar_resize_upload');
-    delete_option('wp_user_avatar_resize_w');
-    delete_option('wp_user_avatar_tinymce');
-    delete_option('wp_user_avatar_upload_size_limit');
-    delete_option('wp_user_avatar_default_avatar_updated');
-    delete_option('wp_user_avatar_media_updated');
-    delete_option('wp_user_avatar_users_updated');
-	delete_option('wpua_has_gravatar');
-  }
-} else {
-  foreach($users as $user) {
-    delete_user_meta($user->ID, $wpdb->get_blog_prefix($blog_id).'user_avatar');
-  }
-  delete_option('avatar_default_wp_user_avatar');
-  delete_option('wp_user_avatar_allow_upload');
-  delete_option('wp_user_avatar_disable_gravatar');
-  delete_option('wp_user_avatar_edit_avatar');
-  delete_option('wp_user_avatar_load_scripts');
-  delete_option('wp_user_avatar_resize_crop');
-  delete_option('wp_user_avatar_resize_h');
-  delete_option('wp_user_avatar_resize_upload');
-  delete_option('wp_user_avatar_resize_w');
-  delete_option('wp_user_avatar_tinymce');
-  delete_option('wp_user_avatar_upload_size_limit');
-  delete_option('wp_user_avatar_default_avatar_updated');
-  delete_option('wp_user_avatar_media_updated');
-  delete_option('wp_user_avatar_users_updated');
-  delete_option('wpua_has_gravatar');
 }
 
-// Delete post meta
-delete_post_meta_by_key('_wp_attachment_wp_user_avatar');
+if ( ! is_multisite()) {
+    ppress_mo_uninstall_function();
+} else {
 
-// Reset all default avatars to Mystery Man
-update_option('avatar_default', 'mystery');
+    if ( ! wp_is_large_network()) {
+        $site_ids = get_sites(['fields' => 'ids', 'number' => 0]);
+
+        foreach ($site_ids as $site_id) {
+            switch_to_blog($site_id);
+            ppress_mo_uninstall_function();
+            restore_current_blog();
+        }
+    }
+}

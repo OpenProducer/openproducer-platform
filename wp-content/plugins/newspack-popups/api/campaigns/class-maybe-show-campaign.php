@@ -78,6 +78,7 @@ class Maybe_Show_Campaign extends Lightweight_API {
 		$all_segments                  = isset( $settings->all_segments ) ? $settings->all_segments : [];
 		$overlay_to_maybe_display      = null;
 		$above_header_to_maybe_display = null;
+		$custom_placements_displayed   = [];
 
 		if ( $settings ) {
 			$settings->best_priority_segment_id = $this->get_best_priority_segment_id( $all_segments, $client_id, $referer_url, $page_referer_url, $view_as_spec );
@@ -106,9 +107,14 @@ class Maybe_Show_Campaign extends Lightweight_API {
 					// If the previous overlay already has a higher priority, only show that one. Otherwise, show this one instead.
 					$response[ $overlay_to_maybe_display->id ] = $overlay_to_maybe_display->id === $higher_priority_item->id;
 					$campaign_should_be_shown                  = $campaign->id === $higher_priority_item->id;
-					$overlay_to_maybe_display                  = $higher_priority_item;
+					if ( false === $campaign_should_be_shown ) {
+						self::add_suppression_reason( $campaign->id, __( 'Another overlay prompt already displayed.', 'newspack-popups' ) );
+					}
+					$overlay_to_maybe_display = $higher_priority_item;
 				}
 			}
+
+			// TODO: the conditions below should not apply to manually-placed prompts.
 
 			// If an above-header is already able to be shown, pick the one that has the higher priority.
 			if ( $campaign_should_be_shown && 'a' === $campaign->t ) {
@@ -120,7 +126,29 @@ class Maybe_Show_Campaign extends Lightweight_API {
 					// If the previous above-header already has a higher priority, only show that one. Otherwise, show this one instead.
 					$response[ $above_header_to_maybe_display->id ] = $above_header_to_maybe_display->id === $higher_priority_item->id;
 					$campaign_should_be_shown                       = $campaign->id === $higher_priority_item->id;
-					$above_header_to_maybe_display                  = $higher_priority_item;
+					if ( false === $campaign_should_be_shown ) {
+						self::add_suppression_reason( $campaign->id, __( 'Another above-header prompt already displayed.', 'newspack-popups' ) );
+					}
+					$above_header_to_maybe_display = $higher_priority_item;
+				}
+			}
+
+			// Handle custom placements: Only one prompt should be shown per placement block.
+			// "Everyone" prompts should only be shown if the reader doesn't match any segments.
+			if ( $campaign_should_be_shown && ! empty( $campaign->c ) ) {
+				if ( ! isset( $custom_placements_displayed[ $campaign->c ] ) ) {
+					$custom_placements_displayed[ $campaign->c ] = $campaign;
+				} else {
+					$previous_item        = $custom_placements_displayed[ $campaign->c ];
+					$higher_priority_item = self::get_higher_priority_item( $previous_item, $campaign, $all_segments );
+
+					// If the previous prompt in this custom placement already has a higher priority, only show that one. Otherwise, show this one instead.
+					$response[ $previous_item->id ] = $previous_item->id === $higher_priority_item->id;
+					$campaign_should_be_shown       = $campaign->id === $higher_priority_item->id;
+					if ( false === $campaign_should_be_shown ) {
+						self::add_suppression_reason( $campaign->id, __( 'Prompt in this custom placement already displayed.', 'newspack-popups' ) );
+					}
+					$custom_placements_displayed[ $campaign->c ] = $higher_priority_item;
 				}
 			}
 
@@ -173,6 +201,19 @@ class Maybe_Show_Campaign extends Lightweight_API {
 	}
 
 	/**
+	 * Add suppression reason to debug output.
+	 *
+	 * @param string $id Prompt ID.
+	 * @param string $reason The reason.
+	 */
+	private function add_suppression_reason( $id, $reason ) {
+		if ( isset( $this->debug['suppression'][ $id ] ) ) {
+			$this->debug['suppression'][ $id ][] = $reason;
+		}
+		$this->debug['suppression'][ $id ] = [ $reason ];
+	}
+
+	/**
 	 * Primary prompt visibility logic.
 	 *
 	 * @param string $client_id Client ID.
@@ -192,6 +233,7 @@ class Maybe_Show_Campaign extends Lightweight_API {
 		$init_campaign_data = $campaign_data;
 
 		if ( $campaign_data['suppress_forever'] ) {
+			self::add_suppression_reason( $campaign->id, __( 'Prompt dismissed permanently.', 'newspack-popups' ) );
 			return false;
 		}
 
@@ -206,7 +248,8 @@ class Maybe_Show_Campaign extends Lightweight_API {
 			// Suppressing based on UTM Source parameter in the URL.
 			$utm_suppression = ! empty( $campaign->utm ) ? urldecode( $campaign->utm ) : null;
 			if ( $utm_suppression && stripos( urldecode( $referer_url ), 'utm_source=' . $utm_suppression ) ) {
-				$should_display                    = false;
+				$should_display = false;
+				self::add_suppression_reason( $campaign->id, __( 'utm_source from prompt settings matched.', 'newspack-popups' ) );
 				$campaign_data['suppress_forever'] = true;
 			}
 
@@ -215,7 +258,8 @@ class Maybe_Show_Campaign extends Lightweight_API {
 				$settings->suppress_newsletter_campaigns &&
 				$has_newsletter_prompt
 			) {
-				$should_display                    = false;
+				$should_display = false;
+				self::add_suppression_reason( $campaign->id, __( 'utm_medium in URL and this is a newsletter prompt.', 'newspack-popups' ) );
 				$campaign_data['suppress_forever'] = true;
 			}
 		}
@@ -230,7 +274,8 @@ class Maybe_Show_Campaign extends Lightweight_API {
 			$settings->suppress_all_newsletter_campaigns_if_one_dismissed &&
 			$has_suppressed_newsletter_campaign
 		) {
-			$should_display                    = false;
+			$should_display = false;
+			self::add_suppression_reason( $campaign->id, __( 'A newsletter prompt was dismissed and this is a newsletter prompt.', 'newspack-popups' ) );
 			$campaign_data['suppress_forever'] = true;
 		}
 
@@ -243,7 +288,8 @@ class Maybe_Show_Campaign extends Lightweight_API {
 			$settings->suppress_donation_campaigns_if_donor &&
 			$has_donated
 		) {
-			$should_display                    = false;
+			$should_display = false;
+			self::add_suppression_reason( $campaign->id, __( 'Has donated and this is a donation prompt.', 'newspack-popups' ) );
 			$campaign_data['suppress_forever'] = true;
 		}
 
@@ -260,7 +306,7 @@ class Maybe_Show_Campaign extends Lightweight_API {
 				}
 
 				// Show prompts if the view_as segment doesn't exist.
-				if ( ! property_exists( $settings->all_segments, $view_as_spec['segment'] ) ) {
+				if ( 'everyone' !== $view_as_spec['segment'] && ! property_exists( $settings->all_segments, $view_as_spec['segment'] ) ) {
 					$should_display = true;
 				}
 			}
@@ -285,6 +331,9 @@ class Maybe_Show_Campaign extends Lightweight_API {
 				$referer_url,
 				$page_referer_url
 			);
+			if ( false === $should_display ) {
+				self::add_suppression_reason( $campaign->id, __( 'Segment does not match.', 'newspack-popups' ) );
+			}
 
 			if (
 				$campaign_segment->is_not_subscribed &&
@@ -299,13 +348,20 @@ class Maybe_Show_Campaign extends Lightweight_API {
 		// Handle frequency.
 		$frequency = $campaign->f;
 		if ( ! empty( array_diff( $init_campaign_data, $campaign_data ) ) ) {
-			$this->save_campaign_data( $client_id, $campaign->id, $campaign_data );
+			$updated_campaign_data = [
+				'prompts' => [
+					"$campaign->id" => $campaign_data,
+				],
+			];
+			$this->save_client_data( $client_id, $updated_campaign_data );
 		}
 		if ( 'once' === $frequency && $campaign_data['count'] >= 1 ) {
 			$should_display = false;
+			self::add_suppression_reason( $campaign->id, __( 'Prompt already seen once.', 'newspack-popups' ) );
 		}
 		if ( 'daily' === $frequency && $campaign_data['last_viewed'] >= strtotime( '-1 day', $now ) ) {
 			$should_display = false;
+			self::add_suppression_reason( $campaign->id, __( 'Daily prompt already seen today.', 'newspack-popups' ) );
 		}
 
 		return $should_display;
