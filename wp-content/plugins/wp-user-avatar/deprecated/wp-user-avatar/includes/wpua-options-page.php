@@ -7,6 +7,14 @@ $hide_resize = (bool)$wpua_resize_upload != 1 ? ' style="display:none;"' : "";
 ?>
 
 <div class="wrap">
+    <?php if (get_option('show_avatars') != '1') : ?>
+        <div class="ppress-settings-page-notice">
+            <?php
+            printf(esc_html__('Avatar is currently disabled. Kindly %senable it on "Avatar Display" section%s.'),
+                '<a target="_blank" href="' . admin_url('options-discussion.php') . '">', '</a>');
+            ?>
+        </div>
+    <?php endif; ?>
     <table>
         <tr valign="top">
             <td align="top">

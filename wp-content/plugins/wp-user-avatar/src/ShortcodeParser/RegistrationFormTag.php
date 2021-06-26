@@ -38,11 +38,23 @@ class RegistrationFormTag extends FormProcessor
         $container_div_start = sprintf('<div id="pp-registration-%s-wrap" class="pp-form-container pp-registration-form-wrapper">', $id);
         $container_div_end   = '</div>';
 
-        return apply_filters(
+        $registration_form = apply_filters(
             'ppress_registration_form',
             $attribution_start . $css . $container_div_start . $registration_status . $registration_structure . $container_div_end . $attribution_end,
             $id
         );
+
+        if ( ! isset($_GET['pp_preview_form']) && is_user_logged_in()) {
+
+            return apply_filters(
+                'ppress_signup_form_already_loggedin_message',
+                wpautop(esc_html__('You are already registered.', 'wp-user-avatar')),
+                $registration_form,
+                $id
+            );
+        }
+
+        return $registration_form;
     }
 
 
@@ -88,7 +100,7 @@ class RegistrationFormTag extends FormProcessor
 
         $registration_structure .= '<input type="hidden" name="pp_current_url" value="' . ppress_get_current_url_query_string() . '">';
         $registration_structure .= "<input type='hidden' name='signup_form_id' value='$id'>";
-        $registration_structure .= sprintf("<input type='hidden' name='signup_referrer_page' value='%s'>", !empty($referrer_url) ? $referrer_url : '');
+        $registration_structure .= sprintf("<input type='hidden' name='signup_referrer_page' value='%s'>", ! empty($referrer_url) ? $referrer_url : '');
 
         $registration_structure = apply_filters('ppress_form_field_structure', $registration_structure, $id);
 

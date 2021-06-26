@@ -86,16 +86,15 @@ class PerfectoLite extends AbstractTheme
 
     public function form_structure()
     {
-        $fields       = $this->field_listing();
-        $button = $this->form_submit_button();
-        $headline     = $this->get_meta('perfectolite_login_headline');
+        $fields   = $this->field_listing();
+        $button   = $this->form_submit_button();
+        $headline = $this->get_meta('perfectolite_login_headline');
 
         return <<<HTML
 [pp-form-wrapper class="perfecto"]
     <div class="perfecto-heading">$headline</div>
     $fields
 	$button
-</div>
 [/pp-form-wrapper]
 HTML;
 

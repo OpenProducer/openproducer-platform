@@ -81,7 +81,7 @@ class DragDropBuilder
                 $fields[$key] = [
                     'definedFieldKey'  => $field_key,
                     'definedFieldType' => $definedFieldType,
-                    'fieldTitle'       => $label,
+                    'fieldTitle'       => ppress_decode_html_strip_tags($label),
                     'label'            => $label,
                     'placeholder'      => $label,
                     'fieldIcon'        => '<span class="dashicons dashicons-portfolio"></span>',
@@ -124,8 +124,8 @@ class DragDropBuilder
             $fields[$key] = [
                 'definedFieldKey'  => $field_key,
                 'definedFieldType' => $definedFieldType,
-                'fieldTitle'       => $title . ($woocommerce_field !== false ? (sprintf(' (WC%s)', 'billing' == $woocommerce_field ? 'BA' : 'SA')) : ''),
-                'fieldBarTitle'    => $title,
+                'fieldTitle'       => ppress_decode_html_strip_tags($title) . ($woocommerce_field !== false ? (sprintf(' (WC%s)', 'billing' == $woocommerce_field ? 'BA' : 'SA')) : ''),
+                'fieldBarTitle'    => ppress_decode_html_strip_tags($title),
                 'label'            => $title,
                 'placeholder'      => $title,
                 'fieldIcon'        => '<span class="dashicons dashicons-portfolio"></span>',
@@ -165,7 +165,7 @@ class DragDropBuilder
             add_settings_error(
                 'pp_drag_drop_builder_notice',
                 'form_title_empty',
-                esc_html__('Form title cannot empty')
+                esc_html__('Form title cannot empty', 'wp-user-avatar')
             );
 
             return;
@@ -1248,13 +1248,24 @@ class DragDropBuilder
     public function builder_header()
     {
         settings_errors('pp_drag_drop_builder_notice');
-        $title = FR::get_name($this->form_id, $this->form_type);
+        $title     = FR::get_name($this->form_id, $this->form_type);
+        $shortcode = sprintf('&lsqb;profilepress-%s id=&quot;%s&quot;&rsqb;', $this->form_type, $this->form_id);
         ?>
         <div id="titlediv">
             <div id="titlewrap">
                 <label class="screen-reader-text" id="title-prompt-text" for="title"><?php _e('Enter title here', 'wp-user-avatar'); ?></label>
                 <input type="text" name="pp_form_title" size="30" value="<?= $title ?>" id="title">
                 <a class="pp-form-save-changes button button-primary button-large" style="margin: 2px 0 0 10px;text-align: center;" href="#"><?php _e('Save Changes', 'wp-user-avatar'); ?></a>
+            </div>
+            <div class="inside">
+                <p class="description">
+                    <label for="ppress-shortcode">
+                        <?php esc_html_e('Copy this shortcode and paste it into your post, page, or text widget content:', 'wp-user-avatar') ?>
+                    </label>
+                    <span class="shortcode wp-ui-highlight">
+                        <input type="text" id="ppress-shortcode" onfocus="this.select();" readonly="readonly" class="large-text code" value="<?= $shortcode ?>">
+                    </span>
+                </p>
             </div>
         </div>
         <?php

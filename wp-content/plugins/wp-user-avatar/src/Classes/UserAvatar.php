@@ -12,15 +12,22 @@ class UserAvatar
 
             if (self::user_has_pp_avatar($id_or_email)) {
 
-                $args['url'] = self::get_pp_avatar_url($id_or_email);
+                $args['url'] = self::get_pp_avatar_url($id_or_email, ppress_var($args, 'size'));
 
             } else {
                 /** WP User Avatar Adapter STARTS */
                 global $wpua_disable_gravatar, $wpua_functions;
 
                 // First checking custom avatar.
-                if ($wpua_disable_gravatar == '1' || ! $wpua_functions->wpua_has_gravatar($id_or_email)) {
+                if ($wpua_disable_gravatar == '1') {
                     $args['url'] = $wpua_functions->wpua_get_default_avatar_url(ppress_var($args, 'size'));
+                } else {
+                    
+                    $has_valid_url = $wpua_functions->wpua_has_gravatar($id_or_email);
+
+                    if ( ! $has_valid_url) {
+                        $args['url'] = $wpua_functions->wpua_get_default_avatar_url(ppress_var($args, 'size', 96, true));
+                    }
                 }
                 /** WP User Avatar Adapter ENDS */
             }
@@ -31,7 +38,7 @@ class UserAvatar
 
             return $args;
 
-        }, 999999999999, 2);
+        }, PHP_INT_MAX - 1, 2);
 
         add_filter('get_avatar', function ($avatar, $id_or_email, $size, $default, $alt, $args) {
 
@@ -54,7 +61,7 @@ class UserAvatar
 
             return $avatar;
 
-        }, 999999999999, 6);
+        }, PHP_INT_MAX - 1, 6);
     }
 
     public static function user_has_pp_avatar($id_or_email)

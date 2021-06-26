@@ -14,7 +14,7 @@
   .newspack-ads-ad-unit__ratio {
     padding: 0 0 75%; }
   .newspack-ads-ad-unit .components-placeholder {
-    background: #f3f4f5;
+    border: 1px solid #1e1e1e;
     border-radius: 0;
     box-shadow: none;
     margin: 0;

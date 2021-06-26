@@ -126,8 +126,8 @@ class Newspack_Ads_Blocks {
 		}
 		ob_start();
 		?>
-		<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" data-amp-plus-gam></script>
-		<script data-amp-plus-gam>
+		<script async src="https://securepubads.g.doubleclick.net/tag/js/gpt.js" data-amp-plus-allowed></script>
+		<script data-amp-plus-allowed>
 			window.googletag = window.googletag || {cmd: []};
 		</script>
 		<?php
@@ -147,7 +147,7 @@ class Newspack_Ads_Blocks {
 			return;
 		}
 
-		$network_code = Newspack_Ads_Model::get_network_code( 'google_ad_manager' );
+		$network_code = Newspack_Ads_Model::get_active_network_code();
 
 		$prepared_unit_data = [];
 		foreach ( Newspack_Ads_Model::$ad_ids as $unique_id => $ad_unit ) {
@@ -170,7 +170,7 @@ class Newspack_Ads_Blocks {
 
 		ob_start();
 		?>
-		<script data-amp-plus-gam>
+		<script data-amp-plus-allowed>
 			googletag.cmd.push(function() {
 				var ad_config        = <?php echo wp_json_encode( $ad_config ); ?>;
 				var all_ad_units     = <?php echo wp_json_encode( $prepared_unit_data ); ?>;

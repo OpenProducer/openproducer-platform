@@ -97,7 +97,6 @@ class PerfectoLite extends AbstractTheme
     <div class="perfecto-heading">$headline</div>
     $fields
 	$registration_button
-</div>
 [/pp-form-wrapper]
 HTML;
 
@@ -132,6 +131,11 @@ HTML;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     max-width: 450px;
+}
+
+#pp-$form_type-$form_id-wrap .profilepress-reg-status.success {
+    background-color: #2ecc71;
+    color: #fff;
 }
 
 #pp-$form_type-$form_id-wrap .profilepress-reg-status a {

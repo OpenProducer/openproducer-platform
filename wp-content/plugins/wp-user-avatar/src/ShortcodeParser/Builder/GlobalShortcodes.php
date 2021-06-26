@@ -405,6 +405,8 @@ class GlobalShortcodes
      * Redirect non logged users to login page.
      *
      * @param array $atts
+     *
+     * @return false|string|void
      */
     public static function redirect_non_logged_in_users($atts)
     {
@@ -419,10 +421,11 @@ class GlobalShortcodes
             $atts
         );
 
-        $url = empty($atts['url']) ? ppress_login_url() : $atts['url'];
+        $url = empty($atts['url']) ? ppress_login_url() : esc_url_raw($atts['url']);
 
-        wp_safe_redirect($url);
-        exit;
+        ob_start();
+        ppress_content_http_redirect($url);
+        return ob_get_clean();
     }
 
 
@@ -430,6 +433,8 @@ class GlobalShortcodes
      * Redirect logged users to login page.
      *
      * @param array $atts
+     *
+     * @return false|string|void
      */
     public static function redirect_logged_in_users($atts)
     {
@@ -444,10 +449,11 @@ class GlobalShortcodes
             $atts
         );
 
-        $url = empty($atts['url']) ? ppress_login_url() : $atts['url'];
+        $url = empty($atts['url']) ? ppress_login_url() : esc_url_raw($atts['url']);
 
-        wp_safe_redirect($url);
-        exit;
+        ob_start();
+        ppress_content_http_redirect($url);
+        return ob_get_clean();
     }
 
 

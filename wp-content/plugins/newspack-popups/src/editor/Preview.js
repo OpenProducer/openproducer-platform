@@ -31,7 +31,7 @@ const PreviewSetting = ( { autosavePost, isSavingPost, postId, metaFields } ) =>
 					disabled={ isSavingPost }
 					onClick={ () => autosavePost().then( showPreview ) }
 				>
-					{ __( 'Preview' ) }
+					{ __( 'Preview', 'newspack-popups' ) }
 				</Button>
 			) }
 		/>

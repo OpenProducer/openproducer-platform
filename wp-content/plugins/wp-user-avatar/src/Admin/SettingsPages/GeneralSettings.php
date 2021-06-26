@@ -17,6 +17,8 @@ class GeneralSettings extends AbstractSettingsPage
         add_action('wp_cspa_persist_settings', function () {
             flush_rewrite_rules();
         });
+
+        $this->custom_sanitize();
     }
 
     public function register_settings_page()
@@ -379,6 +381,40 @@ class GeneralSettings extends AbstractSettingsPage
         $this->register_core_settings($instance, true);
         $instance->tab($this->settings_tab_args());
         $instance->build_sidebar_tab_style();
+    }
+
+    public function custom_sanitize()
+    {
+        $config = apply_filters('ppress_settings_custom_sanitize', [
+            'global_restricted_access_message' => function ($val) {
+                return wp_kses_post($val);
+            },
+            'uec_unactivated_error'            => function ($val) {
+                return wp_kses_post($val);
+            },
+            'uec_invalid_error'                => function ($val) {
+                return wp_kses_post($val);
+            },
+            'uec_success_message'              => function ($val) {
+                return wp_kses_post($val);
+            },
+            'uec_activation_resent'            => function ($val) {
+                return wp_kses_post($val);
+            },
+            'uec_already_confirm_message'      => function ($val) {
+                return wp_kses_post($val);
+            }
+        ]);
+
+        foreach ($config as $fieldKey => $callback) {
+            add_filter('wp_cspa_sanitize_skip', function ($return, $key, $value) use ($fieldKey, $callback) {
+                if ($key == $fieldKey) {
+                    return call_user_func($callback, $value);
+                }
+
+                return $return;
+            }, 10, 3);
+        }
     }
 
     public static function get_instance()

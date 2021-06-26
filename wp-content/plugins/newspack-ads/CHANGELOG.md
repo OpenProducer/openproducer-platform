@@ -1,3 +1,30 @@
+# [1.14.0](https://github.com/Automattic/newspack-ads/compare/v1.13.1...v1.14.0) (2021-06-15)
+
+
+### Bug Fixes
+
+* run composer install on release tasks ([#135](https://github.com/Automattic/newspack-ads/issues/135)) ([fbf1dbc](https://github.com/Automattic/newspack-ads/commit/fbf1dbc107cd393317814a77e38902c61040f043))
+
+
+### Features
+
+* add experimental GAM integration ([#124](https://github.com/Automattic/newspack-ads/issues/124)) ([ccd2c28](https://github.com/Automattic/newspack-ads/commit/ccd2c282fd1690bad42ae6d00a619f9bc0a00c6d))
+
+## [1.13.1](https://github.com/Automattic/newspack-ads/compare/v1.13.0...v1.13.1) (2021-06-02)
+
+
+### Bug Fixes
+
+* ensure only Ad Unit CPT are handled in query ([e919502](https://github.com/Automattic/newspack-ads/commit/e9195020513f2a4f052c25df3600f05bf6d75204))
+
+# [1.13.0](https://github.com/Automattic/newspack-ads/compare/v1.12.0...v1.13.0) (2021-04-20)
+
+
+### Features
+
+* update block icon ([#116](https://github.com/Automattic/newspack-ads/issues/116)) ([6831c72](https://github.com/Automattic/newspack-ads/commit/6831c7283986d50f1bc649c35c4a95043246dcec))
+* update block placeholder and alignment options ([#121](https://github.com/Automattic/newspack-ads/issues/121)) ([744bb3d](https://github.com/Automattic/newspack-ads/commit/744bb3db96388dec987578a2874bd44fe2613918))
+
 # [1.12.0](https://github.com/Automattic/newspack-ads/compare/v1.11.1...v1.12.0) (2021-02-25)
 
 

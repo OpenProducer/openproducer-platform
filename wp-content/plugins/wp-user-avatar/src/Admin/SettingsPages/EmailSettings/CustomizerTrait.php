@@ -78,6 +78,6 @@ trait CustomizerTrait
                 remove_action('customize_register', [\EGF_Customize_Manager::get_instance(), 'register_font_control_type']);
             }
 
-        }, 9999999999999);
+        }, 999999999);
     }
 }

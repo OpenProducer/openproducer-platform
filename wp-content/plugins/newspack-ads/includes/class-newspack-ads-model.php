@@ -9,20 +9,17 @@
  * Newspack Ads Blocks Management
  */
 class Newspack_Ads_Model {
+	const SIZES = 'sizes';
+	const CODE  = 'code';
 
-	const AD_SERVICE = 'ad_service';
-	const SIZES      = 'sizes';
-	const CODE       = 'code';
-
-	const NEWSPACK_ADS_SERVICE_PREFIX      = '_newspack_ads_service_';
-	const NEWSPACK_ADS_NETWORK_CODE_SUFFIX = '_network_code';
+	const OPTION_NAME_NETWORK_CODE = '_newspack_ads_service_google_ad_manager_network_code';
+	const OPTION_NAME_GAM_ITEMS    = '_newspack_ads_gam_items';
 
 	/**
 	 * Custom post type
 	 *
 	 * @var string
 	 */
-
 	public static $custom_post_type = 'newspack_ad_codes';
 
 	/**
@@ -35,6 +32,7 @@ class Newspack_Ads_Model {
 	/**
 	 * Initialize Google Ads Model
 	 *
+	 * @codeCoverageIgnore
 	 * @return void
 	 */
 	public static function init() {
@@ -43,6 +41,8 @@ class Newspack_Ads_Model {
 
 	/**
 	 * Register ad unit post type
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public static function register_ad_post_type() {
 		register_post_type(
@@ -56,38 +56,48 @@ class Newspack_Ads_Model {
 	}
 
 	/**
-	 * Get a single ad unit.
+	 * Get a single ad unit to display on the page.
 	 *
 	 * @param number $id The id of the ad unit to retrieve.
 	 * @param string $placement The id of the placement region.
 	 * @param string $context An optional parameter to describe the context of the ad. For example, in the Widget, the widget ID.
+	 * @return object Prepared ad unit, with markup for injecting on a page.
 	 */
-	public static function get_ad_unit( $id, $placement = null, $context = null ) {
+	public static function get_ad_unit_for_display( $id, $placement = null, $context = null ) {
 		$ad_unit               = \get_post( $id );
 		$responsive_placements = [ 'global_above_header', 'global_below_header', 'global_above_footer' ];
+
+		$prepared_ad_unit = [];
+
 		if ( is_a( $ad_unit, 'WP_Post' ) ) {
-			$responsive = apply_filters(
-				'newspack_ads_maybe_use_responsive_placement',
-				in_array( $placement, $responsive_placements ),
-				$placement,
-				$context
-			);
-
+			// Legacy ad units, saved as CPT. Ad unit ID is the post ID.
 			$prepared_ad_unit = [
-				'id'             => $ad_unit->ID,
-				'name'           => $ad_unit->post_title,
-				self::SIZES      => self::sanitize_sizes( \get_post_meta( $ad_unit->ID, self::SIZES, true ) ),
-				self::CODE       => \get_post_meta( $ad_unit->ID, self::CODE, true ),
-				self::AD_SERVICE => self::sanitize_ad_service( \get_post_meta( $ad_unit->ID, self::AD_SERVICE, true ) ),
-				'responsive'     => $responsive,
-				'placement'      => $placement,
-				'context'        => $context,
+				'id'    => $ad_unit->ID,
+				'name'  => $ad_unit->post_title,
+				'sizes' => self::sanitize_sizes( \get_post_meta( $ad_unit->ID, 'sizes', true ) ),
+				'code'  => \get_post_meta( $ad_unit->ID, 'code', true ),
 			];
-
-			$prepared_ad_unit['ad_code']     = self::code_for_ad_unit( $prepared_ad_unit );
-			$prepared_ad_unit['amp_ad_code'] = self::amp_code_for_ad_unit( $prepared_ad_unit );
-			return $prepared_ad_unit;
 		} else {
+			// Ad units saved in options table. Ad unit ID is the GAM Ad Unit ID.
+			$ad_units = self::get_synced_gam_ad_units();
+			foreach ( $ad_units as $unit ) {
+				if ( $unit['id'] === $id && 'ACTIVE' === $unit['status'] ) {
+					$ad_unit = $unit;
+					break;
+				}
+			}
+			if ( $ad_unit ) {
+				$prepared_ad_unit = [
+					'id'    => $ad_unit['id'],
+					'name'  => $ad_unit['name'],
+					'sizes' => self::sanitize_sizes( $ad_unit['sizes'] ),
+					'code'  => $ad_unit['code'],
+				];
+			}
+		}
+
+		// Ad unit not found neither as the CPT nor in options table.
+		if ( ! isset( $prepared_ad_unit['id'] ) ) {
 			return new WP_Error(
 				'newspack_no_adspot_found',
 				\esc_html__( 'No such ad spot.', 'newspack' ),
@@ -96,34 +106,62 @@ class Newspack_Ads_Model {
 				)
 			);
 		}
+
+		$responsive                     = apply_filters(
+			'newspack_ads_maybe_use_responsive_placement',
+			in_array( $placement, $responsive_placements ),
+			$placement,
+			$context
+		);
+		$prepared_ad_unit['responsive'] = $responsive;
+		$prepared_ad_unit['placement']  = $placement;
+		$prepared_ad_unit['context']    = $context;
+
+		$prepared_ad_unit['ad_code']     = self::code_for_ad_unit( $prepared_ad_unit );
+		$prepared_ad_unit['amp_ad_code'] = self::amp_code_for_ad_unit( $prepared_ad_unit );
+		return $prepared_ad_unit;
 	}
 
 	/**
-	 * Get the ad units from our saved option.
+	 * Get the legacy ad units (defined as CPTs).
 	 */
-	public static function get_ad_units() {
-		$ad_units = array();
-		$args     = array(
-			'post_type'      => self::$custom_post_type,
-			'posts_per_page' => 100,
-			'post_status'    => [ 'publish' ],
+	private static function get_legacy_ad_units() {
+		$legacy_ad_units = [];
+		$query           = new \WP_Query(
+			[
+				'post_type'      => self::$custom_post_type,
+				'posts_per_page' => 100,
+				'post_status'    => [ 'publish' ],
+			]
 		);
-
-		$query = new \WP_Query( $args );
 		if ( $query->have_posts() ) {
-			while ( $query->have_posts() ) {
-				$query->the_post();
-				$ad_units[] = array(
-					'id'             => \get_the_ID(),
-					'name'           => html_entity_decode( \get_the_title(), ENT_QUOTES ),
-					self::SIZES      => self::sanitize_sizes( \get_post_meta( get_the_ID(), self::SIZES, true ) ),
-					self::CODE       => esc_html( \get_post_meta( get_the_ID(), self::CODE, true ) ),
-					self::AD_SERVICE => \get_post_meta( get_the_ID(), self::AD_SERVICE, true ),
-				);
+			foreach ( $query->posts as $post ) {
+				if ( self::$custom_post_type === $post->post_type ) {
+					$legacy_ad_units[] = [
+						'id'        => $post->ID,
+						'name'      => html_entity_decode( $post->post_title, ENT_QUOTES ),
+						'sizes'     => self::sanitize_sizes( \get_post_meta( $post->ID, 'sizes', true ) ),
+						'code'      => esc_html( \get_post_meta( $post->ID, 'code', true ) ),
+						'status'    => 'ACTIVE',
+						'is_legacy' => true,
+					];
+				}
 			}
 		}
+		return $legacy_ad_units;
+	}
 
-		return $ad_units;
+	/**
+	 * Get the ad units.
+	 */
+	public static function get_ad_units() {
+		$legacy_ad_units = self::get_legacy_ad_units();
+		if ( ! self::is_gam_connected() ) {
+			return $legacy_ad_units;
+		}
+		$ad_units = Newspack_Ads_GAM::get_serialised_gam_ad_units();
+		self::sync_gam_settings( $ad_units );
+		return array_merge( $ad_units, $legacy_ad_units );
 	}
 
 	/**
@@ -132,12 +170,21 @@ class Newspack_Ads_Model {
 	 * @param array $ad_unit The new ad unit info to add.
 	 */
 	public static function add_ad_unit( $ad_unit ) {
-		// Sanitise the values.
-		$ad_unit = self::sanitise_ad_unit( $ad_unit );
-		if ( \is_wp_error( $ad_unit ) ) {
-			return $ad_unit;
+		if ( self::is_gam_connected() ) {
+			$result = Newspack_Ads_GAM::create_ad_unit( $ad_unit );
+			self::sync_gam_settings();
+		} else {
+			$result = self::legacy_add_ad_unit( $ad_unit );
 		}
+		return $result;
+	}
 
+	/**
+	 * Add a new legacy ad unit.
+	 *
+	 * @param array $ad_unit The new ad unit info to add.
+	 */
+	private static function legacy_add_ad_unit( $ad_unit ) {
 		$name = strlen( trim( $ad_unit['name'] ) ) ? $ad_unit['name'] : $ad_unit[ self::CODE ];
 
 		// Save the ad unit.
@@ -164,26 +211,19 @@ class Newspack_Ads_Model {
 		\add_post_meta( $ad_unit_post, self::CODE, $ad_unit[ self::CODE ] );
 
 		return array(
-			'id'             => $ad_unit_post,
-			'name'           => $ad_unit['name'],
-			self::SIZES      => $ad_unit[ self::SIZES ],
-			self::CODE       => $ad_unit[ self::CODE ],
-			self::AD_SERVICE => $ad_unit[ self::AD_SERVICE ],
+			'id'        => $ad_unit_post,
+			'name'      => $ad_unit['name'],
+			self::SIZES => $ad_unit[ self::SIZES ],
+			self::CODE  => $ad_unit[ self::CODE ],
 		);
 	}
 
 	/**
-	 * Update an ad unit
+	 * Update a legacy ad unit.
 	 *
 	 * @param array $ad_unit The updated ad unit.
 	 */
-	public static function update_ad_unit( $ad_unit ) {
-		// Sanitise the values.
-		$ad_unit = self::sanitise_ad_unit( $ad_unit );
-		if ( \is_wp_error( $ad_unit ) ) {
-			return $ad_unit;
-		}
-
+	private static function legacy_update_ad_unit( $ad_unit ) {
 		$ad_unit_post = \get_post( $ad_unit['id'] );
 		if ( ! is_a( $ad_unit_post, 'WP_Post' ) ) {
 			return new WP_Error(
@@ -205,15 +245,27 @@ class Newspack_Ads_Model {
 		);
 		\update_post_meta( $ad_unit['id'], self::SIZES, $ad_unit[ self::SIZES ] );
 		\update_post_meta( $ad_unit['id'], self::CODE, $ad_unit[ self::CODE ] );
-		\update_post_meta( $ad_unit['id'], self::AD_SERVICE, $ad_unit[ self::AD_SERVICE ] );
-
 		return array(
-			'id'             => $ad_unit['id'],
-			'name'           => $ad_unit['name'],
-			self::SIZES      => $ad_unit[ self::SIZES ],
-			self::CODE       => $ad_unit[ self::CODE ],
-			self::AD_SERVICE => $ad_unit[ self::AD_SERVICE ],
+			'id'        => $ad_unit['id'],
+			'name'      => $ad_unit['name'],
+			self::SIZES => $ad_unit[ self::SIZES ],
+			self::CODE  => $ad_unit[ self::CODE ],
 		);
+	}
+
+	/**
+	 * Update an ad unit. Updating the code is not possible, it's set at ad unit creation.
+	 *
+	 * @param array $ad_unit The updated ad unit.
+	 */
+	public static function update_ad_unit( $ad_unit ) {
+		if ( isset( $ad_unit['is_legacy'] ) && true === $ad_unit['is_legacy'] ) {
+			$result = self::legacy_update_ad_unit( $ad_unit );
+		} else {
+			$result = Newspack_Ads_GAM::update_ad_unit( $ad_unit );
+			self::sync_gam_settings();
+		}
+		return $result;
 	}
 
 	/**
@@ -222,84 +274,111 @@ class Newspack_Ads_Model {
 	 * @param integer $id The id of the ad unit to delete.
 	 */
 	public static function delete_ad_unit( $id ) {
-		$ad_unit_post = \get_post( $id );
-		if ( ! is_a( $ad_unit_post, 'WP_Post' ) ) {
-			return new WP_Error(
-				'newspack_ad_unit_not_exists',
-				\esc_html__( "Can't delete an ad unit that doesn't already exist", 'newspack' ),
-				array(
-					'status' => '400',
-				)
-			);
+		$ad_unit_cpt = \get_post( $id );
+		if ( is_a( $ad_unit_cpt, 'WP_Post' ) ) {
+			if ( $ad_unit_cpt->post_type === self::$custom_post_type ) {
+				\wp_delete_post( $id );
+				return true;
+			}
+		} else {
+			$result = Newspack_Ads_GAM::change_ad_unit_status( $id, 'ARCHIVE' );
+			self::sync_gam_settings();
+			return $result;
 		}
-		if ( $ad_unit_post->post_type !== self::$custom_post_type ) {
-			return new WP_Error(
-				'newspack_ad_unit_incorrect_type',
-				\esc_html__( 'Post is not a Newspack Ad Unit. Cannot be deleted.', 'newspack' ),
-				array(
-					'status' => '400',
-				)
-			);
+	}
+
+	/**
+	 * Retrieve the active network code.
+	 * This might be updateable in the future to enable handling users with
+	 * multiple GAM networks - for now simply the first available GAM network
+	 * is retrieved.
+	 *
+	 * @return string The network code.
+	 */
+	public static function get_active_network_code() {
+		$network_code = get_option( self::OPTION_NAME_NETWORK_CODE, '' );
+		return absint( $network_code );
+	}
+
+	/**
+	 * Save GAM configuration locally.
+	 * First reason is so the GAM API is not queried on frontend requests - information
+	 * about ad units & GAM settings will be read from the DB.
+	 * Second reason is backwards compatibility - in a previous version of the plugin,
+	 * the sync was done manually.
+	 *
+	 * @param object[] $serialised_ad_units An array of ad units configurations.
+	 * @param object[] $settings Settings to use.
+	 */
+	public static function sync_gam_settings( $serialised_ad_units = null, $settings = null ) {
+		if ( null === $serialised_ad_units ) {
+			$serialised_ad_units = Newspack_Ads_GAM::get_serialised_gam_ad_units();
 		}
-		\wp_delete_post( $id );
-		return true;
-	}
+		if ( null === $settings ) {
+			$settings             = Newspack_Ads_GAM::get_gam_settings();
+			$network_code_matches = self::is_network_code_matched();
+		} else {
+			$network_code_matches = true;
+		}
 
-	/**
-	 * Update/create the header code for a service.
-	 *
-	 * @param string $service The service.
-	 * @param string $network_code The code.
-	 */
-	public static function set_network_code( $service, $network_code ) {
-		$id = self::NEWSPACK_ADS_SERVICE_PREFIX . $service . self::NEWSPACK_ADS_NETWORK_CODE_SUFFIX;
-		update_option( self::NEWSPACK_ADS_SERVICE_PREFIX . $service . self::NEWSPACK_ADS_NETWORK_CODE_SUFFIX, sanitize_text_field( $network_code ) );
-		return true;
-	}
-
-	/**
-	 * Retrieve the header code for a service.
-	 *
-	 * @param string $service The service.
-	 * @return string $network_code The code.
-	 */
-	public static function get_network_code( $service ) {
-		$network_code = get_option( self::NEWSPACK_ADS_SERVICE_PREFIX . $service . self::NEWSPACK_ADS_NETWORK_CODE_SUFFIX, '' );
-		return absint( $network_code ); // Google Ad Manager network code is a numeric identifier https://support.google.com/admanager/answer/7674889?hl=en.
-	}
-
-	/**
-	 * Sanitize an ad unit.
-	 *
-	 * @param array $ad_unit The ad unit to sanitize.
-	 */
-	public static function sanitise_ad_unit( $ad_unit ) {
 		if (
-			! array_key_exists( self::CODE, $ad_unit ) ||
-			! array_key_exists( self::SIZES, $ad_unit )
+			$network_code_matches &&
+			isset( $settings['network_code'] ) && $serialised_ad_units && ! empty( $serialised_ad_units )
 		) {
-			return new WP_Error(
-				'newspack_invalid_ad_unit_data',
-				\esc_html__( 'Ad spot data is invalid - name or code is missing!', 'newspack' ),
-				array(
-					'status' => '400',
-				)
-			);
+			$synced_gam_items                              = get_option( self::OPTION_NAME_GAM_ITEMS, [] );
+			$network_code                                  = sanitize_text_field( $settings['network_code'] );
+			$synced_gam_items[ $network_code ]['ad_units'] = $serialised_ad_units;
+			update_option( self::OPTION_NAME_NETWORK_CODE, $network_code );
+			update_option( self::OPTION_NAME_GAM_ITEMS, $synced_gam_items );
 		}
+	}
 
-		$sanitised_ad_unit = array(
-			'name'           => \esc_html( $ad_unit['name'] ),
-			self::CODE       => esc_html( $ad_unit[ self::CODE ] ),
-			self::SIZES      => self::sanitize_sizes( $ad_unit[ self::SIZES ] ),
-			self::AD_SERVICE => self::sanitize_ad_service( $ad_unit[ self::AD_SERVICE ] ),
-
-		);
-
-		if ( isset( $ad_unit['id'] ) ) {
-			$sanitised_ad_unit['id'] = (int) $ad_unit['id'];
+	/**
+	 * The user on whose behalf GAM is authorised might be using
+	 * a different GAM account than the one already configured on the site.
+	 *
+	 * @return boolean True if there is a network code mismatch.
+	 */
+	private static function is_network_code_matched() {
+		$active_network_code = self::get_active_network_code();
+		if ( 0 === $active_network_code ) {
+			// No network code set yet.
+			return true;
 		}
+		try {
+			$user_network_code = Newspack_Ads_GAM::get_gam_network_code();
+			return absint( $user_network_code ) === $active_network_code;
+		} catch ( \Exception $e ) {
+			// Can't get user's network code.
+			return false;
+		}
+	}
 
-		return $sanitised_ad_unit;
+	/**
+	 * Retrieve the synced GAM items.
+	 *
+	 * @return object GAM items.
+	 */
+	private static function get_synced_gam_items() {
+		$network_code     = self::get_active_network_code();
+		$synced_gam_items = get_option( self::OPTION_NAME_GAM_ITEMS, null );
+		if ( $network_code && $synced_gam_items && isset( $synced_gam_items[ $network_code ] ) ) {
+			return $synced_gam_items[ $network_code ];
+		}
+		return null;
+	}
+
+	/**
+	 * Retrieve the synced GAM items.
+	 *
+	 * @return object GAM items.
+	 */
+	private static function get_synced_gam_ad_units() {
+		$gam_items = self::get_synced_gam_items();
+		if ( $gam_items ) {
+			return $gam_items['ad_units'];
+		}
+		return [];
 	}
 
 	/**
@@ -322,16 +401,6 @@ class Newspack_Ads_Model {
 	}
 
 	/**
-	 * Sanitize ad service ID.
-	 *
-	 * @param string $ad_service Ad service ID.
-	 * @return string Sanitized Ad service ID.
-	 */
-	public static function sanitize_ad_service( $ad_service ) {
-		return in_array( $ad_service, [ 'google_ad_manager' ] ) ? $ad_service : null;
-	}
-
-	/**
 	 * Code for ad unit.
 	 *
 	 * @param array $ad_unit The ad unit to generate code for.
@@ -339,7 +408,7 @@ class Newspack_Ads_Model {
 	public static function code_for_ad_unit( $ad_unit ) {
 		$sizes        = $ad_unit['sizes'];
 		$code         = $ad_unit['code'];
-		$network_code = self::get_network_code( 'google_ad_manager' );
+		$network_code = self::get_active_network_code();
 		$unique_id    = uniqid();
 		if ( ! is_array( $sizes ) ) {
 			$sizes = [];
@@ -364,7 +433,7 @@ class Newspack_Ads_Model {
 	public static function amp_code_for_ad_unit( $ad_unit ) {
 		$sizes        = $ad_unit['sizes'];
 		$code         = $ad_unit['code'];
-		$network_code = self::get_network_code( 'google_ad_manager' );
+		$network_code = self::get_active_network_code();
 		$targeting    = self::get_ad_targeting( $ad_unit );
 		$unique_id    = uniqid();
 
@@ -424,7 +493,7 @@ class Newspack_Ads_Model {
 	 * @param string $unique_id Unique ID for this ad unit instance.
 	 */
 	public static function ad_elements_for_sizes( $ad_unit, $unique_id ) {
-		$network_code = self::get_network_code( 'google_ad_manager' );
+		$network_code = self::get_active_network_code();
 		$code         = $ad_unit['code'];
 		$sizes        = $ad_unit['sizes'];
 		$targeting    = self::get_ad_targeting( $ad_unit );
@@ -637,6 +706,30 @@ class Newspack_Ads_Model {
 	 */
 	public static function is_sticky( $ad_unit ) {
 		return 'sticky' === $ad_unit['placement'];
+	}
+
+	/**
+	 * Is GAM connected?
+	 *
+	 * @return boolean True if GAM is connected.
+	 */
+	public static function is_gam_connected() {
+		$status = Newspack_Ads_GAM::connection_status();
+		return $status['connected'];
+	}
+
+	/**
+	 * Get GAM connection status.
+	 *
+	 * @return object Object with status information.
+	 */
+	public static function get_gam_connection_status() {
+		$status                 = Newspack_Ads_GAM::connection_status();
+		$status['network_code'] = self::get_active_network_code();
+		if ( true === $status['connected'] ) {
+			$status['is_network_code_matched'] = self::is_network_code_matched();
+		}
+		return $status;
 	}
 }
 Newspack_Ads_Model::init();

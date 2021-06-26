@@ -163,6 +163,7 @@ class EmailSettingsPage extends AbstractSettingsPage
         ];
 
         if (isset($_GET['type'])) {
+
             $key  = sanitize_text_field($_GET['type']);
             $data = wp_list_filter($this->email_notifications(), ['key' => $key]);
 
@@ -172,6 +173,16 @@ class EmailSettingsPage extends AbstractSettingsPage
                 wp_safe_redirect(PPRESS_SETTINGS_SETTING_PAGE);
                 exit;
             }
+
+
+            add_filter('wp_cspa_sanitize_skip', function ($return, $fieldkey, $value) use ($key) {
+                if ($fieldkey == $key . '_email_content') {
+                    return stripslashes($value);
+                }
+
+                return $return;
+
+            }, 10, 3);
 
             $page_header = $data['title'];
 

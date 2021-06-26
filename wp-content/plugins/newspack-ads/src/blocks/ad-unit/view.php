@@ -31,7 +31,7 @@ function newspack_ads_render_block_ad_unit( $attributes ) {
 		$align = 'center';
 	}
 
-	$ad_unit = Newspack_Ads_Model::get_ad_unit( $active_ad );
+	$ad_unit = Newspack_Ads_Model::get_ad_unit_for_display( $active_ad );
 
 	if ( is_wp_error( $ad_unit ) ) {
 		return '';

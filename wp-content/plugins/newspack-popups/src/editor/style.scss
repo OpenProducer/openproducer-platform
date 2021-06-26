@@ -9,10 +9,10 @@
 
 .newspack-popups {
 	&__status-options {
-		margin: 1rem 0;
+		justify-content: flex-start;
 
-		.components-base-control .components-base-control__help {
-			margin-top: 4px;
+		.components-button + .components-button {
+			margin-left: 8px;
 		}
 	}
 

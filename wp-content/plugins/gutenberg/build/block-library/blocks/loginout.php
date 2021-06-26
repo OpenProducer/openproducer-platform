@@ -38,7 +38,7 @@ function gutenberg_render_block_core_loginout( $attributes ) {
 }
 
 /**
- * Registers the `core/latest-posts` block on server.
+ * Registers the `core/loginout` block on server.
  */
 function gutenberg_register_block_core_loginout() {
 	register_block_type_from_metadata(

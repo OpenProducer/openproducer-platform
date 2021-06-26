@@ -16,8 +16,8 @@ class FrontendProfileTag
 
         add_action('wp', array($this, 'set_up_detected_profile'));
 
-        add_filter('pre_get_document_title', array($this, 'rewrite_profile_title'), 9999999999999999999, 1);
-        add_filter('wp_title', array($this, 'rewrite_profile_title'), 9999999999999999999, 1);
+        add_filter('pre_get_document_title', array($this, 'rewrite_profile_title'), 999999999, 1);
+        add_filter('wp_title', array($this, 'rewrite_profile_title'), 999999999, 1);
     }
 
     /**

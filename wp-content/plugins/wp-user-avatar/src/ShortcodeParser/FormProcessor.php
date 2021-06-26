@@ -95,10 +95,8 @@ class FormProcessor
 
     public function process_edit_profile_form()
     {
-        global $post;
-
         // check if the page being viewed contains the "edit profile" shortcode. if true, redirect to login page
-        if (isset($post->post_content) && has_shortcode($post->post_content, 'profilepress-edit-profile')) {
+        if (ppress_shortcode_exist_in_post('profilepress-edit-profile')) {
             if ( ! is_user_logged_in()) {
                 wp_safe_redirect(ppress_login_url());
                 exit;

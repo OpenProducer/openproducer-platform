@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the ProfilePress package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ProfilePress 3.1.4\n"
+"Project-Id-Version: ProfilePress 3.1.8\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-user-avatar\n"
-"POT-Creation-Date: 2021-05-30 08:27:43+00:00\n"
+"POT-Creation-Date: 2021-06-23 12:57:31+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -46,7 +46,7 @@ msgstr ""
 #: deprecated/wp-user-avatar/includes/wpua-functions.php:78
 #: deprecated/wp-user-avatar/includes/wpua-functions.php:131
 #: src/Classes/ImageUploader.php:49
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:485
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:503
 msgid "Profile Picture"
 msgstr ""
 
@@ -80,8 +80,8 @@ msgstr ""
 
 #: deprecated/wp-user-avatar/includes/class-wp-user-avatar-admin.php:252
 #: deprecated/wp-user-avatar/includes/class-wp-user-avatar-admin.php:253
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:111
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:115
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:119
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:123
 msgid "Default Profile Picture"
 msgstr ""
 
@@ -125,7 +125,7 @@ msgid "ProfilePress Avatar Upload"
 msgstr ""
 
 #: deprecated/wp-user-avatar/includes/class-wp-user-avatar-widget.php:56
-#: src/Widgets/Form.php:65 src/Widgets/TabbedWidget.php:461
+#: src/Widgets/Form.php:65 src/Widgets/TabbedWidget.php:463
 #: src/Widgets/UserPanel.php:74
 msgid "Title:"
 msgstr ""
@@ -144,8 +144,8 @@ msgid "Upload"
 msgstr ""
 
 #: deprecated/wp-user-avatar/includes/class-wp-user-avatar.php:151
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:30
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:62
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:38
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:70
 msgid "Maximum upload file size: %d%s."
 msgstr ""
 
@@ -335,57 +335,63 @@ msgstr ""
 msgid "Image"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:21
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:13
+msgid ""
+"Avatar is currently disabled. Kindly %senable it on \"Avatar Display\" "
+"section%s."
+msgstr ""
+
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:29
 msgid "Cover Image Maximum File Size"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:28
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:60
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:36
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:68
 msgid "%s exceeds the maximum upload size for this site."
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:39
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:47
 msgid "Default Cover Image"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:45
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:53
 msgid ""
 "Please make sure that the default cover is large enough (min. 1000px in "
 "width) and respects the ratio you are using for cover images."
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:53
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:61
 msgid "Profile Picture Maximum File Size"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:67
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:75
 msgid "Resize avatars on upload"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:71
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:79
 #: src/Themes/DragDrop/AbstractBuildScratch.php:83
 #: src/Themes/DragDrop/AbstractBuildScratch.php:224
 #: src/Themes/DragDrop/AbstractBuildScratch.php:499
 msgid "Width"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:73
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:81
 msgid "Height"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:77
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:85
 msgid "Crop avatars to exact dimensions"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:86
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:94
 msgid "Disable Gravatar"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:94
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:102
 msgid "Disable Gravatar and use only local avatars"
 msgstr ""
 
-#: deprecated/wp-user-avatar/includes/wpua-options-page.php:116
+#: deprecated/wp-user-avatar/includes/wpua-options-page.php:124
 msgid ""
 "For users without a custom avatar of their own, you can either display a "
 "generic logo or a generated one based on their e-mail address."
@@ -397,7 +403,7 @@ msgstr ""
 
 #: src/Admin/SettingsPages/AbstractSettingsPage.php:55
 #: src/Admin/SettingsPages/DragDropBuilder/FieldBase.php:87
-#: src/Admin/SettingsPages/GeneralSettings.php:378
+#: src/Admin/SettingsPages/GeneralSettings.php:380
 #: src/ShortcodeParser/MyAccount/edit-profile.tmpl.php:28
 msgid "General"
 msgstr ""
@@ -445,10 +451,10 @@ msgstr ""
 #: src/Admin/SettingsPages/AbstractSettingsPage.php:147
 #: src/Admin/SettingsPages/DragDropBuilder/Metabox.php:162
 #: src/Admin/SettingsPages/DragDropBuilder/Metabox.php:223
-#: src/Admin/SettingsPages/GeneralSettings.php:234
-#: src/Functions/GlobalFunctions.php:1226
-#: src/Functions/GlobalFunctions.php:1252
-#: src/Functions/GlobalFunctions.php:1274
+#: src/Admin/SettingsPages/GeneralSettings.php:236
+#: src/Functions/GlobalFunctions.php:1236
+#: src/Functions/GlobalFunctions.php:1264
+#: src/Functions/GlobalFunctions.php:1286
 msgid "Select..."
 msgstr ""
 
@@ -480,7 +486,6 @@ msgid "Shortcode Builder"
 msgstr ""
 
 #: src/Admin/SettingsPages/AddNewForm.php:63
-#: src/Admin/SettingsPages/AddNewForm.php:79
 msgid ""
 "Code your own from scratch with complete control and flexibility using "
 "shortcodes."
@@ -490,12 +495,18 @@ msgstr ""
 msgid "Build Now"
 msgstr ""
 
-#: src/Admin/SettingsPages/AddNewForm.php:82
+#: src/Admin/SettingsPages/AddNewForm.php:80
+msgid ""
+"Code your own from scratch with complete control and flexibility. %sLearn "
+"more%s."
+msgstr ""
+
+#: src/Admin/SettingsPages/AddNewForm.php:86
 #: src/Admin/SettingsPages/ExtensionsSettingsPage.php:110
 msgid "Upgrade to Premium"
 msgstr ""
 
-#: src/Admin/SettingsPages/AddNewForm.php:119
+#: src/Admin/SettingsPages/AddNewForm.php:123
 msgid "Back to Overview"
 msgstr ""
 
@@ -519,7 +530,7 @@ msgid "Select Icon"
 msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1202
-#: src/Functions/GlobalFunctions.php:1277
+#: src/Functions/GlobalFunctions.php:1289
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:202
 msgid "Standard Fields"
 msgstr ""
@@ -529,7 +540,7 @@ msgid "Extra Fields"
 msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1205
-#: src/Classes/ExtensionManager.php:53 src/Functions/GlobalFunctions.php:1280
+#: src/Classes/ExtensionManager.php:53 src/Functions/GlobalFunctions.php:1292
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:216
 msgid "Custom Fields"
 msgstr ""
@@ -546,12 +557,12 @@ msgstr ""
 msgid "No custom field available. %sClick here to create one%s."
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1255
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1256
 msgid "Enter title here"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1257
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1274
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1258
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1285
 #: src/Admin/SettingsPages/EmailSettings/CustomizerTrait.php:11
 #: src/AdminBarDashboardAccess/include.settings-page.php:54
 #: src/AdminBarDashboardAccess/include.settings-page.php:109
@@ -559,66 +570,72 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1277
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1263
+msgid ""
+"Copy this shortcode and paste it into your post, page, or text widget "
+"content:"
+msgstr ""
+
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1288
 msgid "Delete Form"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1335
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1374
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1421
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1346
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1385
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1432
 msgid "Success Message"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1341
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1352
 msgid "New User Role"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1342
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1353
 msgid "Role users registered through this form will be assigned."
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1349
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1360
 msgid "Username Requirement"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1350
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1361
 msgid "Check to disable username requirement"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1351
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1362
 msgid ""
 "Disable requirement for users to enter a username during registration. "
 "Usernames will automatically be generated from their email addresses."
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1358
-#: src/Admin/SettingsPages/GeneralSettings.php:120
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1369
+#: src/Admin/SettingsPages/GeneralSettings.php:122
 msgid "Registration Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1381
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1392
 msgid "Edit Profile Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1397
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1408
 #: src/Classes/ExtensionManager.php:77
 msgid "Passwordless Login"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1398
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1409
 msgid "Check to make this a passwordless login form."
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1405
-#: src/Admin/SettingsPages/GeneralSettings.php:134
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1416
+#: src/Admin/SettingsPages/GeneralSettings.php:136
 msgid "Login Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1428
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1439
 msgid "Password Reset Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1449
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1460
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/CheckboxList.php:35
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/Country.php:35
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/DefinedFieldTypes/Checkbox.php:50
@@ -632,34 +649,34 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1455
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1466
 msgid "Processing Label"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1462
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1473
 msgid "Submit Button"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1469
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1480
 msgid "Appearance"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1476
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1487
 msgid "Colors"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1504
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1515
 #: src/Themes/DragDrop/AbstractBuildScratch.php:533
 #: src/Themes/DragDrop/Login/PerfectoLite.php:51
 #: src/Themes/DragDrop/Registration/PerfectoLite.php:53
 msgid "Text"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1505
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1516
 msgid "Visual"
 msgstr ""
 
-#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1506
+#: src/Admin/SettingsPages/DragDropBuilder/DragDropBuilder.php:1517
 msgid "Add Media"
 msgstr ""
 
@@ -669,8 +686,8 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/FieldBase.php:89
 #: src/Admin/SettingsPages/DragDropBuilder/FieldBase.php:232
-#: src/Admin/SettingsPages/GeneralSettings.php:26
-#: src/Admin/SettingsPages/GeneralSettings.php:27
+#: src/Admin/SettingsPages/GeneralSettings.php:28
+#: src/Admin/SettingsPages/GeneralSettings.php:29
 #: src/Classes/Miscellaneous.php:17
 msgid "Settings"
 msgstr ""
@@ -688,9 +705,9 @@ msgid "Apply Changes"
 msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/FieldBase.php:235
-#: src/Admin/SettingsPages/FormList.php:234
-#: src/Admin/SettingsPages/FormList.php:310
-#: src/Admin/SettingsPages/GeneralSettings.php:111
+#: src/Admin/SettingsPages/FormList.php:239
+#: src/Admin/SettingsPages/FormList.php:315
+#: src/Admin/SettingsPages/GeneralSettings.php:113
 #: src/ContentProtection/WPListTable.php:96
 #: src/ContentProtection/WPListTable.php:291
 #: src/ContentProtection/views/include.view-sidebar.php:12
@@ -703,7 +720,7 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/Bio.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/Bio.php:22
-#: src/Functions/GlobalFunctions.php:1264
+#: src/Functions/GlobalFunctions.php:1276
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:211
 #: src/Themes/DragDrop/AbstractTheme.php:189
 msgid "Biography"
@@ -953,7 +970,7 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/DisplayName.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/DisplayName.php:22
-#: src/Functions/GlobalFunctions.php:1262
+#: src/Functions/GlobalFunctions.php:1274
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:318
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:208
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:460
@@ -978,17 +995,17 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/Email.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/Email.php:22
-#: src/Functions/GlobalFunctions.php:1263
+#: src/Functions/GlobalFunctions.php:1275
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:210
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:206
 #: src/Themes/DragDrop/AbstractTheme.php:162
-#: src/Themes/DragDrop/AbstractTheme.php:221 src/Widgets/TabbedWidget.php:130
+#: src/Themes/DragDrop/AbstractTheme.php:221 src/Widgets/TabbedWidget.php:132
 msgid "Email Address"
 msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/FirstName.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/FirstName.php:22
-#: src/Functions/GlobalFunctions.php:1259
+#: src/Functions/GlobalFunctions.php:1271
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:350
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:209
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:461
@@ -1008,7 +1025,7 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/LastName.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/LastName.php:22
-#: src/Functions/GlobalFunctions.php:1260
+#: src/Functions/GlobalFunctions.php:1272
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:383
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:210
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:462
@@ -1030,7 +1047,7 @@ msgstr ""
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/PasswordReset/Userlogin.php:22
 #: src/ShortcodeParser/Builder/PasswordResetBuilder.php:33
 #: src/Themes/DragDrop/AbstractTheme.php:202
-#: src/Themes/DragDrop/AbstractTheme.php:213 src/Widgets/TabbedWidget.php:126
+#: src/Themes/DragDrop/AbstractTheme.php:213 src/Widgets/TabbedWidget.php:128
 msgid "Username or Email"
 msgstr ""
 
@@ -1041,7 +1058,7 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/Nickname.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/Nickname.php:22
-#: src/Functions/GlobalFunctions.php:1261
+#: src/Functions/GlobalFunctions.php:1273
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:286
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:300
 #: src/ShortcodeParser/MyAccount/edit-profile.tmpl.php:138
@@ -1197,13 +1214,13 @@ msgstr ""
 
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/UserProfile/Username.php:22
 #: src/Admin/SettingsPages/DragDropBuilder/Fields/Username.php:22
-#: src/Functions/GlobalFunctions.php:1258
+#: src/Functions/GlobalFunctions.php:1270
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:135
 #: src/Themes/DragDrop/AbstractMemberDirectoryTheme.php:463
 #: src/Themes/DragDrop/AbstractTheme.php:159
 #: src/Themes/DragDrop/AbstractTheme.php:218
 #: src/Themes/DragDrop/UserProfile/DefaultTemplate.php:105
-#: src/Widgets/TabbedWidget.php:123
+#: src/Widgets/TabbedWidget.php:125
 msgid "Username"
 msgstr ""
 
@@ -1448,7 +1465,7 @@ msgid "New User Admin Notification"
 msgstr ""
 
 #: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:80
-#: src/Functions/GlobalFunctions.php:724 src/RegisterActivation/Base.php:89
+#: src/Functions/GlobalFunctions.php:722 src/RegisterActivation/Base.php:89
 msgid "[%s] New User Registration"
 msgstr ""
 
@@ -1552,32 +1569,32 @@ msgstr ""
 msgid "Customize Default Template"
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:201
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:212
 msgid "Preview Email"
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:222
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:233
 msgid "Enable Notification"
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:223
-#: src/Admin/SettingsPages/GeneralSettings.php:318
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:234
+#: src/Admin/SettingsPages/GeneralSettings.php:320
 msgid "Enable"
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:226
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:237
 msgid "Check to enable this email notification."
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:231
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:242
 msgid "Subject Line"
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:232
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:243
 msgid "Enter the subject or title for the welcome message email."
 msgstr ""
 
-#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:237
+#: src/Admin/SettingsPages/EmailSettings/EmailSettingsPage.php:248
 msgid "Message Body"
 msgstr ""
 
@@ -1650,7 +1667,7 @@ msgid "No form is currently available. %sConsider creating one%s"
 msgstr ""
 
 #: src/Admin/SettingsPages/FormList.php:194
-#: src/Admin/SettingsPages/FormList.php:266
+#: src/Admin/SettingsPages/FormList.php:271
 msgid "Shortcode"
 msgstr ""
 
@@ -1662,18 +1679,23 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: src/Admin/SettingsPages/FormList.php:235
+#: src/Admin/SettingsPages/FormList.php:238
+#: src/ContentProtection/WPListTable.php:84
+msgid "Edit"
+msgstr ""
+
+#: src/Admin/SettingsPages/FormList.php:240
 #: src/ContentProtection/WPListTable.php:85
 msgid "Duplicate"
 msgstr ""
 
-#: src/Admin/SettingsPages/FormList.php:237
+#: src/Admin/SettingsPages/FormList.php:242
 #: src/Classes/FormPreviewHandler.php:45
 #: src/Functions/custom-settings-api.php:856
 msgid "Preview"
 msgstr ""
 
-#: src/Admin/SettingsPages/FormList.php:268
+#: src/Admin/SettingsPages/FormList.php:273
 msgid "Drag & Drop"
 msgstr ""
 
@@ -1703,23 +1725,23 @@ msgid "Filter by Type"
 msgstr ""
 
 #: src/Admin/SettingsPages/Forms.php:99
-#: src/Admin/SettingsPages/GeneralSettings.php:131
-#: src/Admin/SettingsPages/GeneralSettings.php:246
+#: src/Admin/SettingsPages/GeneralSettings.php:133
+#: src/Admin/SettingsPages/GeneralSettings.php:248
 #: src/Classes/AjaxHandler.php:53 src/NavigationMenuLinks/Backend.php:34
 #: src/ShortcodeParser/Builder/GlobalShortcodes.php:235
 #: src/Themes/DragDrop/AbstractBuildScratch.php:180
-#: src/Widgets/TabbedWidget.php:106
+#: src/Widgets/TabbedWidget.php:108
 msgid "Login"
 msgstr ""
 
 #: src/Admin/SettingsPages/Forms.php:104
-#: src/Admin/SettingsPages/GeneralSettings.php:117
+#: src/Admin/SettingsPages/GeneralSettings.php:119
 #: src/Classes/AjaxHandler.php:58
 msgid "Registration"
 msgstr ""
 
 #: src/Admin/SettingsPages/Forms.php:110
-#: src/Admin/SettingsPages/GeneralSettings.php:263
+#: src/Admin/SettingsPages/GeneralSettings.php:265
 #: src/Classes/AjaxHandler.php:63
 msgid "Password Reset"
 msgstr ""
@@ -1752,288 +1774,288 @@ msgstr ""
 msgid "Add New"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:60
+#: src/Admin/SettingsPages/GeneralSettings.php:62
 msgid "My Account edit profile form (default)"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:64
+#: src/Admin/SettingsPages/GeneralSettings.php:66
 msgid "Global"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:67
+#: src/Admin/SettingsPages/GeneralSettings.php:69
 msgid "Global Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:70
+#: src/Admin/SettingsPages/GeneralSettings.php:72
 msgid "Password-reset Page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:73
+#: src/Admin/SettingsPages/GeneralSettings.php:75
 msgid ""
 "Select the page you wish to make WordPress default \"Lost Password page\". "
 "%3$s This should be the page that contains a %1$spassword reset form "
 "shortcode%2$s."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:78
+#: src/Admin/SettingsPages/GeneralSettings.php:80
 msgid "Login Page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:81
+#: src/Admin/SettingsPages/GeneralSettings.php:83
 msgid ""
 "Select the page you wish to make WordPress default Login page. %3$s This "
 "should be the page that contains a %1$slogin form shortcode%2$s."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:86
-#: src/Admin/SettingsPages/GeneralSettings.php:339
+#: src/Admin/SettingsPages/GeneralSettings.php:88
+#: src/Admin/SettingsPages/GeneralSettings.php:341
 msgid "Registration Page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:89
+#: src/Admin/SettingsPages/GeneralSettings.php:91
 msgid ""
 "Select the page you wish to make WordPress default Registration page. %3$s "
 "This should be the page that contains a %1$sregistration form shortcode%2$s."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:94
+#: src/Admin/SettingsPages/GeneralSettings.php:96
 msgid "My Account Page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:97
+#: src/Admin/SettingsPages/GeneralSettings.php:99
 msgid ""
 "Select a page that contains %3$s shortcode. You can also use an %1$sedit "
 "profile shortcode%2$s on the My Account page in case you want something "
 "custom."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:102
+#: src/Admin/SettingsPages/GeneralSettings.php:104
 msgid "Disable Ajax Mode"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:104
+#: src/Admin/SettingsPages/GeneralSettings.php:106
 msgid "Disable"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:105
+#: src/Admin/SettingsPages/GeneralSettings.php:107
 msgid ""
 "Check this box to disable ajax behaviour(whereby forms do not require page "
 "reload when submitted) in forms."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:110
+#: src/Admin/SettingsPages/GeneralSettings.php:112
 msgid "Remove Data on Uninstall?"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:112
+#: src/Admin/SettingsPages/GeneralSettings.php:114
 msgid ""
 "Check this box if you would like ProfilePress to completely remove all of "
 "its data when the plugin is deleted."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:123
+#: src/Admin/SettingsPages/GeneralSettings.php:125
 msgid "Auto-login after registration"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:124
+#: src/Admin/SettingsPages/GeneralSettings.php:126
 msgid "Enable auto-login"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:126
+#: src/Admin/SettingsPages/GeneralSettings.php:128
 msgid ""
 "Check this option to automatically login users after successful registration."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:138
+#: src/Admin/SettingsPages/GeneralSettings.php:140
 msgid "Email Address and Username (default)"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:139
+#: src/Admin/SettingsPages/GeneralSettings.php:141
 msgid "Email Address Only"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:140
+#: src/Admin/SettingsPages/GeneralSettings.php:142
 msgid "Username Only"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:143
+#: src/Admin/SettingsPages/GeneralSettings.php:145
 msgid "Login with Email or Username"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:144
+#: src/Admin/SettingsPages/GeneralSettings.php:146
 msgid ""
 "By default, WordPress allows users to log in using either an email address "
 "or username. This setting allows you to restrict logins to only accept email "
 "addresses or usernames."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:149
+#: src/Admin/SettingsPages/GeneralSettings.php:151
 #: src/RegisterActivation/Base.php:167
 msgid "My Account"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:150
+#: src/Admin/SettingsPages/GeneralSettings.php:152
 msgid "My Account Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:154
+#: src/Admin/SettingsPages/GeneralSettings.php:156
 msgid "Redirect Default Edit Profile"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:155
+#: src/Admin/SettingsPages/GeneralSettings.php:157
 #: src/ContentProtection/WPListTable.php:93
 #: src/Functions/custom-settings-api.php:1007
 msgid "Activate"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:158
+#: src/Admin/SettingsPages/GeneralSettings.php:160
 msgid ""
 "Redirect <a target=\"_blank\" href=\"%s\">default WordPress profile</a> to "
 "My Account page."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:165
+#: src/Admin/SettingsPages/GeneralSettings.php:167
 msgid "Edit Account Endpoint"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:166
+#: src/Admin/SettingsPages/GeneralSettings.php:168
 msgid "Endpoint for the \"My Account → Account Details\" page."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:171
+#: src/Admin/SettingsPages/GeneralSettings.php:173
 msgid "Change Password Endpoint"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:172
+#: src/Admin/SettingsPages/GeneralSettings.php:174
 msgid "Endpoint for the \"My Account → Change Password\" page."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:177
+#: src/Admin/SettingsPages/GeneralSettings.php:179
 msgid "Account Details Form"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:178
+#: src/Admin/SettingsPages/GeneralSettings.php:180
 msgid ""
 "Do you want to replace the default form in \"My Account → Account Details\" "
 "page? select an Edit Profile form that will replace it."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:182
+#: src/Admin/SettingsPages/GeneralSettings.php:184
 msgid "Frontend Profile"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:183
+#: src/Admin/SettingsPages/GeneralSettings.php:185
 msgid "Frontend Profile Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:187
+#: src/Admin/SettingsPages/GeneralSettings.php:189
 msgid "Page with Profile Shortcode"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:189
+#: src/Admin/SettingsPages/GeneralSettings.php:191
 msgid ""
 "Select the page that contains your <a href=\"%s\">Frontend user profile "
 "shortcode</a>."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:194
+#: src/Admin/SettingsPages/GeneralSettings.php:196
 msgid "Profile Slug"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:195
+#: src/Admin/SettingsPages/GeneralSettings.php:197
 msgid ""
 "Enter your preferred profile URL slug. Default to \"profile\" if empty. If "
 "slug is \"profile\", URL becomes %s where \"john\" is a user's username."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:199
+#: src/Admin/SettingsPages/GeneralSettings.php:201
 msgid "Disable Guests from Viewing Profiles"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:200
+#: src/Admin/SettingsPages/GeneralSettings.php:202
 msgid ""
 "Enable this option to stop disable guests or non-registered users from "
 "viewing users profiles."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:205
+#: src/Admin/SettingsPages/GeneralSettings.php:207
 msgid "Disable Members from Viewing Profiles"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:206
+#: src/Admin/SettingsPages/GeneralSettings.php:208
 msgid ""
 "Enable this option to stop members from viewing other users profiles. If "
 "enabled, users can only see their own profile."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:211
+#: src/Admin/SettingsPages/GeneralSettings.php:213
 msgid "Comment Author URL to Profile"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:212
-#: src/Admin/SettingsPages/GeneralSettings.php:219
+#: src/Admin/SettingsPages/GeneralSettings.php:214
+#: src/Admin/SettingsPages/GeneralSettings.php:221
 msgid "Enable option"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:214
+#: src/Admin/SettingsPages/GeneralSettings.php:216
 msgid "Change URL of comment authors to their ProfilePress front-end profile."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:218
+#: src/Admin/SettingsPages/GeneralSettings.php:220
 msgid "Authors Page to Profile"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:221
+#: src/Admin/SettingsPages/GeneralSettings.php:223
 msgid "Change and redirect authors pages %s to their front-end profiles %s."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:226
+#: src/Admin/SettingsPages/GeneralSettings.php:228
 msgid "Redirection"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:227
+#: src/Admin/SettingsPages/GeneralSettings.php:229
 msgid "Redirection Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:231
-#: src/Widgets/TabbedWidget.php:212
+#: src/Admin/SettingsPages/GeneralSettings.php:233
+#: src/Widgets/TabbedWidget.php:214
 msgid "Log out"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:235
-#: src/Admin/SettingsPages/GeneralSettings.php:250
+#: src/Admin/SettingsPages/GeneralSettings.php:237
+#: src/Admin/SettingsPages/GeneralSettings.php:252
 msgid "Currently viewed page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:239
+#: src/Admin/SettingsPages/GeneralSettings.php:241
 msgid ""
 "Select the page users will be redirected to after logout. To redirect to a "
 "custom URL instead of a selected page, enter the URL in input field directly "
 "above this description."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:240
-#: src/Admin/SettingsPages/GeneralSettings.php:257
-#: src/Admin/SettingsPages/GeneralSettings.php:274
+#: src/Admin/SettingsPages/GeneralSettings.php:242
+#: src/Admin/SettingsPages/GeneralSettings.php:259
+#: src/Admin/SettingsPages/GeneralSettings.php:276
 msgid "Leave the \"custom URL\" field empty to fallback to the selected page."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:251
+#: src/Admin/SettingsPages/GeneralSettings.php:253
 msgid "WordPress Dashboard"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:256
+#: src/Admin/SettingsPages/GeneralSettings.php:258
 msgid ""
 "Select the page or custom URL users will be redirected to after login. To "
 "redirect to a custom URL instead of a selected page, enter the URL in input "
 "field directly above this description"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:268
+#: src/Admin/SettingsPages/GeneralSettings.php:270
 msgid "Default.."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:273
+#: src/Admin/SettingsPages/GeneralSettings.php:275
 msgid ""
 "Select the page or custom URL users will be redirected to after they "
 "successfully reset or change their password. To redirect to a custom URL "
@@ -2041,123 +2063,123 @@ msgid ""
 "description."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:280
+#: src/Admin/SettingsPages/GeneralSettings.php:282
 #: src/ContentProtection/WPListTable.php:30
 msgid "Access"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:281
+#: src/Admin/SettingsPages/GeneralSettings.php:283
 msgid "Access Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:287
+#: src/Admin/SettingsPages/GeneralSettings.php:289
 msgid ""
 "%sNote:%s Access setting takes precedence over %sContent Protection rules%s."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:293
+#: src/Admin/SettingsPages/GeneralSettings.php:295
 msgid "Global Site Access"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:295
+#: src/Admin/SettingsPages/GeneralSettings.php:297
 msgid "Accessible to Everyone"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:296
+#: src/Admin/SettingsPages/GeneralSettings.php:298
 msgid "Accessible to Logged-in Users"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:301
+#: src/Admin/SettingsPages/GeneralSettings.php:303
 msgid "Redirect Page"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:303
+#: src/Admin/SettingsPages/GeneralSettings.php:305
 msgid ""
 "Select the page or custom URL to redirect users that are not logged in to."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:307
+#: src/Admin/SettingsPages/GeneralSettings.php:309
 msgid "Pages to Exclude"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:313
+#: src/Admin/SettingsPages/GeneralSettings.php:315
 msgid ""
 "Select the pages to exclude beside the redirect page that will be accessible "
 "by everyone."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:319
+#: src/Admin/SettingsPages/GeneralSettings.php:321
 msgid "Accessible Homepage"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:320
+#: src/Admin/SettingsPages/GeneralSettings.php:322
 msgid "Check to allow homepage to be accessible by everyone."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:324
+#: src/Admin/SettingsPages/GeneralSettings.php:326
 #: src/ContentProtection/Frontend/PostContent.php:62
 msgid "You are unauthorized to view this page."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:325
+#: src/Admin/SettingsPages/GeneralSettings.php:327
 msgid "Global Restricted Access Message"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:326
+#: src/Admin/SettingsPages/GeneralSettings.php:328
 msgid ""
 "This is the message shown to users that do not have permission to view the "
 "content."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:333
+#: src/Admin/SettingsPages/GeneralSettings.php:335
 msgid "BuddyPress"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:334
+#: src/Admin/SettingsPages/GeneralSettings.php:336
 msgid "BuddyPress Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:340
-#: src/Admin/SettingsPages/GeneralSettings.php:347
-#: src/Admin/SettingsPages/GeneralSettings.php:354
-#: src/Admin/SettingsPages/GeneralSettings.php:370
+#: src/Admin/SettingsPages/GeneralSettings.php:342
+#: src/Admin/SettingsPages/GeneralSettings.php:349
+#: src/Admin/SettingsPages/GeneralSettings.php:356
+#: src/Admin/SettingsPages/GeneralSettings.php:372
 msgid "Check to enable"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:341
+#: src/Admin/SettingsPages/GeneralSettings.php:343
 msgid "Check to redirect BuddyPress registration page to your selected %s"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:345
+#: src/Admin/SettingsPages/GeneralSettings.php:347
 msgid "Override Avatar"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:348
+#: src/Admin/SettingsPages/GeneralSettings.php:350
 msgid ""
 "Check to override BuddyPress users uploaded avatars with that of "
 "ProfilePress."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:353
-#: src/Admin/SettingsPages/GeneralSettings.php:369
+#: src/Admin/SettingsPages/GeneralSettings.php:355
+#: src/Admin/SettingsPages/GeneralSettings.php:371
 msgid "Override Profile URL"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:355
+#: src/Admin/SettingsPages/GeneralSettings.php:357
 msgid ""
 "Check to change the profile URL of BuddyPress users to ProfilePress front-"
 "end profile."
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:363
+#: src/Admin/SettingsPages/GeneralSettings.php:365
 msgid "bbPress"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:364
+#: src/Admin/SettingsPages/GeneralSettings.php:366
 msgid "bbPress Settings"
 msgstr ""
 
-#: src/Admin/SettingsPages/GeneralSettings.php:371
+#: src/Admin/SettingsPages/GeneralSettings.php:373
 msgid "Check to change bbPress profile URL to ProfilePress front-end profile."
 msgstr ""
 
@@ -2760,7 +2782,7 @@ msgid "You must be logged in to preview a form."
 msgstr ""
 
 #: src/Classes/FormRepository.php:166 src/Themes/DragDrop/AbstractTheme.php:124
-#: src/Widgets/TabbedWidget.php:86
+#: src/Widgets/TabbedWidget.php:88
 msgid "Processing"
 msgstr ""
 
@@ -2841,33 +2863,33 @@ msgstr ""
 msgid "Log in"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:211
+#: src/Classes/RegistrationAuth.php:213
 msgid "%s field is required"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:220
+#: src/Classes/RegistrationAuth.php:222
 msgid ""
 "<strong>ERROR</strong>: This username is invalid because it uses illegal "
 "characters. Please enter a valid username."
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:224
+#: src/Classes/RegistrationAuth.php:226
 msgid "Email address is not valid"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:228
+#: src/Classes/RegistrationAuth.php:230
 msgid "Passwords do not match"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:232
+#: src/Classes/RegistrationAuth.php:234
 msgid "Email addresses do not match"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:236
+#: src/Classes/RegistrationAuth.php:238
 msgid "Password is not strong"
 msgstr ""
 
-#: src/Classes/RegistrationAuth.php:402
+#: src/Classes/RegistrationAuth.php:404
 #: src/Themes/DragDrop/AbstractTheme.php:110
 msgid "Registration successful."
 msgstr ""
@@ -3063,10 +3085,6 @@ msgstr ""
 msgid "Protected Contents"
 msgstr ""
 
-#: src/ContentProtection/WPListTable.php:84
-msgid "Edit"
-msgstr ""
-
 #: src/ContentProtection/WPListTable.php:89
 msgid "Deactivate"
 msgstr ""
@@ -3171,59 +3189,59 @@ msgid "Redirect URL"
 msgstr ""
 
 #. translators: %s: User login.
-#: src/Functions/GlobalFunctions.php:794
+#: src/Functions/GlobalFunctions.php:792
 msgid "Username: %s"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:795
+#: src/Functions/GlobalFunctions.php:793
 msgid "To set your password, visit the following address:"
 msgstr ""
 
 #. translators: Login details notification email subject. %s: Site title.
-#: src/Functions/GlobalFunctions.php:803
+#: src/Functions/GlobalFunctions.php:801
 msgid "[%s] Login Details"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1089
+#: src/Functions/GlobalFunctions.php:1099
 msgid ""
 "It must be unique for each field, not a reserve text, in lowercase letters "
 "only with an underscore ( _ ) separating words e.g job_title"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1210
+#: src/Functions/GlobalFunctions.php:1220
 msgid "%s (WooCommerce Billing Address)"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1214
+#: src/Functions/GlobalFunctions.php:1224
 msgid "%s (WooCommerce Shipping Address)"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1256
+#: src/Functions/GlobalFunctions.php:1268
 msgid "First and Last Names"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1257
+#: src/Functions/GlobalFunctions.php:1269
 msgid "Last and First Names"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1265
+#: src/Functions/GlobalFunctions.php:1277
 msgid "Registration Date"
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1382
+#: src/Functions/GlobalFunctions.php:1394
 msgid "There was an problem while verifying your file."
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1387
+#: src/Functions/GlobalFunctions.php:1399
 msgid "Sorry, this file extension is not permitted for security reasons."
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1391
+#: src/Functions/GlobalFunctions.php:1403
 msgid "Sorry, this file type is not permitted for security reasons."
 msgstr ""
 
-#: src/Functions/GlobalFunctions.php:1395
-#: src/Functions/GlobalFunctions.php:1399
+#: src/Functions/GlobalFunctions.php:1407
+#: src/Functions/GlobalFunctions.php:1411
 msgid "Error: The file you uploaded is not accepted on our website."
 msgstr ""
 
@@ -4229,7 +4247,7 @@ msgstr ""
 
 #: src/NavigationMenuLinks/Backend.php:29 src/RegisterActivation/Base.php:155
 #: src/ShortcodeParser/Builder/LoginFormBuilder.php:166
-#: src/Themes/DragDrop/AbstractTheme.php:104 src/Widgets/TabbedWidget.php:87
+#: src/Themes/DragDrop/AbstractTheme.php:104 src/Widgets/TabbedWidget.php:89
 msgid "Log In"
 msgstr ""
 
@@ -4243,7 +4261,7 @@ msgstr ""
 #: src/NavigationMenuLinks/Backend.php:31 src/RegisterActivation/Base.php:159
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:1015
 #: src/ShortcodeParser/Builder/GlobalShortcodes.php:172
-#: src/Widgets/TabbedWidget.php:88
+#: src/Widgets/TabbedWidget.php:90
 msgid "Sign Up"
 msgstr ""
 
@@ -4304,15 +4322,15 @@ msgstr ""
 msgid "Member Directory"
 msgstr ""
 
-#: src/RegisterScripts.php:64 src/RegisterScripts.php:113
+#: src/RegisterScripts.php:72 src/RegisterScripts.php:122
 msgid "Are you sure?"
 msgstr ""
 
-#: src/RegisterScripts.php:65
+#: src/RegisterScripts.php:73
 msgid "Deleting..."
 msgstr ""
 
-#: src/RegisterScripts.php:66
+#: src/RegisterScripts.php:74
 msgid "An error occurred. Please try again."
 msgstr ""
 
@@ -4400,7 +4418,7 @@ msgstr ""
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:814
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:873
 #: src/ShortcodeParser/Builder/FieldsShortcodeCallback.php:922
-#: src/ShortcodeParser/Builder/FrontendProfileBuilder.php:349
+#: src/ShortcodeParser/Builder/FrontendProfileBuilder.php:350
 msgid "Field key is missing"
 msgstr ""
 
@@ -4448,20 +4466,20 @@ msgstr ""
 msgid "You have not made any comment."
 msgstr ""
 
-#: src/ShortcodeParser/Builder/FrontendProfileBuilder.php:648
+#: src/ShortcodeParser/Builder/FrontendProfileBuilder.php:656
 msgid "No post written yet."
 msgstr ""
 
 #: src/ShortcodeParser/Builder/PasswordResetBuilder.php:103
 #: src/ShortcodeParser/Builder/PasswordResetBuilder.php:335
-#: src/Widgets/TabbedWidget.php:89
+#: src/Widgets/TabbedWidget.php:91
 msgid "Get New Password"
 msgstr ""
 
 #: src/ShortcodeParser/EditProfileTag.php:78
-#: src/ShortcodeParser/LoginFormTag.php:63
+#: src/ShortcodeParser/LoginFormTag.php:75
 #: src/ShortcodeParser/PasswordResetTag.php:77
-#: src/ShortcodeParser/RegistrationFormTag.php:67
+#: src/ShortcodeParser/RegistrationFormTag.php:79
 msgid ""
 "Form class not found. Please check if this ProfilePress form actually exist."
 msgstr ""
@@ -4470,7 +4488,7 @@ msgstr ""
 msgid "The password you entered is incorrect."
 msgstr ""
 
-#: src/ShortcodeParser/FormProcessor.php:185
+#: src/ShortcodeParser/FormProcessor.php:183
 msgid "Authentication failed. Please try again"
 msgstr ""
 
@@ -4495,6 +4513,10 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
+#: src/ShortcodeParser/LoginFormTag.php:54
+msgid "You are already logged in."
+msgstr ""
+
 #: src/ShortcodeParser/MemberDirectoryTag.php:46
 msgid "No member directory ID specified."
 msgstr ""
@@ -4505,29 +4527,29 @@ msgid ""
 "ProfilePress."
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:36
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:51
 msgid "Dashboard"
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:41
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:56
 msgid "Account Details"
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:48
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:63
 #: src/ShortcodeParser/MyAccount/change-password.tmpl.php:25
 msgid "Change Password"
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:55
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:70
 msgid "Logout"
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:64
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:79
 #: src/ShortcodeParser/MyAccount/email-notifications.tmpl.php:14
 msgid "Email Notifications"
 msgstr ""
 
-#: src/ShortcodeParser/MyAccount/MyAccountTag.php:484
+#: src/ShortcodeParser/MyAccount/MyAccountTag.php:502
 #: src/ShortcodeParser/MyAccount/edit-profile.tmpl.php:87
 msgid "Cover Image (min. width: 1000px)"
 msgstr ""
@@ -4597,7 +4619,11 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/ShortcodeParser/RegistrationFormTag.php:62
+#: src/ShortcodeParser/RegistrationFormTag.php:51
+msgid "You are already registered."
+msgstr ""
+
+#: src/ShortcodeParser/RegistrationFormTag.php:74
 msgid "Registration is disabled in this site."
 msgstr ""
 
@@ -4685,7 +4711,7 @@ msgid "Lost your password?"
 msgstr ""
 
 #: src/Themes/DragDrop/AbstractBuildScratch.php:179
-#: src/Themes/DragDrop/AbstractTheme.php:109 src/Widgets/TabbedWidget.php:109
+#: src/Themes/DragDrop/AbstractTheme.php:109 src/Widgets/TabbedWidget.php:111
 msgid "Register"
 msgstr ""
 
@@ -5211,7 +5237,7 @@ msgid "See all Posts"
 msgstr ""
 
 #: src/Themes/DragDrop/UserProfile/DefaultTemplate.php:378
-#: src/Widgets/TabbedWidget.php:209
+#: src/Widgets/TabbedWidget.php:211
 msgid "Edit your profile"
 msgstr ""
 
@@ -5299,47 +5325,47 @@ msgstr ""
 msgid "A tabbed login, registration and lost password widget"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:112
+#: src/Widgets/TabbedWidget.php:114
 msgid "Forgot?"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:206 src/Widgets/UserPanel.php:50
+#: src/Widgets/TabbedWidget.php:208 src/Widgets/UserPanel.php:50
 msgid "Welcome %s"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:226
+#: src/Widgets/TabbedWidget.php:228
 msgid "Login / Sign up"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:232
+#: src/Widgets/TabbedWidget.php:234
 msgid "Have an account?"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:238
+#: src/Widgets/TabbedWidget.php:240
 msgid "Don't have an account?"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:244
+#: src/Widgets/TabbedWidget.php:246
 msgid "Forgot Password?"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:467
+#: src/Widgets/TabbedWidget.php:469
 msgid "Login text:"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:472
+#: src/Widgets/TabbedWidget.php:474
 msgid "Registration text:"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:477
+#: src/Widgets/TabbedWidget.php:479
 msgid "Lost-password text:"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:483
+#: src/Widgets/TabbedWidget.php:485
 msgid "Automatically login user after successful registration"
 msgstr ""
 
-#: src/Widgets/TabbedWidget.php:489
+#: src/Widgets/TabbedWidget.php:491
 msgid "Widget CSS:"
 msgstr ""
 
@@ -5393,9 +5419,9 @@ msgstr ""
 msgid "ProfilePress"
 msgstr ""
 
-#. #-#-#-#-#  wp-user-avatar.pot (ProfilePress 3.1.4)  #-#-#-#-#
+#. #-#-#-#-#  wp-user-avatar.pot (ProfilePress 3.1.8)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  wp-user-avatar.pot (ProfilePress 3.1.4)  #-#-#-#-#
+#. #-#-#-#-#  wp-user-avatar.pot (ProfilePress 3.1.8)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://profilepress.net"
 msgstr ""

@@ -196,6 +196,10 @@ class FormList extends \WP_List_Table
             'date'      => esc_html__('Date', 'wp-user-avatar')
         );
 
+        if ( ! class_exists('ProfilePress\Libsodium\Libsodium')) {
+            unset($columns['builder']);
+        }
+
         return $columns;
     }
 
@@ -231,6 +235,7 @@ class FormList extends \WP_List_Table
         $preview_url   = self::preview_url($form_id, $form_type);
 
         $actions = array(
+            'edit'         => sprintf("<a href='%s'>%s</a>", $customize_url, esc_attr__('Edit', 'wp-user-avatar')),
             'delete'       => sprintf("<a class='pp-form-delete' href='%s'>%s</a>", $delete_url, esc_attr__('Delete', 'wp-user-avatar')),
             'clone'        => sprintf("<a href='%s'>%s</a>", $clone_url, esc_attr__('Duplicate', 'wp-user-avatar')),
             // using form prefix cos there is a preview admin class that floats element to the right

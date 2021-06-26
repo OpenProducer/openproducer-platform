@@ -90,9 +90,12 @@ class LoginAuth
 
         $login_redirect = esc_url_raw($redirect);
 
+        $requested_redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : '';
+
+        $login_redirection = apply_filters('login_redirect', $login_redirect, $requested_redirect_to, $user);
+
         /** Setup a custom location of the builder */
-        /**@since > 1.8.2  $user was added */
-        $login_redirection = apply_filters('ppress_login_redirect', $login_redirect, $login_form_id, $user);
+        $login_redirection = apply_filters('ppress_login_redirect', $login_redirection, $login_form_id, $user);
 
         // if ajax, return the url to redirect to
         if (self::is_ajax()) return $login_redirection;

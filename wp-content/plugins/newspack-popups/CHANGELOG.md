@@ -1,3 +1,16 @@
+# [1.34.0](https://github.com/Automattic/newspack-popups/compare/v1.33.0...v1.34.0) (2021-06-15)
+
+
+### Bug Fixes
+
+* prevent prompts in account related posts ([ef56ccc](https://github.com/Automattic/newspack-popups/commit/ef56ccca9925114a914330dab5873ef8bc0c8d06)), closes [#430](https://github.com/Automattic/newspack-popups/issues/430)
+
+
+### Features
+
+* allow shortcodes in prompt content ([#557](https://github.com/Automattic/newspack-popups/issues/557)) ([54b7d5d](https://github.com/Automattic/newspack-popups/commit/54b7d5d263c678f715975b310cac551491ba735b))
+* duplicate a prompt ([#558](https://github.com/Automattic/newspack-popups/issues/558)) ([f9d8131](https://github.com/Automattic/newspack-popups/commit/f9d8131926ff79ef6471c6ba317b04445e3b72b8))
+
 # [1.33.0](https://github.com/Automattic/newspack-popups/compare/v1.32.1...v1.33.0) (2021-05-26)
 
 

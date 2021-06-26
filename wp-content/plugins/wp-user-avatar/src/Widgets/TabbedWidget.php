@@ -21,8 +21,6 @@ class TabbedWidget extends \WP_Widget
             array('width' => 400, 'height' => 350)// Args
         );
 
-        add_action('wp_footer', [$this, 'script']);
-
         add_action('wp', [$this, 'process_form']);
     }
 
@@ -50,6 +48,7 @@ class TabbedWidget extends \WP_Widget
 
     public function script()
     {
+        ob_start();
         ?>
         <script>
             if (typeof jQuery !== 'undefined') {
@@ -77,10 +76,13 @@ class TabbedWidget extends \WP_Widget
             }
         </script>
         <?php
+        echo ppress_minify_js(ob_get_clean());
     }
 
     public function widget($args, $instance)
     {
+        add_action('wp_footer', [$this, 'script']);
+
         $title = apply_filters('widget_title', $instance['title']);
 
         $processing_label         = apply_filters('ppress_tab_widget_processing_label', esc_html__('Processing', 'wp-user-avatar'));

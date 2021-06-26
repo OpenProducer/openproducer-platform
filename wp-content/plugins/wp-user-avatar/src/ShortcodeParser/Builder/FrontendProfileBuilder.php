@@ -339,7 +339,8 @@ class FrontendProfileBuilder
 
         $atts = shortcode_atts(
             array(
-                'key' => '',
+                'key'     => '',
+                'default' => '',
             ),
             $atts
         );
@@ -356,6 +357,10 @@ class FrontendProfileBuilder
                     return ! empty($val);
                 })
             );
+        }
+
+        if (empty($data) && ! ppress_is_boolean($data) && ! empty($atts['default'])) {
+            $data = $atts['default'];
         }
 
         return apply_filters('ppress_profile_cpf', $data, self::$user_data);
@@ -409,7 +414,8 @@ class FrontendProfileBuilder
     {
         $atts = shortcode_atts(
             array(
-                'field' => '',
+                'field'   => '',
+                'default' => ''
             ),
             $atts
         );
@@ -443,6 +449,8 @@ class FrontendProfileBuilder
         if ( ! empty($key) && ! empty(self::$user_data->$key)) {
             return do_shortcode($content);
         }
+
+        return ppress_var($atts, 'default', '', true);
     }
 
     /**

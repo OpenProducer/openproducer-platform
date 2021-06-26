@@ -594,23 +594,34 @@ HTML;
         $signup_label          = $this->get_meta('buildscratch_signup_label');
         $login_label           = $this->get_meta('buildscratch_login_label');
 
-        $login_form_link = <<<HTML
+        $login_form_link = $password_reset_form_link = $signup_form_link = '';
+
+        if ( ! empty($forgot_password_label) || ! empty($signup_label)) {
+
+            $login_form_pipe = ! empty($forgot_password_label) && ! empty($signup_label) ? ' | ' : '';
+
+            $login_form_link = <<<HTML
 <div class="ppress-form-bottom-links">
-    <a href="$forgot_password_link">$forgot_password_label</a> | <a href="$signup_link">$signup_label</a>
+    <a href="$signup_link">$signup_label</a>$login_form_pipe<a href="$forgot_password_link">$forgot_password_label</a>
 </div>
 HTML;
+        }
 
-        $signup_form_link = <<<HTML
+        if ( ! empty($login_label)) {
+            $signup_form_link = <<<HTML
 <div class="ppress-form-bottom-links">
     <a href="$login_link">$login_label</a>
 </div>
 HTML;
+        }
 
-        $password_reset_form_link = <<<HTML
+        if ( ! empty($login_label)) {
+            $password_reset_form_link = <<<HTML
 <div class="ppress-form-bottom-links">
     <a href="$login_link">$login_label</a>
 </div>
 HTML;
+        }
 
         if ($this->form_type == FR::LOGIN_TYPE) return $login_form_link;
         if ($this->form_type == FR::REGISTRATION_TYPE) return $signup_form_link;

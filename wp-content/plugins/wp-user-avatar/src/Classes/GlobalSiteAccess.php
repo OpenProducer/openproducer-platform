@@ -10,6 +10,20 @@ class GlobalSiteAccess
         add_action('wp', array(__CLASS__, 'global_redirect'), -1);
     }
 
+
+    /**
+     * Exclude the redirect URL.
+     * strtok() remove all query strings and trailing slash. @see https://stackoverflow.com/a/6975045/2648410
+     *
+     * @param $val
+     *
+     * @return string
+     */
+    public static function remove_query_string_trailing_slash($val)
+    {
+        return untrailingslashit(strtok($val, '?'));
+    }
+
     public static function global_redirect()
     {
         if (is_admin()) return;
@@ -49,11 +63,7 @@ class GlobalSiteAccess
         // skip all wp-login urls.
         if (strpos($current_url, 'wp-login.php') !== false) return;
 
-        /**
-         * Exclude the redirect URL.
-         * strtok() remove all query strings and trailing slash. @see https://stackoverflow.com/a/6975045/2648410
-         */
-        if (strpos($current_url, untrailingslashit(strtok($redirect_url, '?'))) !== false) return;
+        if (self::remove_query_string_trailing_slash($current_url) == self::remove_query_string_trailing_slash($redirect_url)) return;
 
         if ($allow_homepage == 'yes' && is_front_page()) return;
 

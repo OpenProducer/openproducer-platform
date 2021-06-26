@@ -1,11 +1,9 @@
 <?php
-/** List of ProfilePress global helper functions */
 
 use ProfilePress\Core\Admin\SettingsPages\MailOptin;
 use ProfilePress\Core\Base;
 use ProfilePress\Core\Classes\ExtensionManager as EM;
 use ProfilePress\Core\Classes\FormRepository as FR;
-use ProfilePress\Core\Classes\PPRESS_Session;
 use ProfilePress\Core\Classes\PROFILEPRESS_sql as PROFILEPRESS_sql;
 use ProfilePress\Core\Classes\SendEmail;
 
@@ -958,6 +956,18 @@ function ppress_minify_css($buffer)
     return $buffer;
 }
 
+function ppress_minify_js($code)
+{
+    // make it into one long line
+    $code = str_replace(array("\n", "\r"), '', $code);
+    // replace all multiple spaces by one space
+    $code = preg_replace('!\s+!', ' ', $code);
+    // replace some unneeded spaces, modify as needed
+    $code = str_replace(array(' {', ' }', '{ ', '; '), array('{', '}', '{', ';'), $code);
+
+    return $code;
+}
+
 function ppress_get_ip_address()
 {
     $ip = '127.0.0.1';
@@ -1226,19 +1236,21 @@ function ppress_custom_fields_key_value_pair($remove_default = false)
         $defined_custom_fields[''] = esc_html__('Select...', 'wp-user-avatar');
     }
 
-    $db_custom_fields = PROFILEPRESS_sql::get_profile_custom_fields();
-    $db_contact_infos = PROFILEPRESS_sql::get_contact_info_fields();
+    if (EM::is_premium()) {
+        $db_custom_fields = PROFILEPRESS_sql::get_profile_custom_fields();
+        $db_contact_infos = PROFILEPRESS_sql::get_contact_info_fields();
 
-    if ( ! empty($db_contact_infos)) {
-        foreach ($db_contact_infos as $key => $value) {
-            $defined_custom_fields[$key] = $value;
+        if ( ! empty($db_contact_infos)) {
+            foreach ($db_contact_infos as $key => $value) {
+                $defined_custom_fields[$key] = $value;
+            }
         }
-    }
 
-    if ( ! empty($db_custom_fields)) {
-        foreach ($db_custom_fields as $db_custom_field) {
-            $field_key                         = $db_custom_field['field_key'];
-            $defined_custom_fields[$field_key] = ppress_woocommerce_field_transform($field_key, $db_custom_field['label_name']);
+        if ( ! empty($db_custom_fields)) {
+            foreach ($db_custom_fields as $db_custom_field) {
+                $field_key                         = $db_custom_field['field_key'];
+                $defined_custom_fields[$field_key] = ppress_woocommerce_field_transform($field_key, $db_custom_field['label_name']);
+            }
         }
     }
 
@@ -1400,4 +1412,32 @@ function ppress_check_type_and_ext($file, $accepted_mime_types = [], $accepted_f
     }
 
     return true;
+}
+
+function ppress_decode_html_strip_tags($val)
+{
+    return strip_tags(html_entity_decode($val));
+}
+
+function ppress_content_http_redirect($myURL)
+{
+    ?>
+    <script type="text/javascript">
+        window.location.href = "<?php echo $myURL;?>"
+    </script>
+    <meta http-equiv="refresh" content="0; url=<?php echo $myURL; ?>">
+    Please wait while you are redirected...or
+    <a href="<?php echo $myURL; ?>">Click Here</a> if you do not want to wait.
+    <?php
+}
+
+function ppress_shortcode_exist_in_post($shortcode)
+{
+    global $post;
+
+    if (isset($post->post_content) && has_shortcode($post->post_content, $shortcode)) {
+        return true;
+    }
+
+    return false;
 }

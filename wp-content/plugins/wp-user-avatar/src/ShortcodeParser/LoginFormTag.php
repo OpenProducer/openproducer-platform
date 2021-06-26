@@ -41,11 +41,23 @@ class LoginFormTag extends FormProcessor
         $container_div_start = sprintf('<div id="pp-login-%s-wrap" class="pp-form-container pp-login-form-wrap">', $id);
         $container_div_end   = '</div>';
 
-        return apply_filters(
+        $login_form = apply_filters(
             'ppress_login_form',
             $attribution_start . $css . $container_div_start . $login_error . $this->get_login_structure($id, $atts['redirect']) . $container_div_end . $attribution_end,
             $id
         );
+
+        if ( ! isset($_GET['pp_preview_form']) && is_user_logged_in()) {
+
+            return apply_filters(
+                'ppress_login_form_already_loggedin_message',
+                wpautop(esc_html__('You are already logged in.', 'wp-user-avatar')),
+                $login_form,
+                $id
+            );
+        }
+
+        return $login_form;
     }
 
     /**

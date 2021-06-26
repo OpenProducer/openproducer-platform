@@ -5,7 +5,7 @@ Tags: user registration, user profile, registration form, membership, login form
 Requires at least: 4.7
 Requires PHP: 5.6
 Tested up to: 5.7
-Stable tag: 3.1.4
+Stable tag: 3.1.8
 License: GPLv2 or later
 
 Modern membership plugin for user registration, login form, user profile, member directories & content restriction.
@@ -109,40 +109,28 @@ No. You can create and manage your forms, user profiles and member directories w
 3. User Registration Form
 4. Custom Login Form
 5. Drag and Drop Form builder
-7. Email Customizer and Settings
-8. My Account Page
-9. Content Protection
-10. WP User Avatar and Cover Image Settings
-11. Admin Bar and Dashboard Access
-
+6. Email Customizer and Settings
+7. My Account Page
+8. Content Protection
+9. WP User Avatar and Cover Image Settings
+10. Admin Bar and Dashboard Access
 
 == Changelog ==
 
-= 3.1.4 =
-* Security fix: Ensures only valid custom user meta are updated.
-* Security fix: validate files and images correctly before they are uploaded.
-* Fix: Avatar upload now respects resize settings when using frontend forms.
-* Fix: Added link to uploaded file when file custom field is displayed.
-* Enhancement: when a user profile doesn't exist, redirect to homepage.
-* Enhancement: Remember login by default.
+= 3.1.8 =
+* Fixed issue with global site access not correctly working.
+* Added success color to registration form notice.
+* Fixed bug admin bar control wasn't working.
+* Fixed bug where specifying custom roles for registration forms didn't work.
+* Improved sanitization and escaping of data in settings pages.
+* Auto paragraphed form custom messages.
 
-= 3.1.3 =
-* Fixed edge cases where post content was overridden.
-* Fixed bug where buddypress avatar override wasn't working.
-* Removed the shortcode builder due to wp.org no longer accepting code inserters.
-
-= 3.1.2 =
-* Fixed issue where registration with username requirement disabled wasn't working.
-* Fixed fatal error caused during user registration.
-
-= 3.1.1 =
-* Scoped all admin CSS to reduce conflict with other plugin admin pages.
-* Fixed incompatibility with Max Mega Menu plugin.
-* Fixed PHP 8 Fatal error: Uncaught ValueError: Unknown format specifier.
-
-= 3.1 =
-* Fixed bug where disabling admin new user notifications wasn’t working.
-* Fixed fatar error: Cannot use ProfilePress\Core\Base as Base because the name is already in use.
-* Fixed issue where myaccount js was shown on all pages.
+= 3.1.7 =
+* Enhancement: JS scripts are now conditionally loaded.
+* Fixed display issue in perfecto lite themes.
+* Added custom message when logged in users view a login and signup page.
+* Added compatibility with peters login redirect.
+* Fixed incorrect avatar size retrieval.
+* Fixed Warning: array_reduce() expects parameter 1 to be array, null given.
 
 See the [changelog file](https://plugins.svn.wordpress.org/wp-user-avatar/trunk/changelog.txt) for full change log information.

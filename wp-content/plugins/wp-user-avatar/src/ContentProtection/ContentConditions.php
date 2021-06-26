@@ -416,22 +416,30 @@ class ContentConditions
 
     public function postselect_field($name_attr, $savedValue = [])
     {
-        $options = array_reduce($savedValue, function ($carry, $post_id) {
-            $carry[$post_id] = get_the_title($post_id);
+        $options = [];
 
-            return $carry;
-        }, []);
+        if (is_array($savedValue)) {
+            $options = array_reduce($savedValue, function ($carry, $post_id) {
+                $carry[$post_id] = get_the_title($post_id);
+
+                return $carry;
+            }, []);
+        }
 
         $this->select_field($name_attr, ['selected' => $savedValue, 'options' => $options]);
     }
 
     public function taxonomyselect_field($name_attr, $savedValue)
     {
-        $options = array_reduce($savedValue, function ($carry, $term_id) {
-            $carry[$term_id] = get_term($term_id)->name;
+        $options = [];
 
-            return $carry;
-        }, []);
+        if (is_array($savedValue)) {
+            $options = array_reduce($savedValue, function ($carry, $term_id) {
+                $carry[$term_id] = get_term($term_id)->name;
+
+                return $carry;
+            }, []);
+        }
 
         $this->select_field($name_attr, ['selected' => $savedValue, 'options' => $options]);
     }

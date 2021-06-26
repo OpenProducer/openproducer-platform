@@ -105,84 +105,84 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _bab
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("function _defineProperty(obj, key, value) {\n  if (key in obj) {\n    Object.defineProperty(obj, key, {\n      value: value,\n      enumerable: true,\n      configurable: true,\n      writable: true\n    });\n  } else {\n    obj[key] = value;\n  }\n\n  return obj;\n}\n\nmodule.exports = _defineProperty;\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/defineProperty.js?");
+eval("function _defineProperty(obj, key, value) {\n  if (key in obj) {\n    Object.defineProperty(obj, key, {\n      value: value,\n      enumerable: true,\n      configurable: true,\n      writable: true\n    });\n  } else {\n    obj[key] = value;\n  }\n\n  return obj;\n}\n\nmodule.exports = _defineProperty;\nmodule.exports[\"default\"] = module.exports, module.exports.__esModule = true;\n\n//# sourceURL=webpack:///./node_modules/@babel/runtime/helpers/defineProperty.js?");
 
 /***/ }),
 
 /***/ "@wordpress/components":
-/*!*********************************************!*\
-  !*** external {"this":["wp","components"]} ***!
-  \*********************************************/
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"components\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22components%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"components\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22components%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/compose":
-/*!******************************************!*\
-  !*** external {"this":["wp","compose"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"compose\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22compose%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"compose\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22compose%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/data":
-/*!***************************************!*\
-  !*** external {"this":["wp","data"]} ***!
-  \***************************************/
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"data\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22data%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"data\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22data%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/edit-post":
-/*!*******************************************!*\
-  !*** external {"this":["wp","editPost"]} ***!
-  \*******************************************/
+/*!**********************************!*\
+  !*** external ["wp","editPost"] ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"editPost\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22editPost%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"editPost\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22editPost%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/element":
-/*!******************************************!*\
-  !*** external {"this":["wp","element"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"element\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22element%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"element\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22element%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/i18n":
-/*!***************************************!*\
-  !*** external {"this":["wp","i18n"]} ***!
-  \***************************************/
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"i18n\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22i18n%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"i18n\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22i18n%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/plugins":
-/*!******************************************!*\
-  !*** external {"this":["wp","plugins"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","plugins"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"plugins\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22plugins%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"plugins\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22plugins%22%5D?");
 
 /***/ })
 

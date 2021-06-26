@@ -116,106 +116,95 @@ eval("var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!\n  Cop
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ \"./node_modules/@babel/runtime/helpers/extends.js\");\n/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ \"@wordpress/element\");\n/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ \"./node_modules/classnames/index.js\");\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ \"@wordpress/i18n\");\n/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ \"@wordpress/data\");\n/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ \"@wordpress/compose\");\n/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/edit-post */ \"@wordpress/edit-post\");\n/* harmony import */ var _wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/plugins */ \"@wordpress/plugins\");\n/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__);\n/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ \"@wordpress/components\");\n/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);\n/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/date */ \"@wordpress/date\");\n/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__);\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./style.scss */ \"./src/ads-admin/editor/style.scss\");\n/* harmony import */ var _style_scss__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(_style_scss__WEBPACK_IMPORTED_MODULE_10__);\n\n\n\n/**\n * External dependencies\n */\n\n/**\n * WordPress dependencies\n */\n\n\n\n\n\n\n\n\n\n/**\n * Internal dependencies\n */\n\n\n\nvar AdEdit = function AdEdit(_ref) {\n  var expiryDate = _ref.expiryDate,\n      positionInContent = _ref.positionInContent,\n      editPost = _ref.editPost;\n  var noticeProps;\n\n  if (expiryDate) {\n    var formattedExpiryDate = Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__[\"format\"])('M j Y', expiryDate);\n    var isExpiryInTheFuture = Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__[\"isInTheFuture\"])(expiryDate);\n    noticeProps = {\n      children: isExpiryInTheFuture ? \"\".concat(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('This ad will expire on ', 'newspack-newsletters'), \" \").concat(formattedExpiryDate, \".\") : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('The expiration date is set in the past. This ad will not be displayed.', 'newspack-newsletters'),\n      status: isExpiryInTheFuture ? 'info' : 'warning'\n    };\n  }\n\n  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"Fragment\"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__[\"PluginDocumentSettingPanel\"], {\n    name: \"newsletters-ads-settings-panel\",\n    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Ad settings', 'newspack-newsletters')\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"RangeControl\"], {\n    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Approximate position (in percent)'),\n    value: positionInContent,\n    onChange: function onChange(position_in_content) {\n      return editPost({\n        meta: {\n          position_in_content: position_in_content\n        }\n      });\n    },\n    min: 0,\n    max: 100\n  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"BaseControl\"], {\n    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('newspack-newsletters__date-picker', {\n      'newspack-newsletters__date-picker--has-no-date': !expiryDate\n    }),\n    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Expiration Date', 'newspack-newsletters')\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"DatePicker\"], {\n    currentDate: expiryDate,\n    onChange: function onChange(expiry_date) {\n      return editPost({\n        meta: {\n          expiry_date: expiry_date\n        }\n      });\n    }\n  }), expiryDate ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(\"div\", {\n    style: {\n      textAlign: 'center'\n    }\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"Button\"], {\n    isSecondary: true,\n    isLink: true,\n    isDestructive: true,\n    onClick: function onClick() {\n      return editPost({\n        meta: {\n          expiry_date: null\n        }\n      });\n    }\n  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Remove expiry date', 'newspack-newsletters'))) : null)), noticeProps ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__[\"PluginPrePublishPanel\"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"Notice\"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({\n    isDismissible: false\n  }, noticeProps))) : null);\n};\n\nvar AdEditWithSelect = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__[\"compose\"])([Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__[\"withSelect\"])(function (select) {\n  var _select = select('core/editor'),\n      getEditedPostAttribute = _select.getEditedPostAttribute;\n\n  var meta = getEditedPostAttribute('meta');\n  return {\n    expiryDate: meta.expiry_date,\n    positionInContent: meta.position_in_content\n  };\n}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__[\"withDispatch\"])(function (dispatch) {\n  var _dispatch = dispatch('core/editor'),\n      editPost = _dispatch.editPost;\n\n  return {\n    editPost: editPost\n  };\n})])(AdEdit);\nObject(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__[\"registerPlugin\"])('newspack-newsletters-sidebar', {\n  render: AdEditWithSelect,\n  icon: null\n});\n\n//# sourceURL=webpack:///./src/ads-admin/editor/index.js?");
-
-/***/ }),
-
-/***/ "./src/ads-admin/editor/style.scss":
-/*!*****************************************!*\
-  !*** ./src/ads-admin/editor/style.scss ***!
-  \*****************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/ads-admin/editor/style.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/extends */ \"./node_modules/@babel/runtime/helpers/extends.js\");\n/* harmony import */ var _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/element */ \"@wordpress/element\");\n/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ \"./node_modules/classnames/index.js\");\n/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ \"@wordpress/i18n\");\n/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);\n/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ \"@wordpress/data\");\n/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);\n/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/compose */ \"@wordpress/compose\");\n/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__);\n/* harmony import */ var _wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/edit-post */ \"@wordpress/edit-post\");\n/* harmony import */ var _wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__);\n/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/plugins */ \"@wordpress/plugins\");\n/* harmony import */ var _wordpress_plugins__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__);\n/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ \"@wordpress/components\");\n/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__);\n/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/date */ \"@wordpress/date\");\n/* harmony import */ var _wordpress_date__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__);\n\n\n\n/**\n * External dependencies\n */\n\n/**\n * WordPress dependencies\n */\n\n\n\n\n\n\n\n\n\n\nvar AdEdit = function AdEdit(_ref) {\n  var expiryDate = _ref.expiryDate,\n      positionInContent = _ref.positionInContent,\n      editPost = _ref.editPost;\n  var noticeProps;\n\n  if (expiryDate) {\n    var formattedExpiryDate = Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__[\"format\"])('M j Y', expiryDate);\n    var isExpiryInTheFuture = Object(_wordpress_date__WEBPACK_IMPORTED_MODULE_9__[\"isInTheFuture\"])(expiryDate);\n    noticeProps = {\n      children: isExpiryInTheFuture ? \"\".concat(Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('This ad will expire on ', 'newspack-newsletters'), \" \").concat(formattedExpiryDate, \".\") : Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('The expiration date is set in the past. This ad will not be displayed.', 'newspack-newsletters'),\n      status: isExpiryInTheFuture ? 'info' : 'warning'\n    };\n  }\n\n  return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"Fragment\"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__[\"PluginDocumentSettingPanel\"], {\n    name: \"newsletters-ads-settings-panel\",\n    title: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Ad settings', 'newspack-newsletters')\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"RangeControl\"], {\n    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Approximate position (in percent)'),\n    value: positionInContent,\n    onChange: function onChange(position_in_content) {\n      return editPost({\n        meta: {\n          position_in_content: position_in_content\n        }\n      });\n    },\n    min: 0,\n    max: 100\n  }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"BaseControl\"], {\n    className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('newspack-newsletters__date-picker', {\n      'newspack-newsletters__date-picker--has-no-date': !expiryDate\n    }),\n    label: Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Expiration Date', 'newspack-newsletters')\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"DatePicker\"], {\n    currentDate: expiryDate,\n    onChange: function onChange(expiry_date) {\n      return editPost({\n        meta: {\n          expiry_date: expiry_date\n        }\n      });\n    }\n  }), expiryDate ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(\"div\", {\n    style: {\n      textAlign: 'center'\n    }\n  }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"Button\"], {\n    isSecondary: true,\n    isLink: true,\n    isDestructive: true,\n    onClick: function onClick() {\n      return editPost({\n        meta: {\n          expiry_date: null\n        }\n      });\n    }\n  }, Object(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__[\"__\"])('Remove expiry date', 'newspack-newsletters'))) : null)), noticeProps ? Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_edit_post__WEBPACK_IMPORTED_MODULE_6__[\"PluginPrePublishPanel\"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_1__[\"createElement\"])(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__[\"Notice\"], _babel_runtime_helpers_extends__WEBPACK_IMPORTED_MODULE_0___default()({\n    isDismissible: false\n  }, noticeProps))) : null);\n};\n\nvar AdEditWithSelect = Object(_wordpress_compose__WEBPACK_IMPORTED_MODULE_5__[\"compose\"])([Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__[\"withSelect\"])(function (select) {\n  var _select = select('core/editor'),\n      getEditedPostAttribute = _select.getEditedPostAttribute;\n\n  var meta = getEditedPostAttribute('meta');\n  return {\n    expiryDate: meta.expiry_date,\n    positionInContent: meta.position_in_content\n  };\n}), Object(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__[\"withDispatch\"])(function (dispatch) {\n  var _dispatch = dispatch('core/editor'),\n      editPost = _dispatch.editPost;\n\n  return {\n    editPost: editPost\n  };\n})])(AdEdit);\nObject(_wordpress_plugins__WEBPACK_IMPORTED_MODULE_7__[\"registerPlugin\"])('newspack-newsletters-sidebar', {\n  render: AdEditWithSelect,\n  icon: null\n});\n\n//# sourceURL=webpack:///./src/ads-admin/editor/index.js?");
 
 /***/ }),
 
 /***/ "@wordpress/components":
-/*!*********************************************!*\
-  !*** external {"this":["wp","components"]} ***!
-  \*********************************************/
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"components\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22components%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"components\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22components%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/compose":
-/*!******************************************!*\
-  !*** external {"this":["wp","compose"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","compose"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"compose\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22compose%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"compose\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22compose%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/data":
-/*!***************************************!*\
-  !*** external {"this":["wp","data"]} ***!
-  \***************************************/
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"data\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22data%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"data\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22data%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/date":
-/*!***************************************!*\
-  !*** external {"this":["wp","date"]} ***!
-  \***************************************/
+/*!******************************!*\
+  !*** external ["wp","date"] ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"date\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22date%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"date\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22date%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/edit-post":
-/*!*******************************************!*\
-  !*** external {"this":["wp","editPost"]} ***!
-  \*******************************************/
+/*!**********************************!*\
+  !*** external ["wp","editPost"] ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"editPost\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22editPost%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"editPost\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22editPost%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/element":
-/*!******************************************!*\
-  !*** external {"this":["wp","element"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"element\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22element%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"element\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22element%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/i18n":
-/*!***************************************!*\
-  !*** external {"this":["wp","i18n"]} ***!
-  \***************************************/
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"i18n\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22i18n%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"i18n\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22i18n%22%5D?");
 
 /***/ }),
 
 /***/ "@wordpress/plugins":
-/*!******************************************!*\
-  !*** external {"this":["wp","plugins"]} ***!
-  \******************************************/
+/*!*********************************!*\
+  !*** external ["wp","plugins"] ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("(function() { module.exports = this[\"wp\"][\"plugins\"]; }());\n\n//# sourceURL=webpack:///external_%7B%22this%22:%5B%22wp%22,%22plugins%22%5D%7D?");
+eval("(function() { module.exports = window[\"wp\"][\"plugins\"]; }());\n\n//# sourceURL=webpack:///external_%5B%22wp%22,%22plugins%22%5D?");
 
 /***/ })
 

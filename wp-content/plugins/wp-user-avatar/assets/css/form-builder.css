@@ -480,6 +480,8 @@ ol.pp-form-builder-field-type li .button {
     width: 100%;
     padding-right: 5px;
     text-align: center;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .pp-form-builder-body {

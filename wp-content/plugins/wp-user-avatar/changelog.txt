@@ -1,4 +1,35 @@
-﻿= 3.1.4 =
+﻿= 3.1.8 =
+* Fixed issue with global site access not correctly working.
+* Added success color to registration form notice.
+* Fixed bug admin bar control wasn't working.
+* Fixed bug where specifying custom roles for registration forms didn't work.
+* Improved sanitization and escaping of data in settings pages.
+* Auto paragraphed form custom messages.
+
+= 3.1.7 =
+* Enhancement: JS scripts are now conditionally loaded.
+* Fixed display issue in perfecto lite themes.
+* Added custom message when logged in users view a login and signup page.
+* Added compatibility with peters login redirect.
+* Fixed incorrect avatar size retrieval.
+* Fixed Warning: array_reduce() expects parameter 1 to be array, null given.
+
+= 3.1.6 =
+* Fixed issue where name exist check prevented the form builder from saving.
+
+= 3.1.5 =
+* Added form shortcode copying to form builder
+* Improvement: Only load tab js when needed.
+* Fixed issue where gravatar wasn’t shown for users with avatar.
+* Fixed detected builder styling issues.
+* Added default attribute to profile cpf shortcode.
+* Added edit to form action links.
+* Added filter to disable tinymce shortcode modal in post editor.
+* Added notice when avatar display is disabled.
+* Redirect myaccount page to login page when user not logged in.
+* Switch shortcode redirection to html/js redirect method.
+
+= 3.1.4 =
 * Security fix: Ensures only valid custom user meta are updated.
 * Security fix: validate files and images correctly before they are uploaded.
 * Fix: Avatar upload now respects resize settings when using frontend forms.

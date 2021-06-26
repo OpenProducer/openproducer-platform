@@ -67,6 +67,21 @@ final class Newspack_Popups_API {
 				],
 			]
 		);
+
+		\register_rest_route(
+			'newspack-popups/v1',
+			'/(?P<id>\d+)/duplicate',
+			[
+				'methods'             => \WP_REST_Server::EDITABLE,
+				'callback'            => [ $this, 'api_duplicate_popup' ],
+				'permission_callback' => [ $this, 'permission_callback' ],
+				'args'                => [
+					'id' => [
+						'sanitize_callback' => 'absint',
+					],
+				],
+			]
+		);
 	}
 
 	/**
@@ -173,6 +188,18 @@ final class Newspack_Popups_API {
 		}
 
 		return new \WP_REST_Response( [] );
+	}
+
+
+	/**
+	 * Duplicate a prompt.
+	 *
+	 * @param WP_REST_Request $request Full details about the request.
+	 * @return WP_REST_Response with complete info to render the Engagement Wizard.
+	 */
+	public function api_duplicate_popup( $request ) {
+		$response = Newspack_Popups::duplicate_popup( $request['id'] );
+		return rest_ensure_response( $response );
 	}
 }
 $newspack_popups_api = new Newspack_Popups_API();

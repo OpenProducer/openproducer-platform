@@ -271,6 +271,19 @@ final class Newspack_Popups {
 			]
 		);
 
+		\register_meta(
+			'post',
+			'duplicate_of',
+			[
+				'object_subtype' => self::NEWSPACK_POPUPS_CPT,
+				'show_in_rest'   => true,
+				'type'           => 'integer',
+				'default'        => 0,
+				'single'         => true,
+				'auth_callback'  => '__return_true',
+			]
+		);
+
 		// Meta field for all post types.
 		\register_meta(
 			'post',
@@ -605,6 +618,15 @@ final class Newspack_Popups {
 	}
 
 	/**
+	 * Is the post related to the user account.
+	 * 
+	 * @param WP_Post $post The prompt post object.
+	 */
+	public static function is_account_related_post( $post ) {
+		return has_shortcode( $post->post_content, 'woocommerce_my_account' );
+	}
+
+	/**
 	 * Create campaign.
 	 *
 	 * @param string $name New campaign name.
@@ -724,6 +746,84 @@ final class Newspack_Popups {
 			)
 		);
 		return $groups;
+	}
+
+	/**
+	 * Get a default title for duplicated prompts.
+	 *
+	 * @param int $old_id The ID of the prompt being duplicated.
+	 * @return string The title for the duplicated prompt.
+	 */
+	public static function get_duplicate_title( $old_id ) {
+		/* translators: %s: Duplicate prompt title */
+		$duplicate_title  = sprintf( __( '%s copy', 'newspack-popups' ), get_the_title( $old_id ) );
+		$duplicated_posts = new \WP_Query(
+			[
+				'fields'      => 'ids',
+				'post_status' => [ 'publish', 'draft', 'pending', 'future' ],
+				'post_type'   => self::NEWSPACK_POPUPS_CPT,
+				'meta_key'    => 'duplicate_of', // phpcs:disable WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'meta_value'  => $old_id,
+			]
+		);
+
+		$duplicate_count = $duplicated_posts->found_posts;
+
+		// Append iterator to title if there are already copies.
+		if ( 0 < $duplicate_count ) {
+			$duplicate_title .= ' ' . strval( $duplicate_count + 1 );
+		}
+
+		return $duplicate_title;
+	}
+
+	/**
+	 * Duplicate a prompt. Duplicates are created with all the same content and options
+	 * as the source prompt, but are always set to draft status at first.
+	 *
+	 * @param int $id Prompt ID.
+	 * @return int|boolean|WP_Error The copy's post ID, false if the ID to copy isn't a valid prompt, or WP_Error if the operation failed.
+	 */
+	public static function duplicate_popup( $id ) {
+		$old_popup    = get_post( $id );
+		$new_popup_id = false;
+
+		if ( is_a( $old_popup, 'WP_Post' ) && self::NEWSPACK_POPUPS_CPT === $old_popup->post_type ) {
+			$duplicate_of = get_post_meta( $id, 'duplicate_of', true );
+			$original_id  = 0 < $duplicate_of ? $duplicate_of : $id; // If the post we're duplicating is itself a copy, inherit the 'duplicate_of' value. Otherwise, set the value to the post we're duplicating.
+			$new_popup    = [
+				'post_type'     => self::NEWSPACK_POPUPS_CPT,
+				'post_status'   => 'draft',
+				'post_title'    => self::get_duplicate_title( $original_id ),
+				'post_author'   => $old_popup->post_author,
+				'post_content'  => $old_popup->post_content,
+				'post_excerpt'  => $old_popup->post_excerpt,
+				'post_category' => wp_get_post_categories( $id, [ 'fields' => 'ids' ] ),
+				'tags_input'    => wp_get_post_tags( $id, [ 'fields' => 'ids' ] ),
+				'meta_input'    => [
+					'duplicate_of' => $original_id,
+				],
+			];
+
+			// Create the copy.
+			$new_popup_id = wp_insert_post( $new_popup );
+
+			// Apply campaign taxonomy.
+			$old_campaigns = wp_get_post_terms(
+				$id,
+				self::NEWSPACK_POPUPS_TAXONOMY,
+				[ 'fields' => 'ids' ]
+			);
+			wp_set_post_terms( $new_popup_id, $old_campaigns, self::NEWSPACK_POPUPS_TAXONOMY );
+
+			// Set prompt options to match old prompt.
+			$old_popup_options = Newspack_Popups_Model::get_popup_options( $id );
+			foreach ( $old_popup_options as $key => $value ) {
+				update_post_meta( $new_popup_id, $key, $value );
+			}
+		}
+
+		return $new_popup_id;
 	}
 }
 Newspack_Popups::instance();

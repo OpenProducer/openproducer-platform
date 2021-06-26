@@ -1,1 +1,299 @@
-window.wp=window.wp||{},window.wp.primitives=function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=428)}({0:function(e,t){e.exports=window.wp.element},10:function(e,t,n){var r;!function(){"use strict";var n={}.hasOwnProperty;function o(){for(var e=[],t=0;t<arguments.length;t++){var r=arguments[t];if(r){var i=typeof r;if("string"===i||"number"===i)e.push(r);else if(Array.isArray(r))e.push(o.apply(null,r));else if("object"===i)for(var u in r)n.call(r,u)&&r[u]&&e.push(u)}}return e.join(" ")}e.exports?e.exports=o:void 0===(r=function(){return o}.apply(t,[]))||(e.exports=r)}()},428:function(e,t,n){"use strict";n.r(t),n.d(t,"Circle",(function(){return u})),n.d(t,"G",(function(){return c})),n.d(t,"Path",(function(){return a})),n.d(t,"Polygon",(function(){return l})),n.d(t,"Rect",(function(){return f})),n.d(t,"Defs",(function(){return d})),n.d(t,"RadialGradient",(function(){return s})),n.d(t,"LinearGradient",(function(){return p})),n.d(t,"Stop",(function(){return b})),n.d(t,"SVG",(function(){return m})),n.d(t,"HorizontalRule",(function(){return v})),n.d(t,"BlockQuotation",(function(){return y})),n.d(t,"View",(function(){return j}));var r=n(10),o=n.n(r),i=n(0);const u=e=>Object(i.createElement)("circle",e),c=e=>Object(i.createElement)("g",e),a=e=>Object(i.createElement)("path",e),l=e=>Object(i.createElement)("polygon",e),f=e=>Object(i.createElement)("rect",e),d=e=>Object(i.createElement)("defs",e),s=e=>Object(i.createElement)("radialGradient",e),p=e=>Object(i.createElement)("linearGradient",e),b=e=>Object(i.createElement)("stop",e),m=({className:e,isPressed:t,...n})=>{const r={...n,className:o()(e,{"is-pressed":t})||void 0,role:"img","aria-hidden":!0,focusable:!1};return Object(i.createElement)("svg",r)},v="hr",y="blockquote",j="div"}});
+window["wp"] = window["wp"] || {}; window["wp"]["primitives"] =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 428);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 0:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["element"]; }());
+
+/***/ }),
+
+/***/ 10:
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+  Copyright (c) 2016 Jed Watson.
+  Licensed under the MIT License (MIT), see
+  http://jedwatson.github.io/classnames
+*/
+/* global define */
+
+(function () {
+	'use strict';
+
+	var hasOwn = {}.hasOwnProperty;
+
+	function classNames () {
+		var classes = [];
+
+		for (var i = 0; i < arguments.length; i++) {
+			var arg = arguments[i];
+			if (!arg) continue;
+
+			var argType = typeof arg;
+
+			if (argType === 'string' || argType === 'number') {
+				classes.push(arg);
+			} else if (Array.isArray(arg)) {
+				classes.push(classNames.apply(null, arg));
+			} else if (argType === 'object') {
+				for (var key in arg) {
+					if (hasOwn.call(arg, key) && arg[key]) {
+						classes.push(key);
+					}
+				}
+			}
+		}
+
+		return classes.join(' ');
+	}
+
+	if ( true && module.exports) {
+		module.exports = classNames;
+	} else if (true) {
+		// register as 'classnames', consistent with npm package name
+		!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = (function () {
+			return classNames;
+		}).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	} else {}
+}());
+
+
+/***/ }),
+
+/***/ 428:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "Circle", function() { return /* reexport */ Circle; });
+__webpack_require__.d(__webpack_exports__, "G", function() { return /* reexport */ G; });
+__webpack_require__.d(__webpack_exports__, "Path", function() { return /* reexport */ Path; });
+__webpack_require__.d(__webpack_exports__, "Polygon", function() { return /* reexport */ Polygon; });
+__webpack_require__.d(__webpack_exports__, "Rect", function() { return /* reexport */ Rect; });
+__webpack_require__.d(__webpack_exports__, "Defs", function() { return /* reexport */ Defs; });
+__webpack_require__.d(__webpack_exports__, "RadialGradient", function() { return /* reexport */ RadialGradient; });
+__webpack_require__.d(__webpack_exports__, "LinearGradient", function() { return /* reexport */ LinearGradient; });
+__webpack_require__.d(__webpack_exports__, "Stop", function() { return /* reexport */ Stop; });
+__webpack_require__.d(__webpack_exports__, "SVG", function() { return /* reexport */ SVG; });
+__webpack_require__.d(__webpack_exports__, "HorizontalRule", function() { return /* reexport */ HorizontalRule; });
+__webpack_require__.d(__webpack_exports__, "BlockQuotation", function() { return /* reexport */ BlockQuotation; });
+__webpack_require__.d(__webpack_exports__, "View", function() { return /* reexport */ View; });
+
+// EXTERNAL MODULE: ./node_modules/classnames/index.js
+var classnames = __webpack_require__(10);
+var classnames_default = /*#__PURE__*/__webpack_require__.n(classnames);
+
+// EXTERNAL MODULE: external ["wp","element"]
+var external_wp_element_ = __webpack_require__(0);
+
+// CONCATENATED MODULE: ./packages/primitives/build-module/svg/index.js
+/**
+ * External dependencies
+ */
+
+/**
+ * WordPress dependencies
+ */
+
+
+/** @typedef {{isPressed?: boolean} & import('react').ComponentPropsWithoutRef<'svg'>} SVGProps */
+
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'circle'>} props
+ *
+ * @return {JSX.Element} Circle component
+ */
+
+const Circle = props => Object(external_wp_element_["createElement"])('circle', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'g'>} props
+ *
+ * @return {JSX.Element} G component
+ */
+
+const G = props => Object(external_wp_element_["createElement"])('g', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'path'>} props
+ *
+ * @return {JSX.Element} Path component
+ */
+
+const Path = props => Object(external_wp_element_["createElement"])('path', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'polygon'>} props
+ *
+ * @return {JSX.Element} Polygon component
+ */
+
+const Polygon = props => Object(external_wp_element_["createElement"])('polygon', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'rect'>} props
+ *
+ * @return {JSX.Element} Rect component
+ */
+
+const Rect = props => Object(external_wp_element_["createElement"])('rect', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'defs'>} props
+ *
+ * @return {JSX.Element} Defs component
+ */
+
+const Defs = props => Object(external_wp_element_["createElement"])('defs', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'radialGradient'>} props
+ *
+ * @return {JSX.Element} RadialGradient component
+ */
+
+const RadialGradient = props => Object(external_wp_element_["createElement"])('radialGradient', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'linearGradient'>} props
+ *
+ * @return {JSX.Element} LinearGradient component
+ */
+
+const LinearGradient = props => Object(external_wp_element_["createElement"])('linearGradient', props);
+/**
+ * @param {import('react').ComponentPropsWithoutRef<'stop'>} props
+ *
+ * @return {JSX.Element} Stop component
+ */
+
+const Stop = props => Object(external_wp_element_["createElement"])('stop', props);
+/**
+ *
+ * @param {SVGProps} props isPressed indicates whether the SVG should appear as pressed.
+ *                         Other props will be passed through to svg component.
+ *
+ * @return {JSX.Element} Stop component
+ */
+
+const SVG = ({
+  className,
+  isPressed,
+  ...props
+}) => {
+  const appliedProps = { ...props,
+    className: classnames_default()(className, {
+      'is-pressed': isPressed
+    }) || undefined,
+    role: 'img',
+    'aria-hidden': true,
+    focusable: false
+  }; // Disable reason: We need to have a way to render HTML tag for web.
+  // eslint-disable-next-line react/forbid-elements
+
+  return Object(external_wp_element_["createElement"])("svg", appliedProps);
+};
+//# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/primitives/build-module/horizontal-rule/index.js
+const HorizontalRule = 'hr';
+//# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/primitives/build-module/block-quotation/index.js
+const BlockQuotation = 'blockquote';
+//# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/primitives/build-module/view/index.js
+const View = 'div';
+//# sourceMappingURL=index.js.map
+// CONCATENATED MODULE: ./packages/primitives/build-module/index.js
+
+
+
+
+//# sourceMappingURL=index.js.map
+
+/***/ })
+
+/******/ });

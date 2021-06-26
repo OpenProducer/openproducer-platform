@@ -62,9 +62,10 @@ class PPRESS_WP_User_Avatar_Setup
         require_once(WPUA_INC . 'class-wp-user-avatar-update.php');
         require_once(WPUA_INC . 'class-wp-user-avatar-widget.php');
 
-        // Load TinyMCE only if enabled
-        require_once(WPUA_INC . 'wpua-tinymce.php');
-
+        if (apply_filters('wpua_enable_tinymce_modal', true)) {
+            // Load TinyMCE only if enabled
+            require_once(WPUA_INC . 'wpua-tinymce.php');
+        }
     }
 }
 

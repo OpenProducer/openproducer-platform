@@ -1,1 +1,272 @@
-window.wp=window.wp||{},window.wp.dataControls=function(t){var n={};function e(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return t[r].call(o.exports,o,o.exports,e),o.l=!0,o.exports}return e.m=t,e.c=n,e.d=function(t,n,r){e.o(t,n)||Object.defineProperty(t,n,{enumerable:!0,get:r})},e.r=function(t){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(t,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(t,"__esModule",{value:!0})},e.t=function(t,n){if(1&n&&(t=e(t)),8&n)return t;if(4&n&&"object"==typeof t&&t&&t.__esModule)return t;var r=Object.create(null);if(e.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:t}),2&n&&"string"!=typeof t)for(var o in t)e.d(r,o,function(n){return t[n]}.bind(null,o));return r},e.n=function(t){var n=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(n,"a",n),n},e.o=function(t,n){return Object.prototype.hasOwnProperty.call(t,n)},e.p="",e(e.s=377)}({23:function(t,n){t.exports=window.wp.deprecated},31:function(t,n){t.exports=window.wp.apiFetch},377:function(t,n,e){"use strict";e.r(n),e.d(n,"apiFetch",(function(){return s})),e.d(n,"select",(function(){return l})),e.d(n,"syncSelect",(function(){return a})),e.d(n,"dispatch",(function(){return d})),e.d(n,"__unstableAwaitPromise",(function(){return p})),e.d(n,"controls",(function(){return f}));var r=e(31),o=e.n(r),i=e(4),c=e(23),u=e.n(c);function s(t){return{type:"API_FETCH",request:t}}function l(...t){return u()("`select` control in `@wordpress/data-controls`",{since:"5.7",alternative:"built-in `resolveSelect` control in `@wordpress/data`"}),i.controls.resolveSelect(...t)}function a(...t){return u()("`syncSelect` control in `@wordpress/data-controls`",{since:"5.7",alternative:"built-in `select` control in `@wordpress/data`"}),i.controls.select(...t)}function d(...t){return u()("`dispatch` control in `@wordpress/data-controls`",{since:"5.7",alternative:"built-in `dispatch` control in `@wordpress/data`"}),i.controls.dispatch(...t)}const p=function(t){return{type:"AWAIT_PROMISE",promise:t}},f={AWAIT_PROMISE:({promise:t})=>t,API_FETCH:({request:t})=>o()(t)}},4:function(t,n){t.exports=window.wp.data}});
+window["wp"] = window["wp"] || {}; window["wp"]["dataControls"] =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 377);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ 24:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["deprecated"]; }());
+
+/***/ }),
+
+/***/ 31:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["apiFetch"]; }());
+
+/***/ }),
+
+/***/ 377:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "apiFetch", function() { return apiFetch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "select", function() { return select; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "syncSelect", function() { return syncSelect; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "dispatch", function() { return dispatch; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "__unstableAwaitPromise", function() { return __unstableAwaitPromise; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "controls", function() { return controls; });
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(31);
+/* harmony import */ var _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(4);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(24);
+/* harmony import */ var _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2__);
+/**
+ * WordPress dependencies
+ */
+
+
+
+/**
+ * Dispatches a control action for triggering an api fetch call.
+ *
+ * @param {Object} request Arguments for the fetch request.
+ *
+ * @example
+ * ```js
+ * import { apiFetch } from '@wordpress/data-controls';
+ *
+ * // Action generator using apiFetch
+ * export function* myAction() {
+ * 	const path = '/v2/my-api/items';
+ * 	const items = yield apiFetch( { path } );
+ * 	// do something with the items.
+ * }
+ * ```
+ *
+ * @return {Object} The control descriptor.
+ */
+
+function apiFetch(request) {
+  return {
+    type: 'API_FETCH',
+    request
+  };
+}
+/**
+ * Control for resolving a selector in a registered data store.
+ * Alias for the `resolveSelect` built-in control in the `@wordpress/data` package.
+ *
+ * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
+ */
+
+function select(...args) {
+  _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2___default()('`select` control in `@wordpress/data-controls`', {
+    since: '5.7',
+    alternative: 'built-in `resolveSelect` control in `@wordpress/data`'
+  });
+  return _wordpress_data__WEBPACK_IMPORTED_MODULE_1__["controls"].resolveSelect(...args);
+}
+/**
+ * Control for calling a selector in a registered data store.
+ * Alias for the `select` built-in control in the `@wordpress/data` package.
+ *
+ * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
+ */
+
+function syncSelect(...args) {
+  _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2___default()('`syncSelect` control in `@wordpress/data-controls`', {
+    since: '5.7',
+    alternative: 'built-in `select` control in `@wordpress/data`'
+  });
+  return _wordpress_data__WEBPACK_IMPORTED_MODULE_1__["controls"].select(...args);
+}
+/**
+ * Control for dispatching an action in a registered data store.
+ * Alias for the `dispatch` control in the `@wordpress/data` package.
+ *
+ * @param {Array} args Arguments passed without change to the `@wordpress/data` control.
+ */
+
+function dispatch(...args) {
+  _wordpress_deprecated__WEBPACK_IMPORTED_MODULE_2___default()('`dispatch` control in `@wordpress/data-controls`', {
+    since: '5.7',
+    alternative: 'built-in `dispatch` control in `@wordpress/data`'
+  });
+  return _wordpress_data__WEBPACK_IMPORTED_MODULE_1__["controls"].dispatch(...args);
+}
+/**
+ * Dispatches a control action for awaiting on a promise to be resolved.
+ *
+ * @param {Object} promise Promise to wait for.
+ *
+ * @example
+ * ```js
+ * import { __unstableAwaitPromise } from '@wordpress/data-controls';
+ *
+ * // Action generator using apiFetch
+ * export function* myAction() {
+ * 	const promise = getItemsAsync();
+ * 	const items = yield __unstableAwaitPromise( promise );
+ * 	// do something with the items.
+ * }
+ * ```
+ *
+ * @return {Object} The control descriptor.
+ */
+
+const __unstableAwaitPromise = function (promise) {
+  return {
+    type: 'AWAIT_PROMISE',
+    promise
+  };
+};
+/**
+ * The default export is what you use to register the controls with your custom
+ * store.
+ *
+ * @example
+ * ```js
+ * // WordPress dependencies
+ * import { controls } from '@wordpress/data-controls';
+ * import { registerStore } from '@wordpress/data';
+ *
+ * // Internal dependencies
+ * import reducer from './reducer';
+ * import * as selectors from './selectors';
+ * import * as actions from './actions';
+ * import * as resolvers from './resolvers';
+ *
+ * registerStore( 'my-custom-store', {
+ * reducer,
+ * controls,
+ * actions,
+ * selectors,
+ * resolvers,
+ * } );
+ * ```
+ * @return {Object} An object for registering the default controls with the
+ * store.
+ */
+
+const controls = {
+  AWAIT_PROMISE: ({
+    promise
+  }) => promise,
+
+  API_FETCH({
+    request
+  }) {
+    return _wordpress_api_fetch__WEBPACK_IMPORTED_MODULE_0___default()(request);
+  }
+
+};
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
+/***/ 4:
+/***/ (function(module, exports) {
+
+(function() { module.exports = window["wp"]["data"]; }());
+
+/***/ })
+
+/******/ });

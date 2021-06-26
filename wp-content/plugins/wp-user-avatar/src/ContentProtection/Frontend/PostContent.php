@@ -10,7 +10,7 @@ class PostContent
 {
     public function __construct()
     {
-        add_filter('the_content', [$this, 'the_content'], 9999999999999999999);
+        add_filter('the_content', [$this, 'the_content'], PHP_INT_MAX - 1);
     }
 
     public function the_content($content)

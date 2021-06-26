@@ -813,6 +813,10 @@ final class Newspack_Popups_Inserter {
 		if ( ! Newspack_Popups::is_user_admin() && Newspack_Popups_Settings::is_non_interactive() && ! Newspack_Popups_Model::is_inline( $popup ) ) {
 			return false;
 		}
+		// Hide prompts in account related posts.
+		if ( Newspack_Popups::is_account_related_post( get_post() ) ) {
+			return false;
+		}
 
 		if ( $skip_context_checks ) {
 			return true;

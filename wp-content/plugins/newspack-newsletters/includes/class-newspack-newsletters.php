@@ -79,6 +79,7 @@ final class Newspack_Newsletters {
 		add_action( 'save_post_' . self::NEWSPACK_NEWSLETTERS_CPT, [ __CLASS__, 'save' ], 10, 3 );
 		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'branding_scripts' ] );
 		add_filter( 'newspack_theme_featured_image_post_types', [ __CLASS__, 'support_featured_image_options' ] );
+		add_filter( 'gform_force_hooks_js_output', [ __CLASS__, 'suppress_gravityforms_js_on_newsletters' ] );
 		self::set_service_provider( self::service_provider() );
 
 		$needs_nag = is_admin() && ! self::is_service_provider_configured() && ! get_option( 'newspack_newsletters_activation_nag_viewed', false );
@@ -1134,6 +1135,20 @@ final class Newspack_Newsletters {
 			$post_types,
 			[ self::NEWSPACK_NEWSLETTERS_CPT ]
 		);
+	}
+
+	/**
+	 * Prevent Gravityforms from injecting scripts into the newsletter markup.
+	 *
+	 * @param bool $force_js Whether to force GF to inject scripts (default: true).
+	 * @return bool Modified $force_js.
+	 */
+	public static function suppress_gravityforms_js_on_newsletters( $force_js ) {
+		if ( self::NEWSPACK_NEWSLETTERS_CPT === get_post_type() ) {
+			return false;
+		}
+
+		return $force_js;
 	}
 }
 Newspack_Newsletters::instance();

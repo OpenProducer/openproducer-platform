@@ -102,6 +102,8 @@ return array(
     'Google\\Site_Kit\\Core\\Tags\\Guards\\Tag_Verify_Guard' => $baseDir . '/Core/Tags/Guards/Tag_Verify_Guard.php',
     'Google\\Site_Kit\\Core\\Tags\\Tag' => $baseDir . '/Core/Tags/Tag.php',
     'Google\\Site_Kit\\Core\\Tags\\Tag_Interface' => $baseDir . '/Core/Tags/Tag_Interface.php',
+    'Google\\Site_Kit\\Core\\Tags\\Tag_With_DNS_Prefetch_Trait' => $baseDir . '/Core/Tags/Tag_With_DNS_Prefetch_Trait.php',
+    'Google\\Site_Kit\\Core\\User_Surveys\\REST_User_Surveys_Controller' => $baseDir . '/Core/User_Surveys/REST_User_Surveys_Controller.php',
     'Google\\Site_Kit\\Core\\Util\\Activation_Flag' => $baseDir . '/Core/Util/Activation_Flag.php',
     'Google\\Site_Kit\\Core\\Util\\Activation_Notice' => $baseDir . '/Core/Util/Activation_Notice.php',
     'Google\\Site_Kit\\Core\\Util\\BC_Functions' => $baseDir . '/Core/Util/BC_Functions.php',

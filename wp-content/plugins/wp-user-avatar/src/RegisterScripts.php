@@ -53,12 +53,20 @@ class RegisterScripts
         $is_ajax_mode_disabled = ppress_get_setting('disable_ajax_mode') == 'yes' ? 'true' : 'false';
 
         wp_enqueue_script('jquery');
-        wp_enqueue_script('password-strength-meter');
+
+        if (isset($_GET['pp_preview_form']) ||
+            ppress_shortcode_exist_in_post('profilepress-registration') ||
+            ppress_shortcode_exist_in_post('profilepress-password-reset') ||
+            ppress_shortcode_exist_in_post('profilepress-edit-profile') ||
+            ppress_shortcode_exist_in_post('profilepress-my-account')
+        ) {
+            wp_enqueue_script('password-strength-meter');
+        }
 
         wp_enqueue_script('ppress-flatpickr', PPRESS_ASSETS_URL . '/flatpickr/flatpickr.min.js', array('jquery'));
         wp_enqueue_script('ppress-select2', PPRESS_ASSETS_URL . '/select2/select2.min.js', array('jquery'));
 
-        wp_enqueue_script('ppress-frontend-script', PPRESS_ASSETS_URL . "/js/frontend{$suffix}.js", ['jquery', 'ppress-flatpickr'], PPRESS_VERSION_NUMBER, true);
+        wp_enqueue_script('ppress-frontend-script', PPRESS_ASSETS_URL . "/js/frontend{$suffix}.js", ['jquery', 'ppress-flatpickr', 'ppress-select2'], PPRESS_VERSION_NUMBER, true);
         wp_localize_script('ppress-frontend-script', 'pp_ajax_form', [
             'ajaxurl'           => admin_url('admin-ajax.php'),
             'confirm_delete'    => esc_html__('Are you sure?', 'wp-user-avatar'),
@@ -68,7 +76,9 @@ class RegisterScripts
             'disable_ajax_form' => apply_filters('ppress_disable_ajax_form', (string)$is_ajax_mode_disabled)
         ]);
 
-        wp_enqueue_script('ppress-member-directory', PPRESS_ASSETS_URL . "/js/member-directory{$suffix}.js", ['jquery', 'jquery-masonry'], PPRESS_VERSION_NUMBER, true);
+        if (isset($_GET['pp_preview_form']) || ppress_shortcode_exist_in_post('profilepress-member-directory')) {
+            wp_enqueue_script('ppress-member-directory', PPRESS_ASSETS_URL . "/js/member-directory{$suffix}.js", ['jquery', 'jquery-masonry', 'ppress-select2', 'ppress-flatpickr'], PPRESS_VERSION_NUMBER, true);
+        }
 
         do_action('ppress_enqueue_public_js');
     }
@@ -83,7 +93,6 @@ class RegisterScripts
         wp_enqueue_script('jquery-ui-draggable');
 
         wp_enqueue_script('ppress-flatpickr', PPRESS_ASSETS_URL . '/flatpickr/flatpickr.min.js', array('jquery'));
-
         wp_enqueue_script('ppress-select2', PPRESS_ASSETS_URL . '/select2/select2.min.js', array('jquery'));
 
         if ( ! ppress_is_admin_page()) return;

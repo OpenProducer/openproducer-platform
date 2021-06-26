@@ -9,8 +9,8 @@ class Init extends AbstractSettingsPage
 {
     public function __construct()
     {
-        add_filter('show_admin_bar', [$this, 'admin_bar_control'], 9999999999999999999999999999999999999999);
-        add_filter('admin_init', [$this, 'dashboard_access_control'], 9999999999999999999999999999999999999999);
+        add_filter('show_admin_bar', [$this, 'admin_bar_control'], PHP_INT_MAX - 1);
+        add_action('admin_init', [$this, 'dashboard_access_control'], 1);
 
         add_filter('ppress_settings_page_tabs', [$this, 'menu_tab']);
 
@@ -112,31 +112,39 @@ class Init extends AbstractSettingsPage
     /**
      * Callback to disable admin bar.
      *
+     * @param $show_admin_bar
+     *
      * @return bool
      */
-    public function admin_bar_control()
+    public function admin_bar_control($show_admin_bar)
     {
-        $current_user       = wp_get_current_user();
-        $current_user_roles = $current_user->roles;
-
-        $is_admin_bar_disabled   = ppress_var($this->db_options(), 'disable_admin_bar', '', true);
-        $disable_admin_bar_roles = ppress_var($this->db_options(), 'disable_admin_bar_roles', [], true);
-
-        // get current user's admin_bar_front preference
-        // if value is true, $user_option will has a boolen true value or false otherwise.
-        $user_option = get_user_option('show_admin_bar_front', $current_user->ID) == 'true';
+        $is_admin_bar_disabled = ppress_var($this->db_options(), 'disable_admin_bar', '', true);
 
         // bail if the disable admin bar checkbox isn't checked.
-        if ($is_admin_bar_disabled != 'yes') return $user_option;
+        if ($is_admin_bar_disabled != 'yes') return $show_admin_bar;
 
-        if (is_super_admin($current_user->ID)) return $user_option;
+        if (is_user_logged_in()) {
 
-        // if no role is selected, disable for everyone by return false.
-        if (empty($disable_admin_bar_roles)) return false;
+            $disable_admin_bar_roles = ppress_var($this->db_options(), 'disable_admin_bar_roles', [], true);
 
-        $intersect = array_intersect($current_user_roles, $disable_admin_bar_roles);
+            $current_user       = wp_get_current_user();
+            $current_user_roles = $current_user->roles;
 
-        return empty($intersect);
+            // get current user's admin_bar_front preference
+            // if value is true, $user_option will has a boolen true value or false otherwise.
+            $user_option = (get_user_option('show_admin_bar_front', $current_user->ID) == 'true');
+
+            if (is_super_admin($current_user->ID)) return $user_option;
+
+            // if no role is selected, disable for everyone by return false.
+            if (empty($disable_admin_bar_roles)) return false;
+
+            $intersect = array_intersect($current_user_roles, $disable_admin_bar_roles);
+
+            return empty($intersect);
+        }
+
+        return false;
     }
 
     /**

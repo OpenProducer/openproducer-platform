@@ -13,6 +13,8 @@ class MyAccountTag extends FormProcessor
 
         add_action('init', [$this, 'add_endpoints']);
 
+        add_action('wp', [$this, 'redirect_non_logged_in_users']);
+
         if ( ! is_admin()) {
             add_filter('query_vars', [$this, 'add_query_vars'], 99);
             add_action('parse_request', [$this, 'parse_request'], 999999999);
@@ -22,6 +24,19 @@ class MyAccountTag extends FormProcessor
 
             add_action('wp', [$this, 'process_myaccount_change_password']);
             add_action('wp', [$this, 'process_edit_profile_form'], 999999999);
+        }
+    }
+
+    public function redirect_non_logged_in_users()
+    {
+        global $post;
+
+        // check if the page being viewed contains the "profilepress-my-account" shortcode. if true, redirect to login page
+        if (isset($post->post_content) && has_shortcode($post->post_content, 'profilepress-my-account')) {
+            if ( ! is_user_logged_in()) {
+                wp_safe_redirect(ppress_login_url());
+                exit;
+            }
         }
     }
 
@@ -39,14 +54,14 @@ class MyAccountTag extends FormProcessor
                 ],
                 'edit-profile'       => [
                     'title'    => esc_html__('Account Details', 'wp-user-avatar'),
-                    'endpoint' => ppress_settings_by_key('myac_edit_account_endpoint', 'edit-profile', true),
+                    'endpoint' => esc_html(ppress_settings_by_key('myac_edit_account_endpoint', 'edit-profile', true)),
                     'priority' => 20,
                     'icon'     => 'account_box',
                     'callback' => [__CLASS__, 'edit_profile_callback']
                 ],
                 'change-password'    => [
                     'title'    => esc_html__('Change Password', 'wp-user-avatar'),
-                    'endpoint' => ppress_settings_by_key('myac_change_password_endpoint', 'change-password', true),
+                    'endpoint' => esc_html(ppress_settings_by_key('myac_change_password_endpoint', 'change-password', true)),
                     'priority' => 30,
                     'icon'     => 'vpn_key',
                     'callback' => [__CLASS__, 'change_password_callback']
@@ -62,7 +77,7 @@ class MyAccountTag extends FormProcessor
 
                 $tabs['email-notifications'] = [
                     'title'    => esc_html__('Email Notifications', 'wp-user-avatar'),
-                    'endpoint' => ppress_settings_by_key('myac_email_notifications_endpoint', 'email-notifications', true),
+                    'endpoint' => esc_html(ppress_settings_by_key('myac_email_notifications_endpoint', 'email-notifications', true)),
                     'priority' => 35,
                     'icon'     => 'email',
                     'callback' => [__CLASS__, 'email_notification_callback']
@@ -406,11 +421,12 @@ class MyAccountTag extends FormProcessor
 
         global $wp;
 
+        ob_start();
+
         $user_id = get_current_user_id();
 
         $tabs = $this->myaccount_tabs();
 
-        ob_start();
         ?>
         <div id="profilepress-myaccount-wrapper">
             <div class="profilepress-myaccount-row">
@@ -430,7 +446,9 @@ class MyAccountTag extends FormProcessor
                         <?php foreach ($tabs as $key => $tab) :
                             ?>
                             <a class="ppmyac-dashboard-item<?= self::is_endpoint($key) ? ' isactive' : ''; ?>" href="<?= $this->get_endpoint_url($key); ?>">
-                                <i class="ppmyac-icons"><?= isset($tab['icon']) ? $tab['icon'] : 'settings'; ?></i>
+                                <i class="ppmyac-icons">
+                                    <?= isset($tab['icon']) ? $tab['icon'] : 'settings'; ?>
+                                </i>
                                 <?= $tab['title'] ?>
                             </a>
                         <?php endforeach; ?>
@@ -456,7 +474,6 @@ class MyAccountTag extends FormProcessor
                     }
 
                     require apply_filters('ppress_my_account_dashboard_template', dirname(__FILE__) . '/dashboard.tmpl.php');
-
                     ?>
                 </div>
             </div>
@@ -469,6 +486,7 @@ class MyAccountTag extends FormProcessor
 
     public function js_script()
     {
+        ob_start();
         ?>
         <script type="text/javascript">
             jQuery('.ppmyac-custom-file input').change(function (e) {
@@ -486,6 +504,7 @@ class MyAccountTag extends FormProcessor
             });
         </script>
         <?php
+        echo ppress_minify_js(ob_get_clean());
     }
 
     public static function get_instance()

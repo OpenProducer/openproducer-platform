@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Rye|Work+Sans');
 
+.pp-dnd-form-builder-wrap #titlediv span.shortcode input,
+.ppSCB-margin-r #titlediv span.shortcode input {
+    font-size: 12px;
+    border: none;
+    box-shadow: none;
+    padding: 4px 8px;
+    margin: 0;
+}
+
+.pp-dnd-form-builder-wrap #titlediv span.shortcode input,
+.ppSCB-margin-r #titlediv span.shortcode input {
+    background: transparent;
+}
+
+.pp-dnd-form-builder-wrap #titlediv span.shortcode input,
+.ppSCB-margin-r #titlediv span.shortcode input {
+    color: #fff;
+}
+
+.pp-dnd-form-builder-wrap #titlediv span.shortcode,
+.ppSCB-margin-r #titlediv span.shortcode {
+    display: block;
+    margin: 2px 0;
+}
+
 .pp-form-listing .pp_forms th#shortcode {
     width: 33%;
 }
@@ -756,7 +781,8 @@
     margin-right: auto;
 }
 
-.pp-dnd-form-builder-wrap span.pp-form-buider-settings-field-type {
+.pp-dnd-form-builder-wrap span.pp-form-buider-settings-field-type,
+.pp-form-buider-settings-popup-container span.pp-form-buider-settings-field-type {
     -webkit-font-smoothing: antialiased;
     background-color: #f2f2f2;
     border: 2px solid transparent;
@@ -1287,7 +1313,7 @@ textarea.wp-editor-area {
     line-height: 24px;
 }
 
-.ppress_settings_data.pp-email-notifications .column-configure {
+.ppress_settings_data .pp-email-notifications .column-configure {
     width: 60px;
     text-align: center;
 }

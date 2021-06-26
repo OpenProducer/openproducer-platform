@@ -315,16 +315,13 @@ final class Newspack_Popups_Model {
 	}
 
 	/**
-	 * Create the popup object.
+	 * Get options for the given prompt, with defaults.
 	 *
-	 * @param WP_Post $campaign_post The prompt post object.
-	 * @param boolean $include_taxonomies If true, returned objects will include assigned categories and tags.
-	 * @param object  $options Popup options to use instead of the options retrieved from the post. Used for popup previews.
-	 * @return object Popup object
+	 * @param int         $id ID of the prompt.
+	 * @param object|null $options Popup options to use instead of the options retrieved from the post. Used for popup previews.
+	 * @return object Array of prompt options.
 	 */
-	public static function create_popup_object( $campaign_post, $include_taxonomies = false, $options = null ) {
-		$id = $campaign_post->ID;
-
+	public static function get_popup_options( $id, $options = null ) {
 		$post_options = isset( $options ) ? $options : [
 			'background_color'        => get_post_meta( $id, 'background_color', true ),
 			'dismiss_text'            => get_post_meta( $id, 'dismiss_text', true ),
@@ -342,30 +339,44 @@ final class Newspack_Popups_Model {
 			'selected_segment_id'     => get_post_meta( $id, 'selected_segment_id', true ),
 		];
 
-		$popup = [
+		return wp_parse_args(
+			array_filter( $post_options ),
+			[
+				'background_color'        => '#FFFFFF',
+				'display_title'           => false,
+				'hide_border'             => false,
+				'dismiss_text'            => '',
+				'dismiss_text_alignment'  => 'center',
+				'frequency'               => 'always',
+				'overlay_color'           => '#000000',
+				'overlay_opacity'         => 30,
+				'placement'               => 'inline',
+				'trigger_type'            => 'time',
+				'trigger_delay'           => 0,
+				'trigger_scroll_progress' => 0,
+				'utm_suppression'         => null,
+				'selected_segment_id'     => '',
+			]
+		);
+	}
+
+	/**
+	 * Create the popup object.
+	 *
+	 * @param WP_Post $campaign_post The prompt post object.
+	 * @param boolean $include_taxonomies If true, returned objects will include assigned categories and tags.
+	 * @param object  $options Popup options to use instead of the options retrieved from the post. Used for popup previews.
+	 * @return object Popup object
+	 */
+	public static function create_popup_object( $campaign_post, $include_taxonomies = false, $options = null ) {
+		$id                    = $campaign_post->ID;
+		$campaign_post_options = self::get_popup_options( $id, $options );
+		$popup                 = [
 			'id'      => $id,
 			'status'  => $campaign_post->post_status,
 			'title'   => $campaign_post->post_title,
 			'content' => $campaign_post->post_content,
-			'options' => wp_parse_args(
-				array_filter( $post_options ),
-				[
-					'background_color'        => '#FFFFFF',
-					'display_title'           => false,
-					'hide_border'             => false,
-					'dismiss_text'            => '',
-					'dismiss_text_alignment'  => 'center',
-					'frequency'               => 'always',
-					'overlay_color'           => '#000000',
-					'overlay_opacity'         => 30,
-					'placement'               => 'inline',
-					'trigger_type'            => 'time',
-					'trigger_delay'           => 0,
-					'trigger_scroll_progress' => 0,
-					'utm_suppression'         => null,
-					'selected_segment_id'     => '',
-				]
-			),
+			'options' => $campaign_post_options,
 		];
 
 		$assigned_segments = explode( ',', $popup['options']['selected_segment_id'] );
@@ -826,7 +837,7 @@ final class Newspack_Popups_Model {
 				<?php if ( ! empty( $popup['title'] ) && $display_title ) : ?>
 					<h1 class="newspack-popup-title"><?php echo esc_html( $popup['title'] ); ?></h1>
 				<?php endif; ?>
-				<?php echo ( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo do_shortcode( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php if ( ! Newspack_Popups_Settings::is_non_interactive() ) : ?>
 					<?php echo self::render_permanent_dismissal_form( $element_id, $popup ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				<?php endif; ?>
@@ -901,7 +912,7 @@ final class Newspack_Popups_Model {
 					<?php if ( ! empty( $popup['title'] ) && $display_title ) : ?>
 						<h1 class="newspack-popup-title"><?php echo esc_html( $popup['title'] ); ?></h1>
 					<?php endif; ?>
-					<?php echo ( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<?php echo do_shortcode( $body ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php echo self::render_permanent_dismissal_form( $element_id, $popup ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<form class="popup-dismiss-form <?php echo esc_attr( self::get_form_class( 'dismiss', $element_id ) ); ?> popup-action-form <?php echo esc_attr( self::get_form_class( 'action', $element_id ) ); ?> align-<?php echo esc_attr( $dismiss_text_alignment ); ?>"
 						method="POST"

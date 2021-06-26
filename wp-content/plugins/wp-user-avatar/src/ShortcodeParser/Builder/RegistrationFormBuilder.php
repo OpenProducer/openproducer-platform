@@ -150,26 +150,29 @@ class RegistrationFormBuilder
         <div id="pp-pass-strength-result" <?php echo $attributes; ?>><?php _e('Strength indicator'); ?></div>
         <script type="text/javascript">
             var pass_strength = 0;
-            jQuery(document).ready(function ($) {
-                var password1 = $('input[name=reg_password]');
-                var password2 = $('input[name=reg_password2]');
-                var submitButton = $('input[name=reg_submit]');
-                var strengthMeterId = $('#pp-pass-strength-result');
+            (function ($) {
+                $(document).on('ready', function () {
+                    var password1 = $('input[name=reg_password]');
+                    var password2 = $('input[name=reg_password2]');
+                    var submitButton = $('input[name=reg_submit]');
+                    var strengthMeterId = $('#pp-pass-strength-result');
 
-                $('body').on('keyup', 'input[name=reg_password], input[name=reg_password2]', function () {
+                    $('body').on('keyup', 'input[name=reg_password], input[name=reg_password2]', function () {
+                            pp_checkPasswordStrength(password1, password2, strengthMeterId, submitButton, []);
+                        }
+                    );
+
+                    // set a time delay to enable the checker function to initialize
+                    setTimeout(function () {
+                        if (password1.val() === '') return;
                         pp_checkPasswordStrength(password1, password2, strengthMeterId, submitButton, []);
-                    }
-                );
+                    }, 500);
 
-                // set a time delay to enable the checker function to initialize
-                setTimeout(function () {
-                    pp_checkPasswordStrength(password1, password2, strengthMeterId, submitButton, []);
-                }, 500);
-
-                submitButton.click(function () {
-                    $('input[name=pp_enforce_password_meter]').val(pass_strength);
+                    submitButton.click(function () {
+                        $('input[name=pp_enforce_password_meter]').val(pass_strength);
+                    });
                 });
-            });
+            })(jQuery);
 
             function pp_checkPasswordStrength($pass1, $pass2, $strengthResult, $submitButton, blacklistArray) {
                 var min_password_strength = <?php echo apply_filters('ppress_min_password_strength', 4); ?>;
@@ -183,7 +186,7 @@ class RegistrationFormBuilder
                 $strengthResult.removeClass('short bad good strong');
 
                 // Extend our blacklist array with those from the inputs & site data
-                blacklistArray = blacklistArray.concat(wp.passwordStrength.userInputBlacklist());
+                blacklistArray = blacklistArray.concat(wp.passwordStrength.userInputDisallowedList());
 
                 // Get the password strength
                 var strength = wp.passwordStrength.meter(pass1, blacklistArray, pass2);

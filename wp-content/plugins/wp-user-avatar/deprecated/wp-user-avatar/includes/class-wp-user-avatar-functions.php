@@ -44,9 +44,6 @@ class WP_User_Avatar_Functions
      * Returns true if user has Gravatar-hosted image
      *
      * @param int|string $id_or_email
-     * @param bool $has_gravatar
-     * @param int|string $user
-     * @param string $email
      *
      * @return bool $has_gravatar
      */
@@ -58,7 +55,23 @@ class WP_User_Avatar_Functions
         // Decide if check gravatar required or not.
         if (trim($avatar_default) != 'wp_user_avatar') return true;
 
-        $email = get_userdata(ppress_var_obj(UserAvatar::get_avatar_user_id($id_or_email), 'user_email'));
+        $email = '';
+
+        if ( ! is_object($id_or_email) && ! empty($id_or_email)) {
+            // Find user by ID or e-mail address
+            $user = is_numeric($id_or_email) ? get_user_by('id', $id_or_email) : get_user_by('email', $id_or_email);
+
+            // Get registered user e-mail address
+            $email = ! empty($user) ? $user->user_email : '';
+        }
+
+        if ('' == $email) {
+            if ( ! is_numeric($id_or_email) && ! is_object($id_or_email)) {
+                $email = $id_or_email;
+            } elseif ( ! is_numeric($id_or_email) && is_object($id_or_email)) {
+                $email = $id_or_email->comment_author_email;
+            }
+        }
 
         if ( ! empty($email)) {
 
@@ -86,7 +99,7 @@ class WP_User_Avatar_Functions
      *
      * @param int $attachment_id
      * @param int|string $size
-     * @param bool $icon
+     * @param int $icon
      * @param string $attr
      *
      * @return string
@@ -112,7 +125,7 @@ class WP_User_Avatar_Functions
      *
      * @param int $attachment_id
      * @param int|string $size
-     * @param bool $icon
+     * @param int $icon
      *
      * @return array
      */
@@ -135,9 +148,6 @@ class WP_User_Avatar_Functions
      * Returns true if user has wp_user_avatar
      *
      * @param int|string $id_or_email
-     * @param bool $has_wpua
-     * @param object $user
-     * @param int $user_id
      *
      * @return bool
      */
@@ -147,7 +157,7 @@ class WP_User_Avatar_Functions
     }
 
     /**
-     * Retrive default image url set by admin.
+     * Retrieve default image url set by admin.
      */
     public function wpua_default_image($size)
     {
@@ -242,8 +252,6 @@ class WP_User_Avatar_Functions
      *
      * @param int|string $id_or_email
      * @param int|string $size
-     * @param string $align
-     * @param string $alt
      *
      * @return string $avatar
      */
@@ -262,7 +270,6 @@ class WP_User_Avatar_Functions
             // Numeric sizes leave as-is
             $get_size = $size;
         }
-
 
         // User with no WPUA uses get_avatar
         $avatar = get_avatar($id_or_email, $get_size);
