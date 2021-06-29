@@ -46,6 +46,10 @@ if ( $atts['show_desc'] ) {
 	$more = apply_filters( 'radio_station_schedule_table_excerpt_more', '[&hellip;]' );
 }
 
+// --- filter arrows ---
+$arrows = array( 'right' => '&#9658;', 'left' => '&#9668;' );
+$arrows = apply_filters( 'radio_station_schedule_arrows', $arrows, 'table' );
+
 // --- set cell info key order ---
 // 2.3.3.8: added for possible info rearrangement
 $infokeys = array( 'avatar', 'title', 'hosts', 'times', 'encore', 'file', 'excerpt', 'custom' );
@@ -138,8 +142,6 @@ foreach ( $weekdays as $i => $weekday ) {
 		// 2.3.0: added left/right arrow responsive controls
 		// 2.3.1: added (negative) return to arrow onclick functions
 		// 2.3.2: added check for optional display_date attribute
-		$arrows = array( 'right' => '&#9658;', 'left' => '&#9668;' );
-		$arrows = apply_filters( 'radio_station_schedule_arrows', $arrows, 'table' );
 		$table .= '<th class="' . esc_attr( $class ) . '">' . $newline;
 		$table .= '<div class="shift-left-arrow">' . $newline;
 		$table .= '<a href="javascript:void(0);" onclick="return radio_shift_day(\'left\');" title="' . esc_attr( __( 'Previous Day', 'radio-station' ) ) . '">' . $arrows['left'] . '</a>' . $newline;
@@ -473,7 +475,7 @@ foreach ( $hours as $hour ) {
 									$show_hosts .= ' </span>' . $newline;
 
 									$count = 0;
-									$hostcount = count( $show['hosts'] );
+									$host_count = count( $show['hosts'] );
 									foreach ( $show['hosts'] as $host ) {
 										$count ++;
 										// 2.3.0: added link_hosts attribute check
@@ -483,10 +485,10 @@ foreach ( $hours as $hour ) {
 											$show_hosts .= esc_html( $host['name'] );
 										}
 
-										if ( ( ( 1 === $count ) && ( 2 === $hostcount ) )
-											 || ( ( $hostcount > 2 ) && ( ( $hostcount - 1 ) === $count ) ) ) {
+										if ( ( ( 1 === $count ) && ( 2 === $host_count ) )
+											 || ( ( $host_count > 2 ) && ( ( $host_count - 1 ) === $count ) ) ) {
 											$show_hosts .= ' ' . esc_html( __( 'and', 'radio-station' ) ) . ' ';
-										} elseif ( ( $count < $hostcount ) && ( $hostcount > 2 ) ) {
+										} elseif ( ( $count < $host_count ) && ( $host_count > 2 ) ) {
 											$show_hosts .= ', ';
 										}
 									}

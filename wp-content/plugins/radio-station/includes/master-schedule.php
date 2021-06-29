@@ -55,18 +55,18 @@ function radio_station_master_schedule( $atts ) {
 		// --- control display options ---
 		'selector'          => 1,
 		'clock'             => $clock,
-		'timezone'			=> 1,
+		'timezone'          => 1,
 
 		// --- schedule display options ---
 		'time'              => $time_format,
-		'show_times'		=> 1,
+		'show_times'        => 1,
 		'show_link'         => 1,
 		'view'              => 'table',
-		'days'				=> false,
-		'start_day'			=> false,
-		'display_day'		=> 'short',
-		'display_date'		=> 'jS',
-		'display_month'		=> 'short',
+		'days'              => false,
+		'start_day'         => false,
+		'display_day'       => 'short',
+		'display_date'      => 'jS',
+		'display_month'	    => 'short',
 
 		// --- converted and deprecated ---
 		// 'list'              => 0,
@@ -75,7 +75,7 @@ function radio_station_master_schedule( $atts ) {
 
 		// --- show display options ---
 		'show_image'        => 0,
-		'show_desc'			=> 0,
+		'show_desc'         => 0,
 		'show_hosts'        => 0,
 		'link_hosts'        => 0,
 		'show_genres'       => 0,
@@ -105,9 +105,13 @@ function radio_station_master_schedule( $atts ) {
 			// 2.3.2: add display date attribute
 			$defaults['show_genres'] = 1;
 			$defaults['display_date'] = false;
-		} elseif ( 'divs' == $atts['view'] ) {
+		} elseif ( ( 'divs' == $atts['view'] ) || in_array( 'divs', $views ) ) {
 			// 2.3.3.8: moved divs view only default here
+			// 2.3.3.9: added check if divs in views array
 			$defaults['divheight'] = 45;
+		} elseif ( ( 'grid' == $atts['grid'] ) || in_array( 'grid', $views ) ) {
+			// 2.3.3.9: add default for grid view width
+			$defaults['gridwidth'] = 150;
 		}
 	}
 
@@ -121,12 +125,7 @@ function radio_station_master_schedule( $atts ) {
 	// --- set initial empty output string ---
 	$output = '';
 
-	// --- disable clock if feature is not present ---
-	// (temporarily while clock is in development)
-	if ( !function_exists( 'radio_station_clock_shortcode' ) ) {
-		$atts['clock'] = 0;
-	}
-
+	// 2.3.3.9: remove check if clock shortcode present
 	// 2.3.3.6: set new line for easier debug viewing
 	$newline = '';
 	if ( RADIO_STATION_DEBUG ) {
@@ -140,7 +139,7 @@ function radio_station_master_schedule( $atts ) {
 
 		$controls = array();
 
-		// --- display radio clock or timezone (or neither)
+		// --- display radio clock or timezone (or neither) ---
 		if ( $atts['clock'] ) {
 
 			// --- radio clock ---
@@ -838,7 +837,7 @@ function radio_station_master_schedule_tabs_js() {
 		}
 	}
 
-	/* Shift Day Left /  Right */
+	/* Shift Day Left / Right */
 	function radio_shift_tab(leftright) {
 		radio_tabs_responsive(leftright);
 		return false;

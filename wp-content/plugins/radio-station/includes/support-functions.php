@@ -472,9 +472,6 @@ function radio_station_get_show_shifts( $check_conflicts = true, $split = true, 
 	return $day_shifts;
 }
 
-
-
-
 // ----------------------
 // Get Schedule Overrides
 // ----------------------
@@ -3053,6 +3050,21 @@ function radio_station_get_stream_url() {
 	return $streaming_url;
 }
 
+// -----------------
+// Get Streaming URL
+// -----------------
+// 2.3.3.9: added get fallback URL helper
+function radio_station_get_fallback_url() {
+	$fallback_url = '';
+	$fallback = radio_station_get_setting( 'fallback_url' );
+	if ( $fallback && ( '' != $fallback ) ) {
+		$fallback_url = $fallback;
+	}
+	$fallback_url = apply_filters( 'radio_station_fallback_url', $fallback_url );
+
+	return $fallback_url;
+}
+
 // Get Stream Formats
 // ------------------
 // 2.3.3.7: added streaming format options
@@ -4001,12 +4013,16 @@ function radio_station_convert_show_shifts( $show ) {
 	if ( isset( $show['schedule'] ) ) {
 		$schedule = $show['schedule'];
 		foreach ( $schedule as $i => $shift ) {
-			$start_hour = substr( radio_station_convert_hour( $shift['start_hour'] . $shift['start_meridian'] ), 0, 2 );
-			$end_hour = substr( radio_station_convert_hour( $shift['end_hour'] . $shift['end_meridian'] ), 0, 2 );
+			// 2.3.3.9: fixed to not use radio_station_convert_hour
+			$start_hour = substr( radio_station_convert_shift_time( $shift['start_hour'] . $shift['start_meridian'], 24 ), 0, 2 );
+			$end_hour = substr( radio_station_convert_shift_time( $shift['end_hour'] . $shift['end_meridian'], 24 ), 0, 2 );
+			// 2.3.3.9: added missing shift encore designation
+			$encore = ( 'on' == $shift['encore'] ) ? true : false;
 			$schedule[$i] = array(
-				'day'	=> $shift['day'],
-				'start'	=> $start_hour . ':' . $shift['start_min'],
-				'end'	=> $end_hour . ':' . $shift['end_min'],
+				'day'	 => $shift['day'],
+				'start'	 => $start_hour . ':' . $shift['start_min'],
+				'end'	 => $end_hour . ':' . $shift['end_min'],
+				'encore' => $encore,				
 			);
 		}
 		$show['schedule'] = $schedule;
@@ -4455,8 +4471,7 @@ function radio_station_translate_weekday( $weekday, $short = null ) {
 	foreach ( $days as $i => $day ) {
 		$abbr = substr( $day, 0, 3 );
 		if ( ( $weekday == $day ) || ( $weekday == $abbr ) ) {
-			if ( ( !$short && !is_null( $short ) )
-			  || ( is_null( $short ) && ( $weekday == $day ) ) ) {
+			if ( ( !$short && !is_null( $short ) ) || ( is_null( $short ) && ( $weekday == $day ) ) ) {
 				return $wp_locale->get_weekday( $i );
 			} elseif ( $short || ( is_null( $short ) && ( weekday == $abbr ) ) ) {
 				return $wp_locale->get_weekday_abbrev( $wp_locale->get_weekday( $i ) );

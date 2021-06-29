@@ -1189,9 +1189,10 @@ function radio_station_post_show_metabox() {
 		$selected = array( $selected );
 	}
 	// 2.3.3.6: remove possible saved zero value
+	// 2.3.3.9: fix to duplicate use of selected variable
 	if ( count( $selected ) > 0 ) {
-		foreach ( $selected as $i => $selected ) {
-			if ( 0 == $selected ) {
+		foreach ( $selected as $i => $value ) {
+			if ( 0 == $value ) {
 				unset( $selected[$i] );
 			}
 		}
